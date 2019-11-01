@@ -5,6 +5,35 @@ class LoginCredentials {
 
   login() {
     console.log("login request");
+    this.performLoginRequest();
+  }
+
+  private serializeForLoginForm(csrf: string) {
+    let data = new FormData();
+    data.set("login", this.username);
+    data.set("password", this.password);
+    return data;
+  }
+
+  private async performLoginRequest() {
+    fetch("http://dev.squarelet.com/csrf/get", {
+      credentials: "include", // Necessary
+      method: "GET",
+    }).then(async resp => {
+      let csrf = (await resp.json()).csrfToken;
+      fetch("http://dev.squarelet.com/accounts/login/", {
+        credentials: "include", // Necessary
+        method: "POST",
+        body: this.serializeForLoginForm(csrf),
+        headers: {
+          "X-CSRFToken": csrf // Necessary
+        }
+      }).then(post_resp => {
+        post_resp.text().then(e => console.log(e));
+      })
+    })
+    .catch(e => console.log(e))
+    .finally(() => console.log("done"));
   }
 }
 
