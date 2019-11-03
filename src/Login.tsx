@@ -9,25 +9,24 @@ class LoginCredentials {
   }
 
   private serializeForLoginForm(csrf: string) {
-    let data = new FormData();
-    data.set("login", this.username);
-    data.set("password", this.password);
-    return data;
+    let data = {
+      username: this.username,
+      password: this.password,
+    }
+    return JSON.stringify(data);
   }
 
   private async performLoginRequest() {
     fetch("http://dev.squarelet.com/csrf/get", {
-      credentials: "include", // Necessary
       method: "GET",
     }).then(async resp => {
       let csrf = (await resp.json()).csrfToken;
-      fetch("http://dev.squarelet.com/accounts/login/", {
-        credentials: "include", // Necessary
+      fetch("http://dev.squarelet.com/rest-auth/login/", {
         method: "POST",
         body: this.serializeForLoginForm(csrf),
         headers: {
+          "Content-Type": "application/json",
           "X-CSRFToken": csrf, // Necessary,
-          "X-Requested-With": "XMLHttpRequest", // Returns JSON
         }
       }).then(post_resp => {
         post_resp.text().then(e => console.log(e));
