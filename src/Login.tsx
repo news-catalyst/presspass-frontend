@@ -26,7 +26,8 @@ class LoginCredentials {
         method: "POST",
         body: this.serializeForLoginForm(csrf),
         headers: {
-          "X-CSRFToken": csrf // Necessary
+          "X-CSRFToken": csrf, // Necessary,
+          "X-Requested-With": "XMLHttpRequest", // Returns JSON
         }
       }).then(post_resp => {
         post_resp.text().then(e => console.log(e));
