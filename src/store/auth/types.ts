@@ -7,7 +7,7 @@ export interface AuthState {
 
 export interface LoginAction {
     type: typeof LOGIN;
-    payload: string;
+    key: string;
 }
 
 export type AuthAction = LoginAction;

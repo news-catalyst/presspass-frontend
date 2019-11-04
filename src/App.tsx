@@ -1,31 +1,25 @@
 import React from 'react';
 import Login from './auth/Login';
 import { connect } from 'react-redux';
-import { State } from './store';
+import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
 
 import './App.css';
 import { bindActionCreators } from 'redux';
 import { AuthState } from './store/auth/types';
 
-interface AppProps {
-  auth: AuthState,
-  actions: {
-    loginWithKey: typeof authActions.loginWithKey,
-  }
-}
-
-const App: React.FC = (props) => {
+const App = (props: AppProps) => {
   console.log(props);
-
   function login(key: string) {
     console.log("logged in");
     console.log(key);
   }
+
   return (
     <section className="section">
+      <span>Key: {props.auth.key} </span>
       <div className="container">
-        <Login onLogin={login} />
+        <Login actions={props.actions} auth={props.auth} />
       </div>
     </section>
   );

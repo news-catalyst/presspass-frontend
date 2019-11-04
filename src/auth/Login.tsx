@@ -1,10 +1,17 @@
 import React, { useState, SyntheticEvent } from 'react';
+import { AppActions } from '../store';
+import { AuthState } from '../store/auth/types';
 
 type LoginFormResponse = {
   non_field_errors: string[];
   username: string;
   password: string;
   key: string;
+}
+
+interface LoginProps {
+  auth: AuthState;
+  actions: AppActions;
 }
 
 class LoginCredentials {
@@ -41,7 +48,7 @@ class LoginCredentials {
 
 type Props = { onLogin: Function };
 
-const Login = (props: Props) => {
+const Login = ({auth, actions}: LoginProps) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
@@ -54,8 +61,8 @@ const Login = (props: Props) => {
     let resp = creds.login();
     resp.then(response => {
       setResponse(response);
-      if(response.key) {
-        props.onLogin(response.key);
+      if (response.key) {
+        actions.loginWithKey(response.key);
       }
     });
   }
