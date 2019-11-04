@@ -1,14 +1,21 @@
 import React, { useState, SyntheticEvent } from 'react';
 
+type LoginFormResponse = {
+  non_field_errors: string[];
+  username: string;
+  password: string;
+  key: string;
+}
+
 class LoginCredentials {
   constructor(private username: string, private password: string) { }
 
-  login() {
+  login(): Promise<LoginFormResponse> {
     console.log("login request");
-    this.performLoginRequest();
+    return this.performLoginRequest();
   }
 
-  private serializeForLoginForm(csrf: string) {
+  private serializeForLoginForm() {
     let data = {
       username: this.username,
       password: this.password,
@@ -16,24 +23,20 @@ class LoginCredentials {
     return JSON.stringify(data);
   }
 
-  private async performLoginRequest() {
-    fetch("http://dev.squarelet.com/csrf/get", {
+  private async performLoginRequest(): Promise<LoginFormResponse> {
+    let resp = await fetch("http://dev.squarelet.com/csrf/get", {
       method: "GET",
-    }).then(async resp => {
-      let csrf = (await resp.json()).csrfToken;
-      fetch("http://dev.squarelet.com/rest-auth/login/", {
-        method: "POST",
-        body: this.serializeForLoginForm(csrf),
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrf, // Necessary,
-        }
-      }).then(post_resp => {
-        post_resp.text().then(e => console.log(e));
-      })
+    });
+    let csrf = (await resp.json()).csrfToken;
+    let post_resp = await fetch("http://dev.squarelet.com/rest-auth/login/", {
+      method: "POST",
+      body: this.serializeForLoginForm(),
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrf, // Necessary,
+      }
     })
-    .catch(e => console.log(e))
-    .finally(() => console.log("done"));
+    return await post_resp.json();
   }
 }
 
@@ -41,17 +44,26 @@ const Login: React.FC = () => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
+  // Errors & Form Response
+  let [response, setResponse] = useState<LoginFormResponse>({} as LoginFormResponse);
+
   let formSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    new LoginCredentials(username, password).login();
+    let creds = new LoginCredentials(username, password);
+    let resp = creds.login();
+    resp.then(setResponse);
   }
 
   return (
     <form onSubmit={formSubmit}>
       <h1>Login</h1>
       <input type="text" placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
+      {response.username ? response.username : null}
       <input type="password" placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
+      {response.password ? response.password : null}
       <button type="submit">Login</button>
+      {response.non_field_errors ? response.non_field_errors : null}
+      {response.key ? response.key : null}
     </form>
   );
 }
