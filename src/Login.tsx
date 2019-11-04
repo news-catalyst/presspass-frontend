@@ -11,7 +11,6 @@ class LoginCredentials {
   constructor(private username: string, private password: string) { }
 
   login(): Promise<LoginFormResponse> {
-    console.log("login request");
     return this.performLoginRequest();
   }
 
