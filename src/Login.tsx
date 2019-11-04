@@ -40,7 +40,9 @@ class LoginCredentials {
   }
 }
 
-const Login: React.FC = () => {
+type Props = { onLogin: Function };
+
+const Login = (props: Props) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
@@ -51,7 +53,12 @@ const Login: React.FC = () => {
     event.preventDefault();
     let creds = new LoginCredentials(username, password);
     let resp = creds.login();
-    resp.then(setResponse);
+    resp.then(response => {
+      setResponse(response);
+      if(response.key) {
+        props.onLogin(response.key);
+      }
+    });
   }
 
   let overallErrors = null;
