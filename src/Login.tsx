@@ -54,15 +54,34 @@ const Login: React.FC = () => {
     resp.then(setResponse);
   }
 
+  let overallErrors = null;
+  if (response.non_field_errors) {
+    overallErrors = (
+      <div className="notification is-danger">
+        {response.non_field_errors}
+      </div>
+    )
+  }
+
   return (
     <form onSubmit={formSubmit}>
-      <h1>Login</h1>
-      <input type="text" placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
-      {response.username ? response.username : null}
-      <input type="password" placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
-      {response.password ? response.password : null}
-      <button type="submit">Login</button>
-      {response.non_field_errors ? response.non_field_errors : null}
+      <h1 className="title">Login</h1>
+      {overallErrors}
+      <div className="field">
+        <label className="label">Username</label>
+        <div className="control">
+          <input type="text" className={response.username ? "input is-danger" : "input"} placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
+        </div>
+        <p className="help is-danger">{response.username}</p>
+      </div>
+      <div className="field">
+        <label className="label">Password</label>
+        <div className="control">
+          <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
+        </div>
+        <p className="help is-danger">{response.password}</p>
+      </div>
+      <button type="submit" className="button is-primary">Login</button>
       {response.key ? response.key : null}
     </form>
   );

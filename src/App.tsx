@@ -4,7 +4,11 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <Login />
+    <section className="section">
+      <div className="container">
+        <Login />
+      </div>
+    </section>
   );
 }
 
