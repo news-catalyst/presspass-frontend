@@ -3,6 +3,7 @@ import Login from './auth/Login';
 import { connect } from 'react-redux';
 import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
+import Navbar from './common/navbar';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,22 +24,8 @@ const App = (props: AppProps) => {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <hr />
-
+        <Navbar {...authProps}/>
         <section className="section">
-          <span>Key: {props.auth.key} </span>
           <div className="container">
             <Switch>
               <Route path="/login">

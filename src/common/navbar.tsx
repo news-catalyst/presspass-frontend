@@ -1,0 +1,73 @@
+import React from "react";
+import { Link, RouteProps } from "react-router-dom";
+
+export interface NavbarProps extends RouteProps {
+    isAuthenticated: boolean;
+    loginPath: string;
+}
+
+export default (props: NavbarProps) => {
+
+    const navRight = (props.isAuthenticated) ? (
+        <div className="navbar-item has-dropdown is-hoverable">
+            <a className="navbar-link">
+                Account
+            </a>
+
+            <div className="navbar-dropdown">
+                <a className="navbar-item">
+                    Log Out
+                </a>
+                <a className="navbar-item">
+                    Manage Profile
+                </a>
+                <a className="navbar-item">
+                    Change Password
+                </a>
+            </div>
+        </div>
+    ) : (
+        <div className="buttons">
+            <a className="button is-primary">
+                <strong>Sign up</strong>
+            </a>
+            <Link className="button is-light" to="/login">
+                Log in
+            </Link>
+        </div>
+        );
+
+    return (
+        <nav className="navbar" role="navigation" aria-label="main navigation">
+            <div className="container">
+                <div className="navbar-brand">
+                    <Link className="navbar-item" to="/">
+                        <strong>PressPass</strong>
+                    </Link>
+                    <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" className="navbar-menu">
+                    <div className="navbar-start">
+                        <a className="navbar-item">
+                            Apps
+                        </a>
+                        <a className="navbar-item">
+                            Organization
+                        </a>
+                    </div>
+                    <div className="navbar-end">
+                        <div className="navbar-item">
+                            {navRight}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    )
+}
