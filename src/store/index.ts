@@ -1,4 +1,4 @@
-import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from 'redux-thunk';
 import { authReducers } from './auth/reducers';
 import { AuthState } from "./auth/types";
