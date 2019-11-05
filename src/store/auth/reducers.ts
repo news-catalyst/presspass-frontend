@@ -8,7 +8,7 @@ const initialState: AuthState = {
 export function authReducers(state = initialState, action: AuthAction): AuthState {
     switch (action.type) {
         case LOGIN:
-            return Object.assign({}, state, { auth: { loggedIn: true, key: action.key } })
+            return Object.assign({}, state, { loggedIn: true, key: action.key })
         default: return state
     }
 }
