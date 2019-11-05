@@ -1,6 +1,7 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { AppActions } from '../store';
 import { AuthState } from '../store/auth/types';
+import { Redirect } from 'react-router';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -29,7 +30,7 @@ class LoginCredentials {
     return JSON.stringify(data);
   }
 
-  private async performLoginRequest(): Promise<LoginFormResponse> {
+  private async performLoginRequest(): Promise<LoginFormResponse> { // TODO: move to thunk
     let resp = await fetch("http://dev.squarelet.com/csrf/get", {
       method: "GET",
     });
@@ -76,28 +77,32 @@ const Login = ({auth, actions}: LoginProps) => {
     )
   }
 
-  return (
-    <form onSubmit={formSubmit}>
-      <h1 className="title">Login</h1>
-      {overallErrors}
-      <div className="field">
-        <label className="label">Username</label>
-        <div className="control">
-          <input type="text" className={response.username ? "input is-danger" : "input"} placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
-        </div>
-        <p className="help is-danger">{response.username}</p>
+  return (auth.loggedIn) ? (
+      <div className="notification is-success">
+        You are logged in. Please wait to be redirected.
+        <Redirect to="/" />
       </div>
-      <div className="field">
-        <label className="label">Password</label>
-        <div className="control">
-          <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
+    ) : (
+      <form onSubmit={formSubmit} className="limited-width">
+        <h1 className="title">Login</h1>
+        {overallErrors}
+        <div className="field">
+          <label className="label">Username</label>
+          <div className="control">
+            <input type="text" className={response.username ? "input is-danger" : "input"} placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
+          </div>
+          <p className="help is-danger">{response.username}</p>
         </div>
-        <p className="help is-danger">{response.password}</p>
-      </div>
-      <button type="submit" className="button is-primary">Login</button>
-      {response.key ? response.key : null}
-    </form>
-  );
+        <div className="field">
+          <label className="label">Password</label>
+          <div className="control">
+            <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
+          </div>
+          <p className="help is-danger">{response.password}</p>
+        </div>
+        <button type="submit" className="button is-primary">Login</button>
+      </form>
+    );
 }
 
 export default Login;
