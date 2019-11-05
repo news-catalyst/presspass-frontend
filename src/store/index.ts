@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from 'redux-thunk';
 import { authReducers } from './auth/reducers';
 import { AuthState } from "./auth/types";
-import { loginWithKey } from "./auth/actions";
+import { loginWithKey, logout } from "./auth/actions";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = combineReducers({
@@ -22,6 +22,7 @@ function configureStore() {
 
 export interface AppActions {
     loginWithKey: typeof loginWithKey;
+    logout: typeof logout;
 }
 
 export interface AppProps {

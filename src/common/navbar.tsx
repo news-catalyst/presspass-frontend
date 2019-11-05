@@ -1,36 +1,42 @@
 import React from "react";
 import { Link, RouteProps } from "react-router-dom";
+import { AppActions } from "../store";
 
 export interface NavbarProps extends RouteProps {
     isAuthenticated: boolean;
     loginPath: string;
+    actions: AppActions;
 }
 
 export default (props: NavbarProps) => {
 
+    const logout = () => {
+        props.actions.logout();
+    }
+
     const navRight = (props.isAuthenticated) ? (
         <div className="navbar-item has-dropdown is-hoverable">
-            <a className="navbar-link">
+            <a className="navbar-link" href="/">
                 Account
             </a>
 
             <div className="navbar-dropdown">
-                <a className="navbar-item">
+                <a className="navbar-item" onClick={logout}>
                     Log Out
                 </a>
-                <a className="navbar-item">
+                <a className="navbar-item" href="/">
                     Manage Profile
                 </a>
-                <a className="navbar-item">
+                <a className="navbar-item" href="/">
                     Change Password
                 </a>
             </div>
         </div>
     ) : (
         <div className="buttons">
-            <a className="button is-primary">
+            <Link className="button is-primary" to="/register">
                 <strong>Sign up</strong>
-            </a>
+            </Link>
             <Link className="button is-light" to="/login">
                 Log in
             </Link>

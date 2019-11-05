@@ -1,4 +1,5 @@
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 
 export interface AuthState {
     loggedIn: boolean,
@@ -10,4 +11,8 @@ export interface LoginAction {
     key: string;
 }
 
-export type AuthAction = LoginAction;
+export interface LogoutAction {
+    type: typeof LOGOUT;
+}
+
+export type AuthAction = LoginAction | LogoutAction;
