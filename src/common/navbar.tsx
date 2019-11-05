@@ -10,10 +10,6 @@ export interface NavbarProps extends RouteProps {
 
 export default (props: NavbarProps) => {
 
-    const logout = () => {
-        props.actions.logout();
-    }
-
     const navRight = (props.isAuthenticated) ? (
         <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link" href="/">
@@ -21,9 +17,9 @@ export default (props: NavbarProps) => {
             </a>
 
             <div className="navbar-dropdown">
-                <a className="navbar-item" onClick={logout}>
+                <Link className="navbar-item" to="/logout">
                     Log Out
-                </a>
+                </Link>
                 <a className="navbar-item" href="/">
                     Manage Profile
                 </a>

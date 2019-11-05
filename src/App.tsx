@@ -13,6 +13,7 @@ import {
 import './App.css';
 import { bindActionCreators } from 'redux';
 import { ProtectedRoute } from './common/routing';
+import Logout from './auth/Logout';
 
 const App = (props: AppProps) => {
   const authProps = {
@@ -29,6 +30,9 @@ const App = (props: AppProps) => {
             <Switch>
               <Route path="/login">
                 <Login actions={props.actions} auth={props.auth} />
+              </Route>
+              <Route path="/logout">
+                <Logout actions={props.actions} />
               </Route>
               <ProtectedRoute exact path="/" {...authProps}>
                 This is the protected root
