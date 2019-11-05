@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './auth/Login';
 import { connect } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
 import Navbar from './common/navbar';
@@ -23,7 +24,7 @@ const App = (props: AppProps) => {
   return (
     <Router>
       <div>
-        <Navbar {...authProps}/>
+        <Navbar {...authProps} />
         <section className="section">
           <div className="container">
             <Switch>
@@ -32,10 +33,10 @@ const App = (props: AppProps) => {
               </Route>
               <ProtectedRoute exact path="/" {...authProps}>
                 This is the protected root
-              </ProtectedRoute>
+            </ProtectedRoute>
               <ProtectedRoute path="/dashboard" {...authProps}>
                 This is the dashboard
-              </ProtectedRoute>
+            </ProtectedRoute>
             </Switch>
           </div>
         </section>
