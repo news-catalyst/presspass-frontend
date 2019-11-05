@@ -1,7 +1,7 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { AppActions } from '../store';
 import { AuthState } from '../store/auth/types';
-import { Redirect } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -13,6 +13,7 @@ type LoginFormResponse = {
 interface LoginProps {
   auth: AuthState;
   actions: AppActions;
+  location?: any;
 }
 
 class LoginCredentials {
@@ -49,9 +50,11 @@ class LoginCredentials {
 
 type Props = { onLogin: Function };
 
-const Login = ({auth, actions}: LoginProps) => {
+const Login = (props: LoginProps) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
+
+  let location = useLocation();
 
   // Errors & Form Response
   let [response, setResponse] = useState<LoginFormResponse>({} as LoginFormResponse);
@@ -63,7 +66,7 @@ const Login = ({auth, actions}: LoginProps) => {
     resp.then(response => {
       setResponse(response);
       if (response.key) {
-        actions.loginWithKey(response.key);
+        props.actions.loginWithKey(response.key);
       }
     });
   }
@@ -77,10 +80,12 @@ const Login = ({auth, actions}: LoginProps) => {
     )
   }
 
-  return (auth.loggedIn) ? (
+  const redirectUrl = location.state.return || "/";
+
+  return (props.auth.loggedIn) ? (
       <div className="notification is-success">
         You are logged in. Please wait to be redirected.
-        <Redirect to="/" />
+        <Redirect to={redirectUrl} />
       </div>
     ) : (
       <form onSubmit={formSubmit} className="limited-width">

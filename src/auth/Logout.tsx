@@ -9,7 +9,7 @@ interface LogoutProps {
 export default (props: LogoutProps) => {
     useEffect(() => {
         props.actions.logout();
-    }, []);
+    }, [props.actions]);
     return (
         <div>
             <div className="notification limited-width">
