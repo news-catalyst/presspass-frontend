@@ -2,11 +2,14 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from 'redux-thunk';
 import { authReducers } from './auth/reducers';
 import { AuthState } from "./auth/types";
-import { loginWithKey, logout } from "./auth/actions";
+import { clientReducers } from "./clients/reducers";
+import { ClientState } from "./clients/types";
+import { login, logout } from "./auth/actions";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = combineReducers({
     auth: authReducers,
+    clients: clientReducers,
 });
 
 export type State = ReturnType<typeof reducers>;
@@ -21,13 +24,14 @@ function configureStore() {
 }
 
 export interface AppActions {
-    loginWithKey: typeof loginWithKey;
+    login: typeof login;
     logout: typeof logout;
 }
 
 export interface AppProps {
     auth: AuthState;
     actions: AppActions;
+    clients: ClientState;
   }
 
 export default configureStore;

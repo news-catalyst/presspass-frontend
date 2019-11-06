@@ -50,6 +50,7 @@ const App = (props: AppProps) => {
 
 const mapStateToProps = (state: State) => ({
   auth: state.auth,
+  clients: state.clients,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({ // TODO: assign type explicitly
