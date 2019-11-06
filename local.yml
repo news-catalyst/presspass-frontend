@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  presspass_frontend:
+    image: node:12
+    volumes:
+      - nodemodules:/app/node_modules
+      - .:/app
+    working_dir: /app
+    command: npm start
+    networks:
+      default:
+        aliases:
+          - www.dev.presspass.com
+      squarelet_default:
+        aliases:
+          - www.dev.presspass.com
+
+volumes:
+  nodemodules:
+    external: true
+
+networks:
+  squarelet_default:
+    external: true

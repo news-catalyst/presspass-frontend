@@ -3,6 +3,7 @@ import Login from './auth/Login';
 import { connect } from 'react-redux';
 import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
+import * as clientActions from './store/clients/actions';
 import Navbar from './common/navbar';
 import {
   BrowserRouter as Router,
@@ -14,13 +15,13 @@ import './App.css';
 import { bindActionCreators } from 'redux';
 import { ProtectedRoute } from './common/routing';
 import Logout from './auth/Logout';
+import ClientsList from './clients/ClientsList';
 
 const App = (props: AppProps) => {
   const authProps = {
     isAuthenticated: props.auth.loggedIn,
     loginPath: "/login",
   };
-
   return (
     <Router>
       <div>
@@ -35,7 +36,7 @@ const App = (props: AppProps) => {
                 <Logout actions={props.actions} />
               </Route>
               <ProtectedRoute exact returnPath="/" {...authProps}>
-                This is the protected root
+                <ClientsList actions={props.actions} clients={props.clients}/>
               </ProtectedRoute>
               <ProtectedRoute returnPath="/dashboard" {...authProps}>
                 This is the dashboard
@@ -54,7 +55,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({ // TODO: assign type explicitly
-  actions: bindActionCreators(Object.assign({}, authActions), dispatch)
+  actions: bindActionCreators(Object.assign({}, authActions, clientActions), dispatch)
 });
 
 export default connect(

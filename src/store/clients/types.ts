@@ -4,17 +4,17 @@ export interface Client {
     id: number;
     name: string;
     owner: number;
-    clientType: string;
-    clientId: string;
-    clientSecret: string;
-    dateCreated: Date;
-    websiteUrl: string;
-    termsUrl: string;
-    contactEmail: string;
+    client_type: string;
+    client_id: string;
+    client_secret: string;
+    date_created: Date;
+    website_url: string;
+    terms_url: string;
+    contact_email: string;
     logo: string | null;
-    reuseConsent: boolean;
-    redirectUris: string;
-    postLogoutRedirectUris: string;
+    reuse_content: boolean;
+    redirect_uris: string;
+    post_logout_redirect_uris: string;
 }
 
 export interface ClientState {

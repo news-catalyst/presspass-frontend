@@ -1,7 +1,7 @@
 import { AuthAction, LOGIN, LOGOUT, AuthState } from "./types";
 
 const initialState: AuthState = {
-    loggedIn: false
+    loggedIn: true
 }
 
 export function authReducers(state = initialState, action: AuthAction): AuthState {

@@ -32,7 +32,7 @@ class LoginCredentials {
   }
 
   private async performLoginRequest(): Promise<LoginFormResponse> { // TODO: move to thunk
-    let postResp = await fetch("http://dev.squarelet.com/rest-auth/login/", {
+    let postResp = await fetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/login/`, {
       method: "POST",
       body: this.serializeForLoginForm(),
       headers: {
@@ -78,7 +78,7 @@ const Login = (props: LoginProps) => {
     )
   }
 
-  const redirectUrl = location.state.return || "/";
+  const redirectUrl = (location.state) ? location.state.return : "/";
 
   return (props.auth.loggedIn) ? (
       <div className="notification is-success">
