@@ -8,14 +8,12 @@ export function authReducers(state = initialState, action: AuthAction): AuthStat
     switch (action.type) {
         case LOGIN:
             {
-                const expirationDate = new Date();
-                expirationDate.setFullYear(expirationDate.getFullYear() + 1);
                 return Object.assign({}, state, { loggedIn: true });
             }
         case LOGOUT:
             {
                 // TODO: make call to server to invalidate token (for security; this is important)
-                return Object.assign({}, state, { loggedIn: false, key: "" });
+                return Object.assign({}, state, { loggedIn: false });
             }
         default: return state
     }

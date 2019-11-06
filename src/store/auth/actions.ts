@@ -1,9 +1,8 @@
 import { LOGIN, LOGOUT } from "./types";
 
-export function loginWithKey(key: string) {
+export function login() {
     return {
         type: LOGIN,
-        key: key,
     }
 }
 

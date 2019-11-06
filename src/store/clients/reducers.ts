@@ -4,7 +4,7 @@ const initialState: ClientState = {
   clients: {}
 }
 
-export function authReducers(state = initialState, action: ClientAction): ClientState {
+export function clientReducers(state = initialState, action: ClientAction): ClientState {
   switch (action.type) {
     case UPSERT_CLIENT:
       {

@@ -7,7 +7,7 @@ type LoginFormResponse = {
   non_field_errors: string[];
   username: string;
   password: string;
-  key: string;
+  responseCode: number;
 }
 
 interface LoginProps {
@@ -32,14 +32,17 @@ class LoginCredentials {
   }
 
   private async performLoginRequest(): Promise<LoginFormResponse> { // TODO: move to thunk
-    let post_resp = await fetch("http://dev.squarelet.com/rest-auth/login/", {
+    let postResp = await fetch("http://dev.squarelet.com/rest-auth/login/", {
       method: "POST",
       body: this.serializeForLoginForm(),
       headers: {
         "Content-Type": "application/json",
       }
-    })
-    return await post_resp.json();
+    });
+    return {
+      ...postResp.json(),
+      responseCode: postResp.status
+    }
   }
 }
 
@@ -60,8 +63,8 @@ const Login = (props: LoginProps) => {
     let resp = creds.login();
     resp.then(response => {
       setResponse(response);
-      if (response.key) {
-        props.actions.loginWithKey(response.key);
+      if (response.responseCode === 200) {
+        props.actions.login();
       }
     });
   }
