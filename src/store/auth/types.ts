@@ -3,12 +3,10 @@ export const LOGOUT = "LOGOUT";
 
 export interface AuthState {
     loggedIn: boolean,
-    key: string,
 }
 
 export interface LoginAction {
     type: typeof LOGIN;
-    key: string;
 }
 
 export interface LogoutAction {

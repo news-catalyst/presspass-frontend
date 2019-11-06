@@ -34,12 +34,12 @@ const App = (props: AppProps) => {
               <Route path="/logout">
                 <Logout actions={props.actions} />
               </Route>
-              <ProtectedRoute exact path="/" {...authProps}>
+              <ProtectedRoute exact returnPath="/" {...authProps}>
                 This is the protected root
               </ProtectedRoute>
-              <ProtectedRoute path="/dashboard" {...authProps}>
+              <ProtectedRoute returnPath="/dashboard" {...authProps}>
                 This is the dashboard
-            </ProtectedRoute>
+              </ProtectedRoute>
             </Switch>
           </div>
         </section>

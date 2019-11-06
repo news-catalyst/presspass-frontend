@@ -5,13 +5,14 @@ import { Redirect, Route, RouteProps } from 'react-router';
 export interface ProtectedRouteProps extends RouteProps {
     isAuthenticated: boolean;
     loginPath: string;
+    returnPath: string | null;
 }
 
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
     if (!props.isAuthenticated) {
         return (
             <Route>
-                <Redirect to={{ pathname: props.loginPath, state: { return: props.path } }} />
+                <Redirect to={{ pathname: props.loginPath, state: { return: props.returnPath } }} />
             </Route>
         )
     } else {
