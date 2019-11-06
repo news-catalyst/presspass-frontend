@@ -32,16 +32,11 @@ class LoginCredentials {
   }
 
   private async performLoginRequest(): Promise<LoginFormResponse> { // TODO: move to thunk
-    let resp = await fetch("http://dev.squarelet.com/csrf/get", {
-      method: "GET",
-    });
-    let csrf = (await resp.json()).csrfToken;
     let post_resp = await fetch("http://dev.squarelet.com/rest-auth/login/", {
       method: "POST",
       body: this.serializeForLoginForm(),
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrf, // Necessary,
       }
     })
     return await post_resp.json();
