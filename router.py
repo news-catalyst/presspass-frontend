@@ -8,8 +8,10 @@ class Rerouter:
         host_header = m.group("host").strip("[]")
         if host_header == "api.dev.presspass.com":
             flow.request.host_header = "dev.squarelet.com"
+            flow.request.host = "127.0.0.1"
             flow.request.port = 80
         elif host_header == "www.dev.presspass.com":
+            flow.request.host = "127.0.0.1"
             flow.request.port = 3000
         else:
             flow.request.host_header = "example.com"
