@@ -3,7 +3,6 @@ import cookie from 'js-cookie';
 
 export function checkAuth(actions: AppActions) {
   return (response: Response): Response => {
-    console.log(response);
     if (response.status === 403) {
       actions.logout();
       throw new Error("Not logged in");
@@ -14,7 +13,6 @@ export function checkAuth(actions: AppActions) {
 
 function updateOptions(options: RequestInit) {
   const update = { ...options };
-  console.log(cookie.get())
   if (cookie.get("csrftoken") !== undefined) {
     update.headers = {
       ...update.headers,

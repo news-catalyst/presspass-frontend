@@ -66,7 +66,6 @@ const Login = (props: LoginProps) => {
     let resp = creds.login();
     resp.then(response => {
       setResponse(response);
-      console.log(response);
       if (response.responseCode === 200) {
         props.actions.login();
       }

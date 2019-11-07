@@ -11,7 +11,6 @@ const headers = {
 const GET = Object.assign({}, headers, { method: 'GET', credentials: 'include' });
 
 const addClients = function(data: any, actions: AppActions) {
-  console.log(data);
   data.results.forEach((client: Client) => actions.upsertClient(client));
 }
 
