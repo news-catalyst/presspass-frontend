@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { AppActions } from "../store";
 import { Link } from "react-router-dom";
+import { cfetch } from "../utils";
 
 interface LogoutProps {
   actions: AppActions;
@@ -8,7 +9,7 @@ interface LogoutProps {
 
 export default (props: LogoutProps) => {
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/logout/`, {
+    cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/logout/`, {
       credentials: "include",
       method: "POST"
     }).then(() => {

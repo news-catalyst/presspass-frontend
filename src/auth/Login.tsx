@@ -2,6 +2,7 @@ import React, { useState, SyntheticEvent } from 'react';
 import { AppActions } from '../store';
 import { AuthState } from '../store/auth/types';
 import { Redirect, useLocation } from 'react-router';
+import { cfetch } from '../utils';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -32,8 +33,9 @@ class LoginCredentials {
   }
 
   private async performLoginRequest(): Promise<LoginFormResponse> { // TODO: move to thunk
-    let postResp = await fetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/login/`, {
+    let postResp = await cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/login/`, {
       method: "POST",
+      credentials: "include",
       body: this.serializeForLoginForm(),
       headers: {
         "Content-Type": "application/json",

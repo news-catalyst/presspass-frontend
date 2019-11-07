@@ -1,11 +1,10 @@
 import { AppActions } from '..';
-import { checkAuth } from '../../utils';
+import { checkAuth, cfetch } from '../../utils';
 import { Client } from './types';
 
 const headers = {
   headers: {
     'Content-Type': 'application/json',
-    'X-CSRFToken': 'jjbk2dwaeC8fJEW0X5jmIM4in7g47xN5mGUJWDGZJ8pSGe7SFpyxN5RITStzRunn',
   },
 };
 
@@ -17,7 +16,12 @@ const addClients = function(data: any, actions: AppActions) {
 }
 
 export const fetchClients = (actions: AppActions) =>
-  fetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients`, GET)
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: "include"
+  })
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([

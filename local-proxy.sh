@@ -1,1 +1,1 @@
-mitmproxy -s router.py -p 4000 --mode transparent
+mitmproxy -s router.py -p 4000
