@@ -10,8 +10,7 @@ export interface ProtectedRouteProps extends RouteProps {
 
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
     if (!props.isAuthenticated) {
-        let returnPath = (props.returnPath === undefined) ? props.path : props.returnPath;
-
+        let returnPath = (props.returnPath === undefined) ? props.location!.pathname : props.returnPath;
         return (
             <Route>
                 <Redirect to={{ pathname: props.loginPath, state: { return: returnPath } }} />
