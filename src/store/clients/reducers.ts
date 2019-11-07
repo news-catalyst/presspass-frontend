@@ -1,7 +1,8 @@
 import { ClientAction, UPSERT_CLIENT, ClientState } from "./types";
 
 const initialState: ClientState = {
-  clients: {}
+  clients: {},
+  hydrated: false,
 }
 
 export function clientReducers(state = initialState, action: ClientAction): ClientState {
@@ -9,7 +10,8 @@ export function clientReducers(state = initialState, action: ClientAction): Clie
     case UPSERT_CLIENT:
       {
         let incomingObject: ClientState = {
-          clients: {}
+          clients: {},
+          hydrated: true,
         };
         incomingObject.clients[action.client.id] = action.client;
         return Object.assign({}, state, incomingObject);

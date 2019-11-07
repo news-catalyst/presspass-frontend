@@ -19,6 +19,7 @@ export interface Client {
 
 export interface ClientState {
   clients: {[id: number]: Client};
+  hydrated: boolean;
 }
 
 export interface UpsertClientAction {

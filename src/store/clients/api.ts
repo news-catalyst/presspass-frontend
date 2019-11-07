@@ -1,6 +1,6 @@
 import { AppActions } from '..';
 import { checkAuth, cfetch } from '../../utils';
-import { Client } from './types';
+import { Client, ClientState } from './types';
 
 const headers = {
   headers: {
@@ -29,3 +29,9 @@ export const fetchClients = (actions: AppActions) =>
     ])).catch((error) => {
       console.error('API Error fetchClients', error, error.code);
     });
+
+export const ensureClients = (actions: AppActions, clients: ClientState) => {
+  if (!clients.hydrated) {
+    return fetchClients(actions);
+  }
+}
