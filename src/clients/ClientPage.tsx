@@ -26,7 +26,96 @@ const ClientPage = (props: ClientPageProps) => {
     <section className="client-page">
       <p className="subtitle">OpenID Client</p>
       <h1 className="title is-size-1">{client.name}</h1>
-      <p>Client information here...</p>
+      <table className="table">
+        <tr>
+          <td className="has-text-weight-bold">
+            Name
+          </td>
+          <td>
+            {client.name}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            OpenID Client Type
+          </td>
+          <td>
+            {client.client_type}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            OpenID Client ID
+          </td>
+          <td>
+            {client.client_id}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            OpenID Client Secret
+          </td>
+          <td>
+            {client.client_secret}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Created
+          </td>
+          <td>
+            {client.date_created}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Website URL
+          </td>
+          <td>
+            {client.website_url}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Contact Email
+          </td>
+          <td>
+            {client.contact_email}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Logo
+          </td>
+          <td>
+            {client.logo}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Reuse Content
+          </td>
+          <td>
+            {client.reuse_content}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Redirect URIs
+          </td>
+          <td>
+            {client.redirect_uris}
+          </td>
+        </tr>
+        <tr>
+          <td className="has-text-weight-bold">
+            Post Logout Redirect URIs
+          </td>
+          <td>
+            {client.post_logout_redirect_uris}
+          </td>
+        </tr>
+      </table>
     </section>
   )
 }
