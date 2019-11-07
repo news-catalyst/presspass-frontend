@@ -9,6 +9,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 
 import './App.css';
@@ -16,6 +17,7 @@ import { bindActionCreators } from 'redux';
 import { ProtectedRoute } from './common/routing';
 import Logout from './auth/Logout';
 import ClientsList from './clients/ClientsList';
+import ClientPage from './clients/ClientPage';
 
 const App = (props: AppProps) => {
   const authProps = {
@@ -35,10 +37,16 @@ const App = (props: AppProps) => {
               <Route path="/logout">
                 <Logout actions={props.actions} />
               </Route>
-              <ProtectedRoute exact returnPath="/" {...authProps}>
-                <ClientsList actions={props.actions} clients={props.clients}/>
+              <ProtectedRoute exact path="/" {...authProps}>
+                <Redirect to="/clients" />
               </ProtectedRoute>
-              <ProtectedRoute returnPath="/dashboard" {...authProps}>
+              <ProtectedRoute exact path="/clients" {...authProps}>
+                <ClientsList actions={props.actions} clients={props.clients} />
+              </ProtectedRoute>
+              <ProtectedRoute path="/clients/:client" render={(routeProps) => 
+                <ClientPage {...props} client={routeProps.match.params.client} />
+              } {...authProps} />
+              <ProtectedRoute path="/dashboard" {...authProps}>
                 This is the dashboard
               </ProtectedRoute>
             </Switch>
