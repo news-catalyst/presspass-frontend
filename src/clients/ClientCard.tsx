@@ -1,5 +1,6 @@
 import React from 'react';
 import { Client } from '../store/clients/types';
+import { Link } from 'react-router-dom';
 
 interface ClientCardProps {
   client: Client;
@@ -8,7 +9,7 @@ interface ClientCardProps {
 const ClientCard = (props: ClientCardProps) => {
   let client = props.client;
   return (
-    <div className="box">
+    <Link className="box" to={"/clients/" + client.id}>
       <h5 className="title is-size-5">{client.name}</h5>
       <div className="field is-grouped is-grouped-multiline">
         <div className="control">
@@ -25,7 +26,7 @@ const ClientCard = (props: ClientCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
