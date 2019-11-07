@@ -41,8 +41,9 @@ class LoginCredentials {
         "Content-Type": "application/json",
       }
     });
+    let json = await postResp.json();
     return {
-      ...postResp.json(),
+      ...json,
       responseCode: postResp.status
     }
   }
@@ -65,6 +66,7 @@ const Login = (props: LoginProps) => {
     let resp = creds.login();
     resp.then(response => {
       setResponse(response);
+      console.log(response);
       if (response.responseCode === 200) {
         props.actions.login();
       }
