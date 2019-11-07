@@ -1,23 +1,29 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
 import { ClientState, Client } from '../store/clients/types';
-import { fetchClients } from '../store/clients/api';
+import { fetchClients, ensureClients } from '../store/clients/api';
+import ClientCard from './ClientCard';
 
 interface ClientsListProps {
   actions: AppActions;
-  clients: ClientState
+  clients: ClientState;
 }
 
 const ClientsList = (props: ClientsListProps) => {
   useEffect(() => {
-    fetchClients(props.actions);
+    ensureClients(props.actions, props.clients);
   }, [props.actions])
 
   return (
     <div className="clients">
-      {Object.values(props.clients.clients).map((client: Client) => (
-        <p>{client.id}</p>
-      ))}
+      <h1 className="title is-size-1">Clients</h1>
+      <div className="columns is-multiline">
+        {Object.values(props.clients.clients).map((client: Client) => (
+          <div className="column is-4">
+            <ClientCard client={client} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
