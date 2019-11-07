@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
-import { ClientState, Client } from '../store/clients/types';
-import { fetchClients, ensureClients } from '../store/clients/api';
-import ClientCard from './ClientCard';
+import { ClientState } from '../store/clients/types';
+import { ensureClients } from '../store/clients/api';
 import { LoadingPlaceholder } from '../common/loading';
 
 interface ClientPageProps {
@@ -14,7 +13,7 @@ interface ClientPageProps {
 const ClientPage = (props: ClientPageProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
-  }, [props.actions])
+  }, [props.actions, props.clients])
 
   if (!props.clients.hydrated) {
     return <LoadingPlaceholder />;

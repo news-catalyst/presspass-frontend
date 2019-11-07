@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
 import { ClientState, Client } from '../store/clients/types';
-import { fetchClients, ensureClients } from '../store/clients/api';
+import { ensureClients } from '../store/clients/api';
 import ClientCard from './ClientCard';
 
 interface ClientsListProps {
@@ -12,7 +12,7 @@ interface ClientsListProps {
 const ClientsList = (props: ClientsListProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
-  }, [props.actions])
+  }, [props.actions, props.clients]);
 
   return (
     <div className="clients">

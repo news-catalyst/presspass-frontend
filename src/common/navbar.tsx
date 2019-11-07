@@ -47,19 +47,19 @@ export default (props: NavbarProps) => {
                         <strong>PressPass</strong>
                     </Link>
                     <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                        data-target="navbarBasicExample">
+                        data-target="navbarBody" href="#navbarBody">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                     </a>
                 </div>
 
-                <div id="navbarBasicExample" className="navbar-menu">
+                <div id="navbarBody" className="navbar-menu">
                     <div className="navbar-start">
-                        <a className="navbar-item">
+                        <a className="navbar-item" href="/">
                             Apps
                         </a>
-                        <a className="navbar-item">
+                        <a className="navbar-item" href="/">
                             Organization
                         </a>
                     </div>

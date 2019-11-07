@@ -15,12 +15,7 @@ const addClients = function(data: any, actions: AppActions) {
 }
 
 export const fetchClients = (actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: "include"
-  })
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients`, GET)
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([
