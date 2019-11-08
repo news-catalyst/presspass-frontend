@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AppActions } from '../store';
 import { ClientState, Client } from '../store/clients/types';
 import { ensureClients } from '../store/clients/api';
 import { LoadingPlaceholder } from '../common/loading';
-import { Link } from 'react-router-dom';
 import ClientForm from './ClientForm';
 
 interface ClientPageProps {
@@ -28,8 +27,8 @@ const HydratedClientPage = (props: ClientPageProps) => {
   let client = props.clients.clients[props.client];
 
   const handleSubmit = (updatedClient: Client) => {
-    console.log("Form submit!");
     console.log(updatedClient);
+    props.actions.upsertClient(client);
   };
 
   return (

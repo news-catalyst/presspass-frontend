@@ -19,7 +19,7 @@ export default (props: LogoutProps) => {
   return (
     <div>
       <div className="notification limited-width">
-        You have been logged out from PressPass. To log back in,{" "}
+        You have been logged out from PressPass. To log back in,
         <Link to="/login">click here</Link>.
       </div>
     </div>
