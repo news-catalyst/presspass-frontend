@@ -34,7 +34,7 @@ const HydratedClientEditPage = (props: ClientEditPageProps) => {
       if (status.ok) {
         setSaved(true);
       } else {
-        setErrors(status.errors);
+        setErrors(status.body);
       }
     });
   };

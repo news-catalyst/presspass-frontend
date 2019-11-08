@@ -29,14 +29,11 @@ export function cfetch(url: string, options: RequestInit) {
 }
 
 export async function validate(response: Response, ok: Function) {
-  let errors: any = {};
   if (response.ok) {
     ok();
-  } else {
-    errors = await response.json();
   }
   return {
     ok: response.ok,
-    errors: errors,
+    body: await response.json()
   }
 }
