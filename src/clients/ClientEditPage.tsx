@@ -27,10 +27,16 @@ const ClientEditPage = (props: ClientEditPageProps) => {
 const HydratedClientEditPage = (props: ClientEditPageProps) => {
   let client = props.clients.clients[props.client];
   let [saved, setSaved] = useState(false);
+  let [errors, setErrors] = useState({});
 
   const handleSubmit = (updatedClient: Client) => {
-    updateClient(updatedClient, props.actions);
-    setSaved(true);
+    updateClient(updatedClient, props.actions).then(status => {
+      if (status.ok) {
+        setSaved(true);
+      } else {
+        setErrors(status.errors);
+      }
+    });
   };
 
   if (saved) {
@@ -40,7 +46,7 @@ const HydratedClientEditPage = (props: ClientEditPageProps) => {
       <section className="client-page">
         <p className="subtitle">Edit OpenID Client</p>
         <h1 className="title is-size-1">{client.name}</h1>
-          <ClientForm client={client} onSubmit={handleSubmit} />
+          <ClientForm client={client} onSubmit={handleSubmit} errors={errors} />
           <br />
       </section>
     )
