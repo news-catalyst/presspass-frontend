@@ -1,12 +1,12 @@
 // Form separated from page so that it can DRY-ly be used in both
 // the 'create' component and the 'edit' component.
 
-import React, { useState } from 'react';
+import React, { useState, SyntheticEvent } from 'react';
 import { Client } from '../store/clients/types';
 
 interface ClientFormProps {
     client: Client;
-    onChange: (parameter: Client) => void;
+    onSubmit: (parameter: Client) => void;
 }
 
 export default (props: ClientFormProps) => {
@@ -37,10 +37,13 @@ export default (props: ClientFormProps) => {
         post_logout_redirect_uris: postLogoutRedirectUris,
     }
 
-    props.onChange(newClient);
+    const handleSubmit = (event: SyntheticEvent) => {
+        event.preventDefault();
+        props.onSubmit(newClient);
+    }
 
     return (
-        <section>
+        <form onSubmit={handleSubmit} className="limited-width">
             <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
@@ -104,6 +107,8 @@ export default (props: ClientFormProps) => {
                 </div>
                 <p className="help">List of links that the app can redirect users to after they log out. One link per line.</p>
             </div>
-        </section>
+            <br />
+            <button type="submit" className="button is-link">Save</button>
+        </form>
     )
 }
