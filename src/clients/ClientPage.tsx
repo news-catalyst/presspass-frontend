@@ -3,6 +3,7 @@ import { AppActions } from '../store';
 import { ClientState } from '../store/clients/types';
 import { ensureClients } from '../store/clients/api';
 import { LoadingPlaceholder } from '../common/loading';
+import { Link } from 'react-router-dom';
 
 interface ClientPageProps {
   actions: AppActions;
@@ -96,7 +97,7 @@ const ClientPage = (props: ClientPageProps) => {
               Reuse Content
           </td>
             <td>
-              {client.reuse_content}
+              {client.reuse_consent}
             </td>
           </tr>
           <tr>
@@ -117,6 +118,7 @@ const ClientPage = (props: ClientPageProps) => {
           </tr>
         </tbody>
       </table>
+      <Link className="button is-link is-outlined" to={`/clients/${client.id}/edit`}>Edit</Link>
     </section>
   )
 }

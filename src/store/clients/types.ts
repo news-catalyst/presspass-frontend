@@ -12,7 +12,7 @@ export interface Client {
     terms_url: string;
     contact_email: string;
     logo: string | null;
-    reuse_content: boolean;
+    reuse_consent: boolean;
     redirect_uris: string;
     post_logout_redirect_uris: string;
 }
