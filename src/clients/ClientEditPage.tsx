@@ -28,7 +28,7 @@ const HydratedClientPage = (props: ClientPageProps) => {
 
   const handleSubmit = (updatedClient: Client) => {
     console.log(updatedClient);
-    props.actions.upsertClient(client);
+    props.actions.upsertClient(updatedClient);
   };
 
   return (
