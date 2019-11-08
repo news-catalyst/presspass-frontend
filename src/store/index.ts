@@ -6,7 +6,7 @@ import { clientReducers } from "./clients/reducers";
 import { ClientState } from "./clients/types";
 import { login, logout } from "./auth/actions";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { upsertClient } from "./clients/actions";
+import { upsertClient, upsertClients } from "./clients/actions";
 
 const reducers = combineReducers({
     auth: authReducers,
@@ -28,6 +28,7 @@ export interface AppActions {
     login: typeof login;
     logout: typeof logout;
     upsertClient: typeof upsertClient;
+    upsertClients: typeof upsertClients;
 }
 
 export interface AppProps {

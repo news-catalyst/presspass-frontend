@@ -1,4 +1,5 @@
 export const UPSERT_CLIENT = "UPSERT_CLIENT";
+export const UPSERT_CLIENTS = "UPSERT_CLIENTS";
 
 export interface Client {
     id: number;
@@ -27,4 +28,9 @@ export interface UpsertClientAction {
   client: Client;
 }
 
-export type ClientAction = UpsertClientAction;
+export interface UpsertClientsAction {
+  type: typeof UPSERT_CLIENTS;
+  clients: Client[];
+}
+
+export type ClientAction = UpsertClientAction | UpsertClientsAction;
