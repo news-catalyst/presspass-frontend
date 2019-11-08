@@ -1,5 +1,5 @@
 import { AppActions } from '..';
-import { checkAuth, cfetch } from '../../utils';
+import { checkAuth, cfetch, validate } from '../../utils';
 import { Client, ClientState } from './types';
 
 const REQ_BASE: RequestInit = {
@@ -56,13 +56,11 @@ export const ensureClients = (actions: AppActions, clients: ClientState) => {
 export const updateClient = (client: Client, actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}/`, PATCH(serializeClient(client)))
     .then(checkAuth(actions))
-    // Here is potentially where returning some kind of validation data would happen
-    // (Here or in a catch.)
-    .then(() => actions.upsertClient(client));
+    .then(response => validate(response, () => actions.upsertClient(client)));
 
 export const createClient = (client: Client, actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, POST(serializeClient(client)))
     .then(checkAuth(actions))
-    .then(() => fetchClients(actions));
+    .then(response => validate(response, fetchClients));
     // TODO: check if this is the most efficient way to update the store
     // from both a code readability and network perspective
