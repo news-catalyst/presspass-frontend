@@ -10,7 +10,7 @@ export function clientReducers(state = initialState, action: ClientAction): Clie
     case UPSERT_CLIENT:
       {
         let incomingObject: ClientState = {
-          clients: {},
+          clients: Object.assign({}, state.clients),
           hydrated: true,
         };
         incomingObject.clients[action.client.id] = action.client;
