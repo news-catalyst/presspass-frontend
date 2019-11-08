@@ -19,6 +19,7 @@ import Logout from './auth/Logout';
 import ClientsList from './clients/ClientsList';
 import ClientPage from './clients/ClientPage';
 import ClientEditPage from './clients/ClientEditPage';
+import ClientCreatePage from './clients/ClientCreatePage';
 
 const App = (props: AppProps) => {
   const authProps = {
@@ -43,6 +44,9 @@ const App = (props: AppProps) => {
               </ProtectedRoute>
               <ProtectedRoute exact path="/clients" {...authProps}>
                 <ClientsList actions={props.actions} clients={props.clients} />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/clients/create" {...authProps}>
+                <ClientCreatePage actions={props.actions} />
               </ProtectedRoute>
               <ProtectedRoute exact path="/clients/:client" render={(routeProps) => 
                 <ClientPage {...props} client={routeProps.match.params.client} />
