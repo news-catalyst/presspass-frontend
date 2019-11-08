@@ -61,6 +61,11 @@ export const updateClient = (client: Client, actions: AppActions) =>
 export const createClient = (client: Client, actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, POST(serializeClient(client)))
     .then(checkAuth(actions))
-    .then(response => validate(response, fetchClients));
-    // TODO: check if this is the most efficient way to update the store
-    // from both a code readability and network perspective
+    // Cannot call upsert client here, because IDs are assigned on the server side
+    .then(response => validate(response, () => {}))
+    .then(status => {
+      if (status.ok) {
+        actions.upsertClient(status.body)
+      }
+      return status;
+    });

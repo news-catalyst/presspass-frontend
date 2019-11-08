@@ -22,22 +22,24 @@ const ClientCreatePage = (props: ClientCreatePageProps) => {
     post_logout_redirect_uris: "",
     id: 0 // Ignored by server, but must be present for all clients
   };
-  let [saved, setSaved] = useState(false);
+  // Saved is -1 if the client is not saved, and is the id
+  // of the created client if it has been created.
+  let [saved, setSaved] = useState(-1);
   let [errors, setErrors] = useState({});
 
   const handleSubmit = (updatedClient: Client) => {
-    createClient(updatedClient, props.actions).then(status => {
+    createClient(updatedClient, props.actions)
+    .then(status => {
       if (status.ok) {
-        setSaved(true);
+        setSaved(status.body.id);
       } else {
-        setErrors(status.errors);
+        setErrors(status.body);
       }
     });
   };
 
-  if (saved) {
-    return <Redirect to={`/clients`} />
-    // Eventually, we will want to redirect them to the client's page itself
+  if (saved !== -1) {
+    return <Redirect to={`/clients/${saved}`} />
   } else {
     return (
       <section className="client-page">
