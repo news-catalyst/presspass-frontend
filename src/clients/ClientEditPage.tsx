@@ -6,25 +6,25 @@ import { LoadingPlaceholder } from '../common/loading';
 import ClientForm from './ClientForm';
 import { Redirect } from 'react-router';
 
-interface ClientPageProps {
+interface ClientEditPageProps {
   actions: AppActions;
   clients: ClientState;
   client: number;
 }
 
-const ClientPage = (props: ClientPageProps) => {
+const ClientEditPage = (props: ClientEditPageProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
   }, [props.actions, props.clients]);
 
   if (props.clients.hydrated) {
-    return <HydratedClientPage {...props} />;
+    return <HydratedClientEditPage {...props} />;
   } else {
     return <LoadingPlaceholder />;
   }
 }
 
-const HydratedClientPage = (props: ClientPageProps) => {
+const HydratedClientEditPage = (props: ClientEditPageProps) => {
   let client = props.clients.clients[props.client];
   let [saved, setSaved] = useState(false);
 
@@ -47,4 +47,4 @@ const HydratedClientPage = (props: ClientPageProps) => {
   }
 }
 
-export default ClientPage;
+export default ClientEditPage;
