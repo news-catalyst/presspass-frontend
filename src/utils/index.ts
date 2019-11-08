@@ -27,3 +27,16 @@ function updateOptions(options: RequestInit) {
 export function cfetch(url: string, options: RequestInit) {
   return fetch(url, updateOptions(options));
 }
+
+export async function validate(response: Response, ok: Function) {
+  let errors: any = {};
+  if (response.ok) {
+    ok();
+  } else {
+    errors = await response.json();
+  }
+  return {
+    ok: response.ok,
+    errors: errors,
+  }
+}
