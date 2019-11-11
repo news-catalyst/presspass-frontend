@@ -50,4 +50,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] Add Bulma/form library/field abstractions
 - [x] Add notification system for when Squarelet isn't available/network requests fail
 - [ ] Account registration
-- [ ] Password management
+- [x] Password management
+- [ ] Password reset
