@@ -1,4 +1,4 @@
-import { ClientAction, UPSERT_CLIENT, ClientState, UPSERT_CLIENTS } from "./types";
+import { ClientAction, UPSERT_CLIENT, ClientState, UPSERT_CLIENTS, DELETE_CLIENT } from "./types";
 
 const initialState: ClientState = {
   clients: {},
@@ -24,8 +24,16 @@ export function clientReducers(state = initialState, action: ClientAction): Clie
           clients: Object.assign({}, state.clients),
           hydrated: true,
         };
-        console.log(action.client);
         incomingObject.clients[action.client.id] = action.client;
+        return Object.assign({}, state, incomingObject);
+      }
+    case DELETE_CLIENT:
+      {
+        let incomingObject: ClientState = {
+          clients: Object.assign({}, state.clients),
+          hydrated: true,
+        };
+        delete incomingObject.clients[action.client.id];
         return Object.assign({}, state, incomingObject);
       }
     default: return state

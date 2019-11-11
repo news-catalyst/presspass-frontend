@@ -1,5 +1,6 @@
 export const UPSERT_CLIENT = "UPSERT_CLIENT";
 export const UPSERT_CLIENTS = "UPSERT_CLIENTS";
+export const DELETE_CLIENT = "DELETE_CLIENT";
 
 export interface Client {
     id: number;
@@ -33,8 +34,9 @@ export interface UpsertClientsAction {
   clients: Client[];
 }
 
-export type ClientAction = UpsertClientAction | UpsertClientsAction;
-
-export interface ClientUpsertExtras {
-  logo: File;
+export interface DeleteClientAction {
+  type: typeof DELETE_CLIENT;
+  client: Client;
 }
+
+export type ClientAction = UpsertClientAction | UpsertClientsAction | DeleteClientAction;

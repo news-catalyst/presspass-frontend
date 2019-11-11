@@ -20,6 +20,7 @@ import ClientsList from './clients/ClientsList';
 import ClientPage from './clients/ClientPage';
 import ClientEditPage from './clients/ClientEditPage';
 import ClientCreatePage from './clients/ClientCreatePage';
+import ClientDeletePage from './clients/ClientDeletePage';
 
 const App = (props: AppProps) => {
   const authProps = {
@@ -53,6 +54,9 @@ const App = (props: AppProps) => {
               } {...authProps} />
               <ProtectedRoute exact path="/clients/:client/edit" render={(routeProps) => 
                 <ClientEditPage {...props} client={routeProps.match.params.client} />
+              } {...authProps} />
+              <ProtectedRoute exact path="/clients/:client/delete" render={(routeProps) => 
+                <ClientDeletePage {...props} client={routeProps.match.params.client} />
               } {...authProps} />
               <ProtectedRoute path="/dashboard" {...authProps}>
                 This is the dashboard

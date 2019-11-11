@@ -36,7 +36,7 @@ export type ItemizedResponse = {
 export async function validate(response: Response, ok: Function): Promise<ItemizedResponse> {
   let itemizedResponse: ItemizedResponse = {
     ok: response.ok,
-    body: await response.json()
+    body: (response.status === 204) ? {} : await response.json() // 204 = ok, no content
   };
   if (response.ok) {
     ok(itemizedResponse);

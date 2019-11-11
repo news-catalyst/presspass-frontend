@@ -1,6 +1,6 @@
-import { UPSERT_CLIENT, Client, UPSERT_CLIENTS } from './types';
+import { UPSERT_CLIENT, Client, UPSERT_CLIENTS, DELETE_CLIENT, DeleteClientAction, UpsertClientAction, UpsertClientsAction } from './types';
 
-export function upsertClient(client: Client) {
+export function upsertClient(client: Client): UpsertClientAction {
   return {
     type: UPSERT_CLIENT,
     client: client,
@@ -17,9 +17,16 @@ export function upsertClient(client: Client) {
 // before displaying data from a particular client. If
 // `hydrated` is set to `true` too early, this can cause
 // these views to fail.
-export function upsertClients(clients: Client[]) {
+export function upsertClients(clients: Client[]): UpsertClientsAction {
   return {
     type: UPSERT_CLIENTS,
-    clients: clients
+    clients: clients,
+  }
+}
+
+export function deleteClient(client: Client): DeleteClientAction {
+  return {
+    type: DELETE_CLIENT,
+    client: client,
   }
 }

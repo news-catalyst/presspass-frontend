@@ -119,6 +119,8 @@ const ClientPage = (props: ClientPageProps) => {
         </tbody>
       </table>
       <Link className="button is-link is-outlined" to={`/clients/${client.id}/edit`}>Edit</Link>
+      &nbsp;
+      <Link className="button is-danger is-outlined" to={`/clients/${client.id}/delete`}>Delete</Link>
     </section>
   )
 }

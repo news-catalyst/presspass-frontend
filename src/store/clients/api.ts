@@ -1,17 +1,18 @@
 import { AppActions } from '..';
 import { checkAuth, cfetch, validate, ItemizedResponse } from '../../utils';
-import { Client, ClientState, ClientUpsertExtras } from './types';
+import { Client, ClientState } from './types';
 
 const REQ_BASE: RequestInit = {
   credentials: 'include'
 };
 const GET = Object.assign({}, REQ_BASE, { method: 'GET' });
-const POST = (body: any): RequestInit => ({
+const DELETE = Object.assign({}, REQ_BASE, { method: 'DELETE' });
+const POST = (body?: any): RequestInit => ({
   ...REQ_BASE,
   method: 'POST',
   body: body
 });
-const PATCH = (body: any): RequestInit => ({
+const PATCH = (body?: any): RequestInit => ({
   ...REQ_BASE,
   method: 'PATCH',
   body: body
@@ -49,7 +50,7 @@ export const ensureClients = (actions: AppActions, clients: ClientState) => {
   }
 }
 
-export const updateClient = (client: Client, actions: AppActions, extras?: ClientUpsertExtras) => {
+export const updateClient = (client: Client, actions: AppActions) => {
   let formData = new FormData();
   let packagedClient: any = serializeClient(client);
   for (let key of Object.keys(packagedClient)) {
@@ -57,15 +58,10 @@ export const updateClient = (client: Client, actions: AppActions, extras?: Clien
   }
   return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}/`, PATCH(formData))
     .then(checkAuth(actions))
-    .then(response => validate(response, (status: ItemizedResponse) => {
-      if (status.ok) {
-        actions.upsertClient(status.body as Client);
-      }
-      return status;
-    }));
+    .then(response => validate(response, (status: ItemizedResponse) => actions.upsertClient(status.body as Client)));
 }
 
-export const createClient = (client: Client, actions: AppActions, extras?: ClientUpsertExtras) => {
+export const createClient = (client: Client, actions: AppActions) => {
   let formData = new FormData();
   let packagedClient: any = serializeClient(client);
   for (let key of Object.keys(packagedClient)) {
@@ -74,10 +70,10 @@ export const createClient = (client: Client, actions: AppActions, extras?: Clien
   return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, POST(formData))
     .then(checkAuth(actions))
     // Cannot call upsert client here, because IDs are assigned on the server side
-    .then(response => validate(response, (status: ItemizedResponse) => {
-      if (status.ok) {
-        actions.upsertClient(status.body as Client);
-      }
-      return status;
-    }))
+    .then(response => validate(response, (status: ItemizedResponse) => actions.upsertClient(status.body as Client)));
 }
+
+export const deleteClient = (client: Client, actions: AppActions) =>
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}`, DELETE)
+    .then(checkAuth(actions))
+    .then(response => validate(response, () => actions.deleteClient(client)));
