@@ -45,7 +45,7 @@ export const AccountEditPage: React.FC<AccountEditPageProps> = (props: AccountEd
                 <Field label="Confirm New Password" errors={errors.new_password2}>
                     <input type="password" className={errors.new_password2 ? "input is-danger" : "input"} value={newPasswordConfirm} onChange={event => setNewPasswordConfirm(event.target.value)} />
                 </Field>
-                <button className="button is-link" onClick={handlePasswordUpdateSubmit}>Update Password</button>
+                <button className="button is-link" type="submit">Update Password</button>
             </form>
         </section>
     )

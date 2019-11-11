@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Login from './auth/LoginPage';
 import { connect } from 'react-redux';
 import { State, AppProps } from './store';
@@ -15,15 +15,20 @@ import {
 import './App.css';
 import { bindActionCreators } from 'redux';
 import { ProtectedRoute } from './common/routing';
-import Logout from './auth/Logout';
+import Logout from './auth/LogoutPage';
 import ClientsList from './clients/ClientsList';
 import ClientPage from './clients/ClientPage';
 import ClientEditPage from './clients/ClientEditPage';
 import ClientCreatePage from './clients/ClientCreatePage';
 import ClientDeletePage from './clients/ClientDeletePage';
 import { AccountEditPage } from './account/AccountEditPage';
+import { RegisterPage } from './auth/RegisterPage';
+import { forceCheckAuth } from './store/auth/api';
 
 const App = (props: AppProps) => {
+  useEffect(() => {
+    forceCheckAuth(props.actions);
+  }, [null]); // only run once
   const authProps = {
     isAuthenticated: props.auth.loggedIn,
     loginPath: "/login",
@@ -40,6 +45,9 @@ const App = (props: AppProps) => {
               </Route>
               <Route path="/logout">
                 <Logout actions={props.actions} />
+              </Route>
+              <Route path="/register">
+                <RegisterPage actions={props.actions} />
               </Route>
               <ProtectedRoute exact path="/account" {...authProps}>
                 <AccountEditPage actions={props.actions} />
