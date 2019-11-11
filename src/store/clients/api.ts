@@ -1,22 +1,6 @@
 import { AppActions } from '..';
-import { checkAuth, cfetch, validate, ItemizedResponse, notify } from '../../utils';
+import { checkAuth, cfetch, validate, ItemizedResponse, notify, GET, PATCH, POST, DELETE } from '../../utils';
 import { Client, ClientState } from './types';
-
-const REQ_BASE: RequestInit = {
-  credentials: 'include'
-};
-const GET = Object.assign({}, REQ_BASE, { method: 'GET' });
-const DELETE = Object.assign({}, REQ_BASE, { method: 'DELETE' });
-const POST = (body?: any): RequestInit => ({
-  ...REQ_BASE,
-  method: 'POST',
-  body: body
-});
-const PATCH = (body?: any): RequestInit => ({
-  ...REQ_BASE,
-  method: 'PATCH',
-  body: body
-});
 
 const serializeClient = (client: Client) => ({
   id: client.id,

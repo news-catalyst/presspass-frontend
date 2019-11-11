@@ -38,13 +38,15 @@ export type ItemizedResponse = {
   body: any;
 }
 
-export async function validate(response: Response, ok: Function): Promise<ItemizedResponse> {
+export async function validate(response: Response, ok?: Function): Promise<ItemizedResponse> {
   let itemizedResponse: ItemizedResponse = {
     ok: response.ok,
     body: (response.status === 204) ? {} : await response.json() // 204 = ok, no content
   };
   if (response.ok) {
-    ok(itemizedResponse);
+    if (ok !== undefined) {
+      ok(itemizedResponse);
+    }
   } else {
     notify("Please fix the errors to continue.", "danger");
   }
@@ -63,3 +65,36 @@ export function notify(message: string, type: string) {
     }
   });
 }
+
+// For cfetch
+const REQ_BASE: RequestInit = {
+  credentials: 'include'
+};
+const JSON_REQ_BASE: RequestInit = {
+  credentials: 'include',
+  headers: {
+    "Content-Type": "application/json"
+  },
+};
+export const GET = Object.assign({}, REQ_BASE, { method: 'GET' });
+export const DELETE = Object.assign({}, REQ_BASE, { method: 'DELETE' });
+export const POST = (body?: any): RequestInit => ({
+  ...REQ_BASE,
+  method: 'POST',
+  body: body
+});
+export const PATCH = (body?: any): RequestInit => ({
+  ...REQ_BASE,
+  method: 'PATCH',
+  body: body
+});
+export const JSON_POST = (body?: object): RequestInit => ({
+  ...JSON_REQ_BASE,
+  method: 'POST',
+  body: JSON.stringify(body),
+});
+export const JSON_PATCH = (body?: object): RequestInit => ({
+  ...JSON_REQ_BASE,
+  method: 'PATCH',
+  body: JSON.stringify(body),
+});

@@ -20,12 +20,9 @@ export default (props: NavbarProps) => {
                 <Link className="navbar-item" to="/logout">
                     Log Out
                 </Link>
-                <a className="navbar-item" href="/">
+                <Link className="navbar-item" to="/account">
                     Manage Profile
-                </a>
-                <a className="navbar-item" href="/">
-                    Change Password
-                </a>
+                </Link>
             </div>
         </div>
     ) : (

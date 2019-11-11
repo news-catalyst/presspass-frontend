@@ -21,6 +21,7 @@ import ClientPage from './clients/ClientPage';
 import ClientEditPage from './clients/ClientEditPage';
 import ClientCreatePage from './clients/ClientCreatePage';
 import ClientDeletePage from './clients/ClientDeletePage';
+import { AccountEditPage } from './account/AccountEditPage';
 
 const App = (props: AppProps) => {
   const authProps = {
@@ -40,6 +41,9 @@ const App = (props: AppProps) => {
               <Route path="/logout">
                 <Logout actions={props.actions} />
               </Route>
+              <ProtectedRoute exact path="/account" {...authProps}>
+                <AccountEditPage actions={props.actions} />
+              </ProtectedRoute>
               <ProtectedRoute exact path="/" {...authProps}>
                 <Redirect to="/clients" />
               </ProtectedRoute>
