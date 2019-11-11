@@ -1,10 +1,12 @@
 import { AppActions } from '../store/';
 import cookie from 'js-cookie';
+import { store as notifications } from 'react-notifications-component';
 
 export function checkAuth(actions: AppActions) {
   return (response: Response): Response => {
     if (response.status === 403) {
       actions.logout();
+      notify("Please log in to continue.", "success");
       throw new Error("Not logged in");
     }
     return response;
@@ -25,7 +27,10 @@ function updateOptions(options: RequestInit) {
 // Drop-in replacement for `fetch(...)` that adds a CSRF token
 // from the CSRF cookie
 export function cfetch(url: string, options: RequestInit) {
-  return fetch(url, updateOptions(options));
+  return fetch(url, updateOptions(options)).catch(e => {
+    notify("Unable to connect to the internet. Check your connection and try again.", "danger");
+    throw e;
+  });
 }
 
 export type ItemizedResponse = {
@@ -40,6 +45,21 @@ export async function validate(response: Response, ok: Function): Promise<Itemiz
   };
   if (response.ok) {
     ok(itemizedResponse);
+  } else {
+    notify("Please fix the errors to continue.", "danger");
   }
   return itemizedResponse;
+}
+
+export function notify(message: string, type: string) {
+  notifications.addNotification({
+    message,
+    type,
+    container: "top-right",
+    animationIn: ["animated", "fadeIn"],
+    animationOut: ["animated", "fadeOut"],
+    dismiss: {
+      duration: 2500,
+    }
+  });
 }

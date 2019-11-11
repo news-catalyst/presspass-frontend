@@ -50,8 +50,6 @@ class LoginCredentials {
   }
 }
 
-type Props = { onLogin: Function };
-
 const Login = (props: LoginProps) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
@@ -73,7 +71,7 @@ const Login = (props: LoginProps) => {
     });
   }
 
-  let overallErrors = null;
+  let overallErrors: null|JSX.Element = null;
   if (response.non_field_errors) {
     overallErrors = (
       <div className="notification is-danger">

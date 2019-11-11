@@ -48,6 +48,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 - [x] File upload for logo
 - [x] Add Bulma/form library/field abstractions
-- [ ] Add notification system for when Squarelet isn't available/network requests fail
+- [x] Add notification system for when Squarelet isn't available/network requests fail
 - [ ] Account registration
 - [ ] Password management

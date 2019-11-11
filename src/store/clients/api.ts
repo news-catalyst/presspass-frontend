@@ -1,5 +1,5 @@
 import { AppActions } from '..';
-import { checkAuth, cfetch, validate, ItemizedResponse } from '../../utils';
+import { checkAuth, cfetch, validate, ItemizedResponse, notify } from '../../utils';
 import { Client, ClientState } from './types';
 
 const REQ_BASE: RequestInit = {
@@ -58,7 +58,10 @@ export const updateClient = (client: Client, actions: AppActions) => {
   }
   return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}/`, PATCH(formData))
     .then(checkAuth(actions))
-    .then(response => validate(response, (status: ItemizedResponse) => actions.upsertClient(status.body as Client)));
+    .then(response => validate(response, (status: ItemizedResponse) => {
+      actions.upsertClient(status.body as Client);
+      notify(`Successfully updated ${client.name}.`, "success");
+    }));
 }
 
 export const createClient = (client: Client, actions: AppActions) => {
@@ -70,10 +73,16 @@ export const createClient = (client: Client, actions: AppActions) => {
   return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, POST(formData))
     .then(checkAuth(actions))
     // Cannot call upsert client here, because IDs are assigned on the server side
-    .then(response => validate(response, (status: ItemizedResponse) => actions.upsertClient(status.body as Client)));
+    .then(response => validate(response, (status: ItemizedResponse) => {
+      actions.upsertClient(status.body as Client);
+      notify(`Successfully created ${client.name}.`, "success");
+    }));
 }
 
 export const deleteClient = (client: Client, actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}`, DELETE)
     .then(checkAuth(actions))
-    .then(response => validate(response, () => actions.deleteClient(client)));
+    .then(response => validate(response, () => {
+      actions.deleteClient(client);
+      notify(`Successfully deleted ${client.name}.`, "success");
+    }));

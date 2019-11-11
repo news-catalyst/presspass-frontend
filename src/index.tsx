@@ -5,11 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './store';
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 const store = configureStore();
 
 const Root = () => (
     <Provider store={store}>
+        <ReactNotification />
         <App />
     </Provider>
 )
