@@ -12,7 +12,7 @@ export interface Client {
     website_url: string;
     terms_url: string;
     contact_email: string;
-    logo?: string;
+    logo?: string|File;
     reuse_consent: boolean;
     redirect_uris: string;
     post_logout_redirect_uris: string;
@@ -34,3 +34,7 @@ export interface UpsertClientsAction {
 }
 
 export type ClientAction = UpsertClientAction | UpsertClientsAction;
+
+export interface ClientUpsertExtras {
+  logo: File;
+}

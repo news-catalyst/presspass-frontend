@@ -28,12 +28,18 @@ export function cfetch(url: string, options: RequestInit) {
   return fetch(url, updateOptions(options));
 }
 
-export async function validate(response: Response, ok: Function) {
-  if (response.ok) {
-    ok();
-  }
-  return {
+export type ItemizedResponse = {
+  ok: boolean;
+  body: any;
+}
+
+export async function validate(response: Response, ok: Function): Promise<ItemizedResponse> {
+  let itemizedResponse: ItemizedResponse = {
     ok: response.ok,
     body: await response.json()
+  };
+  if (response.ok) {
+    ok(itemizedResponse);
   }
+  return itemizedResponse;
 }

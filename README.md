@@ -42,3 +42,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## TODO
+
+- [ ] File upload for logo
+- [ ] Add Bulma/form library
+- [ ] Add notification system for when Squarelet isn't available/network requests fail
+- [ ] Account registration
+- [ ] Password management

@@ -1,12 +1,15 @@
 import { AppActions } from '..';
-import { checkAuth, cfetch, validate } from '../../utils';
-import { Client, ClientState } from './types';
+import { checkAuth, cfetch, validate, ItemizedResponse } from '../../utils';
+import { Client, ClientState, ClientUpsertExtras } from './types';
 
 const REQ_BASE: RequestInit = {
   headers: {
     'Content-Type': 'application/json',
   },
   credentials: 'include'
+};
+const MULTIPART_REQ_BASE: RequestInit = {
+  credentials: 'include',
 };
 
 const GET = Object.assign({}, REQ_BASE, { method: 'GET' });
@@ -21,14 +24,14 @@ const PATCH = (body: any): RequestInit => ({
   body: body
 });
 
-const serializeClient = (client: Client) => JSON.stringify({
+const serializeClient = (client: Client) => ({
   id: client.id,
   name: client.name || "",
   client_type: client.client_type,
   website_url: client.website_url || "",
   terms_url: client.terms_url || "",
   contact_email: client.contact_email || "",
-  // logo: client.logo || "", // TODO: pair on file uploading
+  logo: client.logo || "",
   reuse_consent: client.reuse_consent,
   redirect_uris: client.redirect_uris || "",
   post_logout_redirect_uris: client.post_logout_redirect_uris || "",
@@ -53,19 +56,53 @@ export const ensureClients = (actions: AppActions, clients: ClientState) => {
   }
 }
 
-export const updateClient = (client: Client, actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}/`, PATCH(serializeClient(client)))
+export const updateClient = (client: Client, actions: AppActions, extras?: ClientUpsertExtras) => {
+  let formData = new FormData();
+  let packagedClient: any = serializeClient(client);
+  for (let key of Object.keys(packagedClient)) {
+    formData.append(key, packagedClient[key]);
+  }
+  // if(extras !== undefined) {
+  //   if (Object.keys(extras).includes("logo")) {
+  //     formData.append("logo", extras.logo)
+  //   }
+  // }
+  return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/${client.id}/`, {
+    credentials: 'include',
+    method: 'PATCH',
+    body: formData
+  })
     .then(checkAuth(actions))
-    .then(response => validate(response, () => actions.upsertClient(client)));
-
-export const createClient = (client: Client, actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, POST(serializeClient(client)))
-    .then(checkAuth(actions))
-    // Cannot call upsert client here, because IDs are assigned on the server side
-    .then(response => validate(response, () => {}))
-    .then(status => {
+    .then(response => validate(response, (status: ItemizedResponse) => {
       if (status.ok) {
-        actions.upsertClient(status.body)
+        actions.upsertClient(status.body as Client);
       }
       return status;
-    });
+    }));
+}
+
+export const createClient = (client: Client, actions: AppActions, extras?: ClientUpsertExtras) => {
+  let formData = new FormData();
+  let packagedClient: any = serializeClient(client);
+  for (let key of Object.keys(packagedClient)) {
+    formData.append(key, packagedClient[key]);
+  }
+  // if (extras !== undefined) {
+  //   if (Object.keys(extras).includes("logo")) {
+  //     formData.append("logo", extras.logo)
+  //   }
+  // }
+  return cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/clients/`, {
+   credentials: 'include',
+   method: 'POST',
+   body: formData
+  })
+    .then(checkAuth(actions))
+    // Cannot call upsert client here, because IDs are assigned on the server side
+    .then(response => validate(response, (status: ItemizedResponse) => {
+      if (status.ok) {
+        actions.upsertClient(status.body as Client);
+      }
+      return status;
+    }))
+}
