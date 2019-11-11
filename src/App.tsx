@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './auth/Login';
+import Login from './auth/LoginPage';
 import { connect } from 'react-redux';
 import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
