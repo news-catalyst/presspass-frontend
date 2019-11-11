@@ -46,8 +46,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## TODO
 
-- [ ] File upload for logo
-- [ ] Add Bulma/form library
+- [x] File upload for logo
+- [x] Add Bulma/form library/field abstractions
 - [ ] Add notification system for when Squarelet isn't available/network requests fail
 - [ ] Account registration
 - [ ] Password management
