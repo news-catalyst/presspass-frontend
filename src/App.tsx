@@ -28,7 +28,7 @@ import { forceCheckAuth } from './store/auth/api';
 const App = (props: AppProps) => {
   useEffect(() => {
     forceCheckAuth(props.actions);
-  }, [null]); // only run once
+  }, [props.actions]); // only run once
   const authProps = {
     isAuthenticated: props.auth.loggedIn,
     loginPath: "/login",
