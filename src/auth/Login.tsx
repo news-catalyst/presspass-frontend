@@ -3,6 +3,7 @@ import { AppActions } from '../store';
 import { AuthState } from '../store/auth/types';
 import { Redirect, useLocation } from 'react-router';
 import { cfetch } from '../utils';
+import { Field } from '../common/field';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -84,28 +85,20 @@ const Login = (props: LoginProps) => {
   const redirectUrl = (location.state) ? location.state.return : "/";
 
   return (props.auth.loggedIn) ? (
-      <div className="notification is-success">
-        You are logged in. Please wait to be redirected.
+    <div className="notification is-success">
+      You are logged in. Please wait to be redirected.
         <Redirect to={redirectUrl} />
-      </div>
-    ) : (
+    </div>
+  ) : (
       <form onSubmit={formSubmit} className="limited-width">
         <h1 className="title">Login</h1>
         {overallErrors}
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input type="text" className={response.username ? "input is-danger" : "input"} placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
-          </div>
-          <p className="help is-danger">{response.username}</p>
-        </div>
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
-          </div>
-          <p className="help is-danger">{response.password}</p>
-        </div>
+        <Field label="Username" errors={[response.username]}>
+          <input type="text" className={response.username ? "input is-danger" : "input"} placeholder="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} />
+        </Field>
+        <Field label="Password" errors={[response.password]}>
+          <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
+        </Field>
         <button type="submit" className="button is-primary">Login</button>
       </form>
     );
