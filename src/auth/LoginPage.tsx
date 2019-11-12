@@ -4,6 +4,7 @@ import { AuthState } from '../store/auth/types';
 import { Redirect, useLocation } from 'react-router';
 import { cfetch } from '../utils';
 import { Field } from '../common/field';
+import { Link } from 'react-router-dom';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -98,6 +99,7 @@ const Login = (props: LoginProps) => {
           <input type="password" className={response.password ? "input is-danger" : "input"} placeholder="Password" name="password" value={password} onChange={event => setPassword(event.target.value)} />
         </Field>
         <button type="submit" className="button is-primary">Login</button>
+        <Link to="/resetpassword" className="button is-text">reset password</Link>
       </form>
     );
 }

@@ -24,6 +24,7 @@ import ClientDeletePage from './clients/ClientDeletePage';
 import { AccountEditPage } from './account/AccountEditPage';
 import { RegisterPage } from './auth/RegisterPage';
 import { forceCheckAuth } from './store/auth/api';
+import { PasswordResetPage, PasswordResetSubmitPage } from './auth/PasswordResetPages';
 
 const App = (props: AppProps) => {
   useEffect(() => {
@@ -49,6 +50,12 @@ const App = (props: AppProps) => {
               <Route path="/register">
                 <RegisterPage actions={props.actions} />
               </Route>
+              <Route exact path="/resetpassword">
+                <PasswordResetPage actions={props.actions} />
+              </Route>
+              <Route exact path="/resetpassword/submit/:uid/:token" render={(routeProps) => 
+                <PasswordResetSubmitPage actions={props.actions} uid={routeProps.match.params.uid} token={routeProps.match.params.token} />
+              } {...authProps} />
               <ProtectedRoute exact path="/account" {...authProps}>
                 <AccountEditPage actions={props.actions} />
               </ProtectedRoute>
