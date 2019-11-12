@@ -25,7 +25,7 @@ export const PasswordResetPage: React.FC<PasswordResetProps> = props => {
 
   if (requested) {
     return (
-      <div className="notification width-limited is-success">
+      <div className="notification limited-width is-success">
         <strong>Password reset requested.</strong> You have successfully
         requested a password reset. Check your email for the link.
       </div>
