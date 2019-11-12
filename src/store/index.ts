@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import thunkMiddleware from 'redux-thunk';
-import { authReducers } from './auth/reducers';
+import thunkMiddleware from "redux-thunk";
+import { authReducers } from "./auth/reducers";
 import { AuthState } from "./auth/types";
 import { clientReducers } from "./clients/reducers";
 import { ClientState } from "./clients/types";
@@ -9,33 +9,31 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { upsertClient, upsertClients, deleteClient } from "./clients/actions";
 
 const reducers = combineReducers({
-    auth: authReducers,
-    clients: clientReducers,
+  auth: authReducers,
+  clients: clientReducers
 });
 
 export type State = ReturnType<typeof reducers>;
 
 function configureStore() {
-    const middleware = [thunkMiddleware];
-    const middlewareEnhancer = applyMiddleware(...middleware);
-    const store = createStore(reducers, composeWithDevTools(
-        middlewareEnhancer
-    ));
-    return store;
+  const middleware = [thunkMiddleware];
+  const middlewareEnhancer = applyMiddleware(...middleware);
+  const store = createStore(reducers, composeWithDevTools(middlewareEnhancer));
+  return store;
 }
 
 export interface AppActions {
-    login: typeof login;
-    logout: typeof logout;
-    upsertClient: typeof upsertClient;
-    upsertClients: typeof upsertClients;
-    deleteClient: typeof deleteClient;
+  login: typeof login;
+  logout: typeof logout;
+  upsertClient: typeof upsertClient;
+  upsertClients: typeof upsertClients;
+  deleteClient: typeof deleteClient;
 }
 
 export interface AppProps {
-    auth: AuthState;
-    actions: AppActions;
-    clients: ClientState;
-  }
+  auth: AuthState;
+  actions: AppActions;
+  clients: ClientState;
+}
 
 export default configureStore;

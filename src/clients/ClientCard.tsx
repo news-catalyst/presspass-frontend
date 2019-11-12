@@ -1,6 +1,6 @@
-import React from 'react';
-import { Client } from '../store/clients/types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Client } from "../store/clients/types";
+import { Link } from "react-router-dom";
 
 interface ClientCardProps {
   client: Client;
@@ -27,7 +27,7 @@ const ClientCard = (props: ClientCardProps) => {
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 export default ClientCard;

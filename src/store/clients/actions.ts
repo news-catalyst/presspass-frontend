@@ -1,9 +1,17 @@
-import { UPSERT_CLIENT, Client, UPSERT_CLIENTS, DELETE_CLIENT, DeleteClientAction, UpsertClientAction, UpsertClientsAction } from './types';
+import {
+  UPSERT_CLIENT,
+  Client,
+  UPSERT_CLIENTS,
+  DELETE_CLIENT,
+  DeleteClientAction,
+  UpsertClientAction,
+  UpsertClientsAction
+} from "./types";
 
 export function upsertClient(client: Client): UpsertClientAction {
   return {
     type: UPSERT_CLIENT,
-    client: client,
+    client: client
   };
 }
 
@@ -20,13 +28,13 @@ export function upsertClient(client: Client): UpsertClientAction {
 export function upsertClients(clients: Client[]): UpsertClientsAction {
   return {
     type: UPSERT_CLIENTS,
-    clients: clients,
-  }
+    clients: clients
+  };
 }
 
 export function deleteClient(client: Client): DeleteClientAction {
   return {
     type: DELETE_CLIENT,
-    client: client,
-  }
+    client: client
+  };
 }

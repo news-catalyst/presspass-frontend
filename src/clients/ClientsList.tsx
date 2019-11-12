@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { AppActions } from '../store';
-import { ClientState, Client } from '../store/clients/types';
-import { ensureClients } from '../store/clients/api';
-import ClientCard from './ClientCard';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { AppActions } from "../store";
+import { ClientState, Client } from "../store/clients/types";
+import { ensureClients } from "../store/clients/api";
+import ClientCard from "./ClientCard";
+import { Link } from "react-router-dom";
 
 interface ClientsListProps {
   actions: AppActions;
@@ -25,9 +25,11 @@ const ClientsList = (props: ClientsListProps) => {
           </div>
         ))}
       </div>
-      <Link to="/clients/create" className="button is-link is-outlined">+ Create New Client</Link>
+      <Link to="/clients/create" className="button is-link is-outlined">
+        + Create New Client
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 export default ClientsList;

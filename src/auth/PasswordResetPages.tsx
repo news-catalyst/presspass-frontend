@@ -66,7 +66,13 @@ export const PasswordResetSubmitPage: React.FC<PasswordResetSubmitProps> = props
 
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
-    submitPasswordReset(props.actions, props.uid, props.token, newPassword, newPasswordConfirm).then(status => {
+    submitPasswordReset(
+      props.actions,
+      props.uid,
+      props.token,
+      newPassword,
+      newPasswordConfirm
+    ).then(status => {
       if (status.ok) {
         setSaved(true);
       } else {
@@ -78,9 +84,8 @@ export const PasswordResetSubmitPage: React.FC<PasswordResetSubmitProps> = props
   if (saved) {
     return (
       <div className="notification limited-width is-success">
-        <strong>Password changed.</strong> You have successfully
-        reset your password. You can now log in with your new
-        password.
+        <strong>Password changed.</strong> You have successfully reset your
+        password. You can now log in with your new password.
       </div>
     );
   } else {
@@ -88,7 +93,11 @@ export const PasswordResetSubmitPage: React.FC<PasswordResetSubmitProps> = props
       <section>
         <h1 className="title is-size-1">Reset Password</h1>
         <form onSubmit={handleSubmit} className="limited-width">
-          {errors.non_field_errors ? <div className="notification is-danger">{errors.non_field_errors}</div> : null}
+          {errors.non_field_errors ? (
+            <div className="notification is-danger">
+              {errors.non_field_errors}
+            </div>
+          ) : null}
           <Field errors={errors.new_password1} label="New Password">
             <input
               className={errors.new_password1 ? "input is-danger" : "input"}
