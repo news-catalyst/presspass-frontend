@@ -24,3 +24,7 @@
 .limited-width {
   max-width: 40em;
 }
+
+.is-rounded {
+  border-radius: 6px !important;
+}
