@@ -16,14 +16,18 @@ export default (props: NavbarProps) => {
       </a>
 
       <div className="navbar-dropdown">
-        <Link className="navbar-item" to="/logout">
-          Log Out
-        </Link>
-        <Link className="navbar-item" to="/account">
-          Manage Profile
+        <Link className="navbar-item" to="/profile">
+          Profile
         </Link>
         <Link className="navbar-item" to="/clients">
           Developers
+        </Link>
+        <hr className="dropdown-divider" />
+        <Link className="navbar-item" to="/account">
+          Manage Account
+        </Link>
+        <Link className="navbar-item" to="/logout">
+          Log Out
         </Link>
       </div>
     </div>
