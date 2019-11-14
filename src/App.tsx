@@ -14,7 +14,7 @@ import { getRoutes as authRoutes } from "./auth/routing";
 import { getRoutes as clientsRoutes } from "./clients/routing";
 import { getRoutes as accountRoutes } from "./account/routing";
 import { getRoutes as entitlementsRoutes } from "./entitlements/routing";
-import { getRoutes as organizationsRoutes } from "./organization/routes";
+import { getRoutes as organizationsRoutes } from "./organization/routing";
 import { ProtectedRoute } from "./common/routing";
 import NotFound from "./common/NotFound";
 
