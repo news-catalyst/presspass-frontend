@@ -1,3 +1,5 @@
+import { AppProps } from "..";
+
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
@@ -14,3 +16,8 @@ export interface LogoutAction {
 }
 
 export type AuthAction = LoginAction | LogoutAction;
+
+export const AuthProps = (props: AppProps) => ({
+  isAuthenticated: props.auth.loggedIn,
+  loginPath: "/login"
+});
