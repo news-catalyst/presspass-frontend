@@ -6,7 +6,7 @@ interface ClientCardProps {
   client: Client;
 }
 
-const ClientCard = (props: ClientCardProps) => {
+const ClientCard: React.FC<ClientCardProps> = (props: ClientCardProps) => {
   let client = props.client;
   return (
     <Link className="box" to={"/clients/" + client.id}>

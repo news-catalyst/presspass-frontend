@@ -1,13 +1,13 @@
 import React, { useState, SyntheticEvent } from "react";
 import { AppActions } from "../store";
 import { registerAccount } from "../store/auth/api";
-import { Field } from "../common/field";
+import Field from "../common/Field";
 
 interface AccountEditPageProps {
   actions: AppActions;
 }
 
-export const RegisterPage: React.FC<AccountEditPageProps> = (
+const RegisterPage: React.FC<AccountEditPageProps> = (
   props: AccountEditPageProps
 ) => {
   let [errors, setErrors] = useState<any>({});
@@ -76,3 +76,5 @@ export const RegisterPage: React.FC<AccountEditPageProps> = (
     </section>
   );
 };
+
+export default RegisterPage;

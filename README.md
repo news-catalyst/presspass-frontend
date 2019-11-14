@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## File Structure
+
+Inside `src/`, each 'logical component' of the app (like `account/`, `auth/`, etc.) has its own folder. React TypeScript files that are in title case (e.g. `EntitlementsList.tsx`) are components whose default export is that component. If the filename is not in title case, it is not a component. 
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -51,4 +55,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] Add notification system for when Squarelet isn't available/network requests fail
 - [ ] Account registration
 - [x] Password management
-- [ ] Password reset
+- [x] Password reset

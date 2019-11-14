@@ -2,9 +2,9 @@ import React from "react";
 import { AppProps } from "../store";
 import { AuthProps } from "../store/auth/types";
 import { ProtectedRoute } from "../common/routing";
-import { EntitlementsList } from "./EntitlementsList";
+import EntitlementsList from "./EntitlementsList";
 
-export const EntitlementsRouter = (props: AppProps) => {
+export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/entitlements" {...authProps}>

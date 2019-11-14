@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { AppActions } from "../store";
 import { ClientState } from "../store/clients/types";
 import { ensureClients, deleteClient } from "../store/clients/api";
-import { LoadingPlaceholder } from "../common/loading";
+import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import { Redirect } from "react-router";
 import ClientCard from "./ClientCard";
 
@@ -12,7 +12,7 @@ interface ClientDeletePageProps {
   client: number;
 }
 
-const ClientDeletePage = (props: ClientDeletePageProps) => {
+const ClientDeletePage: React.FC<ClientDeletePageProps> = (props: ClientDeletePageProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
   }, [props.actions, props.clients]);

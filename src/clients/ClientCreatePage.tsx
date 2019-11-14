@@ -9,7 +9,7 @@ interface ClientCreatePageProps {
   actions: AppActions;
 }
 
-const ClientCreatePage = (props: ClientCreatePageProps) => {
+const ClientCreatePage: React.FC<ClientCreatePageProps> = (props: ClientCreatePageProps) => {
   let client: Client = {
     name: "",
     client_type: "public",

@@ -5,7 +5,7 @@ import { ProtectedRoute } from "../common/routing";
 import { OrganizationPage } from "./OrganizationPage";
 import { ManageOrganizationPage } from "./ManageOrganizationPage";
 
-export const OrganizationsRouter = (props: AppProps) => {
+export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute

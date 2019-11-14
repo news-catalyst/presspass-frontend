@@ -1,5 +1,5 @@
 import React, { useState, SyntheticEvent } from "react";
-import { Field } from "../common/field";
+import Field from "../common/Field";
 import { requestPasswordReset, submitPasswordReset } from "../store/auth/api";
 import { AppActions } from "../store";
 

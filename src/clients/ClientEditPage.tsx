@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AppActions } from "../store";
 import { ClientState, Client } from "../store/clients/types";
 import { ensureClients, updateClient } from "../store/clients/api";
-import { LoadingPlaceholder } from "../common/loading";
+import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import ClientForm from "./ClientForm";
 import { Redirect } from "react-router";
 
@@ -12,7 +12,7 @@ interface ClientEditPageProps {
   client: number;
 }
 
-const ClientEditPage = (props: ClientEditPageProps) => {
+const ClientEditPage: React.FC<ClientEditPageProps> = (props: ClientEditPageProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
   }, [props.actions, props.clients]);
@@ -24,7 +24,7 @@ const ClientEditPage = (props: ClientEditPageProps) => {
   }
 };
 
-const HydratedClientEditPage = (props: ClientEditPageProps) => {
+const HydratedClientEditPage: React.FC<ClientEditPageProps> = (props: ClientEditPageProps) => {
   let client = props.clients.clients[props.client];
   let [saved, setSaved] = useState(false);
   let [errors, setErrors] = useState({});

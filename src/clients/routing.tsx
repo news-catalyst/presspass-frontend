@@ -8,7 +8,7 @@ import ClientEditPage from "./ClientEditPage";
 import ClientCreatePage from "./ClientCreatePage";
 import ClientDeletePage from "./ClientDeletePage";
 
-export const ClientsRouter = (props: AppProps) => {
+export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/clients" {...authProps}>

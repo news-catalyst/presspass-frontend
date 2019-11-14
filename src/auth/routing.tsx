@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router";
-import Login from "./LoginPage";
-import Logout from "./LogoutPage";
-import { RegisterPage } from "./RegisterPage";
+import LoginPage from "./LoginPage";
+import LogoutPage from "./LogoutPage";
+import RegisterPage from "./RegisterPage";
 import {
   PasswordResetPage,
   PasswordResetSubmitPage
@@ -10,14 +10,14 @@ import {
 import { AppProps } from "../store";
 import { AuthProps } from "../store/auth/types";
 
-export const AuthRouter = (props: AppProps) => {
+export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <Route path="/login">
-      <Login actions={props.actions} auth={props.auth} />
+      <LoginPage actions={props.actions} auth={props.auth} />
     </Route>,
     <Route path="/logout">
-      <Logout actions={props.actions} />
+      <LogoutPage actions={props.actions} />
     </Route>,
     <Route path="/register">
       <RegisterPage actions={props.actions} />

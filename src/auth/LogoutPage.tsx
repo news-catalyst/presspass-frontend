@@ -7,7 +7,7 @@ interface LogoutProps {
   actions: AppActions;
 }
 
-export default (props: LogoutProps) => {
+const LogoutPage: React.FC<LogoutProps> = (props: LogoutProps) => {
   useEffect(() => {
     cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/logout/`, {
       credentials: "include",
@@ -25,3 +25,5 @@ export default (props: LogoutProps) => {
     </div>
   );
 };
+
+export default LogoutPage;

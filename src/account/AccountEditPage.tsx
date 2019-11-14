@@ -1,7 +1,7 @@
 import React, { useState, SyntheticEvent } from "react";
 import { AppActions } from "../store";
 import { updatePassword } from "../store/auth/api";
-import { Field } from "../common/field";
+import Field from "../common/Field";
 
 interface AccountEditPageProps {
   actions: AppActions;

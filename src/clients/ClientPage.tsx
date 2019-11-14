@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { AppActions } from "../store";
 import { ClientState } from "../store/clients/types";
 import { ensureClients } from "../store/clients/api";
-import { LoadingPlaceholder } from "../common/loading";
+import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import { Link } from "react-router-dom";
 
 interface ClientPageProps {
@@ -11,7 +11,7 @@ interface ClientPageProps {
   client: number;
 }
 
-const ClientPage = (props: ClientPageProps) => {
+const ClientPage: React.FC<ClientPageProps> = (props: ClientPageProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
   }, [props.actions, props.clients]);

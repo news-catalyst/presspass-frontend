@@ -5,7 +5,7 @@ import { ProtectedRoute } from "../common/routing";
 import { AccountEditPage } from "./AccountEditPage";
 import { ProfilePage } from "./ProfilePage";
 
-export const AccountRouter = (props: AppProps) => {
+export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/account" {...authProps}>

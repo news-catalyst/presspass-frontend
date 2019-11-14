@@ -5,10 +5,12 @@ interface EntitlementsListProps {
   actions: AppActions;
 }
 
-export const EntitlementsList: React.FC<EntitlementsListProps> = (
+const EntitlementsList: React.FC<EntitlementsListProps> = (
   props: EntitlementsListProps
 ) => {
   return (
     <p>Entitlements List</p>
   )
 }
+
+export default EntitlementsList;

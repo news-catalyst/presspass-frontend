@@ -10,7 +10,7 @@ interface ClientsListProps {
   clients: ClientState;
 }
 
-const ClientsList = (props: ClientsListProps) => {
+const ClientsList: React.FC<ClientsListProps> = (props: ClientsListProps) => {
   useEffect(() => {
     ensureClients(props.actions, props.clients);
   }, [props.actions, props.clients]);

@@ -3,7 +3,7 @@
 
 import React, { useState, SyntheticEvent } from "react";
 import { Client } from "../store/clients/types";
-import { Field } from "../common/field";
+import Field from "../common/Field";
 
 interface ClientFormProps {
   client: Client;
@@ -11,7 +11,7 @@ interface ClientFormProps {
   errors: any;
 }
 
-export default (props: ClientFormProps) => {
+const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
   let client = props.client;
 
   let [name, setName] = useState(client.name);
@@ -159,3 +159,5 @@ export default (props: ClientFormProps) => {
     </form>
   );
 };
+
+export default ClientForm;

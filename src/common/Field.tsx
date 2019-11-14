@@ -7,7 +7,7 @@ export interface FieldProps {
   children?: React.ReactNode;
 }
 
-export const Field: React.FC<FieldProps> = props => {
+const Field: React.FC<FieldProps> = props => {
   return (
     <div className="field">
       <label className="label">{props.label}</label>
@@ -17,3 +17,5 @@ export const Field: React.FC<FieldProps> = props => {
     </div>
   );
 };
+
+export default Field;

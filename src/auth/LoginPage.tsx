@@ -3,7 +3,7 @@ import { AppActions } from "../store";
 import { AuthState } from "../store/auth/types";
 import { Redirect, useLocation } from "react-router";
 import { cfetch } from "../utils";
-import { Field } from "../common/field";
+import Field from "../common/Field";
 import { Link } from "react-router-dom";
 
 type LoginFormResponse = {
@@ -55,7 +55,7 @@ class LoginCredentials {
   }
 }
 
-const Login = (props: LoginProps) => {
+const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
@@ -126,4 +126,4 @@ const Login = (props: LoginProps) => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -8,7 +8,7 @@ export interface NavbarProps extends RouteProps {
   actions: AppActions;
 }
 
-export default (props: NavbarProps) => {
+const Navbar = (props: NavbarProps) => {
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
       <a className="navbar-link" href="/">
@@ -80,3 +80,5 @@ export default (props: NavbarProps) => {
     </nav>
   );
 };
+
+export default Navbar;
