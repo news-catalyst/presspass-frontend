@@ -69,7 +69,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
             onChange={event => setPasswordConfirm(event.target.value)}
           />
         </Field>
-        <button className="button is-link" type="submit">
+        <button className="button is-primary" type="submit">
           Register
         </button>
       </form>

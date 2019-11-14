@@ -122,6 +122,8 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
       <Link to="/resetpassword" className="button is-text">
         reset password
       </Link>
+      <hr />
+      <Link to="/register" className="button is-primary is-outlined">Register New Account</Link>
     </form>
   );
 };
