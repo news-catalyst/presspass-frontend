@@ -15,6 +15,7 @@ import { ClientsRouter } from "./clients/Routing";
 import { AccountRouter } from "./account/Routing";
 import { EntitlementsRouter } from "./entitlements/Routing";
 import { ProtectedRoute } from "./common/routing";
+import { OrganizationsRouter } from "./organization/Router";
 
 const App = (props: AppProps) => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const App = (props: AppProps) => {
               {ClientsRouter(props).map(route => route)}
               {AccountRouter(props).map(route => route)}
               {EntitlementsRouter(props).map(route => route)}
+              {OrganizationsRouter(props).map(route => route)}
             </Switch>
           </div>
         </section>
