@@ -63,7 +63,7 @@ export function notify(message: string, type: string) {
   notifications.addNotification({
     message,
     type,
-    container: "top-right",
+    container: "bottom-right",
     animationIn: ["animated", "fadeIn"],
     animationOut: ["animated", "fadeOut"],
     dismiss: {

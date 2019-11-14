@@ -96,11 +96,11 @@ const Login = (props: LoginProps) => {
     <form onSubmit={formSubmit} className="limited-width">
       <h1 className="title">Login</h1>
       {overallErrors}
-      <Field label="Username" errors={[response.username]}>
+      <Field label="Email" errors={[response.username]}>
         <input
-          type="text"
+          type="email"
           className={response.username ? "input is-danger" : "input"}
-          placeholder="Username"
+          placeholder="Your email"
           name="username"
           value={username}
           onChange={event => setUsername(event.target.value)}

@@ -22,6 +22,9 @@ export default (props: NavbarProps) => {
         <Link className="navbar-item" to="/account">
           Manage Profile
         </Link>
+        <Link className="navbar-item" to="/clients">
+          Developers
+        </Link>
       </div>
     </div>
   ) : (
