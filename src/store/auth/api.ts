@@ -37,7 +37,7 @@ export const registerAccount = (
   passwordConfirm: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/registration/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/register/`,
     JSON_POST({
       username,
       email,

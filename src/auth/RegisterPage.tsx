@@ -53,7 +53,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
             onChange={event => setEmail(event.target.value)}
           />
         </Field>
-        <Field label="New Password" errors={errors.new_password1}>
+        <Field label="New Password" errors={errors.password1}>
           <input
             type="password"
             className={errors.password1 ? "input is-danger" : "input"}
@@ -61,7 +61,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
             onChange={event => setPassword(event.target.value)}
           />
         </Field>
-        <Field label="Confirm New Password" errors={errors.new_password2}>
+        <Field label="Confirm New Password" errors={errors.password2}>
           <input
             type="password"
             className={errors.password2 ? "input is-danger" : "input"}
