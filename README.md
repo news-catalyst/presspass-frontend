@@ -13,7 +13,7 @@ When developing the app, you will need to run this frontend app in tandem with S
 1. Install Squarelet according to its [installation instructions](https://github.com/MuckRock/squarelet/blob/master/README.md).
 2. On *nix systems, edit your `/etc/hosts` file to point `dev.presspass.com` to `127.0.0.1` (the loopback address).
 3. Ensure that your Squarelet environment has its url set to `dev.presspass.com` in its environment settings. (Refer to the Squarelet documentation for more information.)
-4. Run Squarelet using `COMPOSE_FILE=local.yml inv runserver` from within the Squarlet directory. (Alternatively, you can set the environment variable `COMPOSE_FILE` to be set to `local.yml` in your bash profile and omit it from the command.)
+4. Run Squarelet using `COMPOSE_FILE=local.yml inv runserver` from within the Squarelet directory. (Alternatively, you can set the environment variable `COMPOSE_FILE` to be set to `local.yml` in your bash profile and omit it from the command.)
 5. Launch the frontend using `npm start` from within this directory.
 6. Visit the frontend at `http://dev.presspass.com:3000`, preferably in incognito mode. (Developing in incognito mode can help avoid issues in which existing Squarelet cookies allow `GET` requests but block CSRF-required `POST`s.)
 
