@@ -1,8 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PressPass Frontend
+
+This repository contains the frontend code for [PressPass](http://presspass.it) by [News Catalyst](https://newscatalyst.org). It uses [Squarelet](https://github.com/MuckRock/squarelet) as its backend.
 
 ## File Structure
 
 Inside `src/`, each 'logical component' of the app (like `account/`, `auth/`, etc.) has its own folder. React TypeScript files that are in title case (e.g. `EntitlementsList.tsx`) are components whose default export is that component. If the filename is not in title case, it is not a component. 
+
+## Development Environment
+
+When developing the app, you will need to run this frontend app in tandem with Squarelet. Ensuring that cookies and data is properly shared can be challenging—if you follow this guide, however, you should run into minimal issues.
+
+1. Install Squarelet according to its [installation instructions](https://github.com/MuckRock/squarelet/blob/master/README.md).
+2. On *nix systems, edit your `/etc/hosts` file to point `dev.presspass.com` to `127.0.0.1` (the loopback address).
+3. Ensure that your Squarelet environment has its url set to `dev.presspass.com` in its environment settings. (Refer to the Squarelet documentation for more information.)
+4. Run Squarelet using `COMPOSE_FILE=local.yml inv runserver` from within the Squarlet directory. (Alternatively, you can set the environment variable `COMPOSE_FILE` to be set to `local.yml` in your bash profile and omit it from the command.)
+5. Launch the frontend using `npm start` from within this directory.
+6. Visit the frontend at `http://dev.presspass.com:3000`, preferably in incognito mode. (Developing in incognito mode can help avoid issues in which existing Squarelet cookies allow `GET` requests but block CSRF-required `POST`s.)
 
 ## Available Scripts
 
@@ -40,13 +53,6 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
 
 ## TODO
 
