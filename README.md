@@ -59,6 +59,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - [x] File upload for logo
 - [x] Add Bulma/form library/field abstractions
 - [x] Add notification system for when Squarelet isn't available/network requests fail
-- [ ] Account registration
+- [x] Account registration
 - [x] Password management
 - [x] Password reset
