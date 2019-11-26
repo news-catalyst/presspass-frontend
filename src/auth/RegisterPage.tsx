@@ -2,6 +2,7 @@ import React, { useState, SyntheticEvent } from "react";
 import { AppActions } from "../store";
 import { registerAccount } from "../store/auth/api";
 import Field from "../common/Field";
+import { Link } from "react-router-dom";
 
 interface AccountEditPageProps {
   actions: AppActions;
@@ -15,6 +16,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [passwordConfirm, setPasswordConfirm] = useState("");
+  let [saved, setSaved] = useState(false);
 
   function handleFormSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -26,11 +28,21 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
       passwordConfirm
     ).then(status => {
       if (status.ok) {
-        // tell them to check for confirmation email
+        setSaved(true);
+        setErrors({});
       } else {
         setErrors(status.body);
       }
     });
+  }
+
+  if (saved) {
+    return (
+      <div className="notification is-success">
+        <strong>Welcome!</strong> Thank you for signing up for PressPass. You will receive an email confirmation
+        email shortly. In the meantime, you can continue to the <Link to="/">homepage</Link>.
+      </div>
+    )
   }
 
   return (
