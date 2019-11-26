@@ -3,12 +3,12 @@ import { AppActions } from "../store";
 import { updatePassword } from "../store/auth/api";
 import Field from "../common/Field";
 
-interface AccountEditPageProps {
+interface ChangePasswordPageProps {
   actions: AppActions;
 }
 
-export const AccountEditPage: React.FC<AccountEditPageProps> = (
-  props: AccountEditPageProps
+export const ChangePassword: React.FC<ChangePasswordPageProps> = (
+  props: ChangePasswordPageProps
 ) => {
   let [errors, setErrors] = useState<any>({});
   let [oldPassword, setOldPassword] = useState("");
@@ -44,7 +44,7 @@ export const AccountEditPage: React.FC<AccountEditPageProps> = (
 
   return (
     <section>
-      <h1 className="title is-size-1">Manage Account</h1>
+      <h1 className="title is-size-1">Change Password</h1>
       {savedConfirmation}
       <form className="limited-width" onSubmit={handlePasswordUpdateSubmit}>
         <Field label="Old Password" errors={errors.old_password}>
