@@ -9,7 +9,7 @@ interface LogoutProps {
 
 const LogoutPage: React.FC<LogoutProps> = (props: LogoutProps) => {
   useEffect(() => {
-    cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/logout/`, {
+    cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/auth/logout/`, {
       credentials: "include",
       method: "POST"
     }).then(() => {

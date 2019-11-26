@@ -15,7 +15,7 @@ export const updatePassword = (
   newPasswordConfirm: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/password/change/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/auth/password/change/`,
     JSON_POST({
       old_password: oldPassword,
       new_password1: newPassword,
@@ -54,7 +54,7 @@ export const registerAccount = (
 
 export const forceCheckAuth = (actions: AppActions) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/authstatus/check/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/auth/check/`,
     GET
   ).then(async response => {
     let data = await response.json();
@@ -65,7 +65,7 @@ export const forceCheckAuth = (actions: AppActions) =>
 
 export const requestPasswordReset = (actions: AppActions, email: string) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/password/reset/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/auth/password/reset/`,
     JSON_POST({ email })
   )
     .then(checkAuth(actions))
@@ -86,7 +86,7 @@ export const submitPasswordReset = (
   newPasswordConfirm: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/password/reset/confirm/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/auth/password/reset/confirm/`,
     JSON_POST({
       uid,
       token,

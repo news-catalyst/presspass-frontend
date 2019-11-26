@@ -37,7 +37,7 @@ class LoginCredentials {
   private async performLoginRequest(): Promise<LoginFormResponse> {
     // TODO: move to thunk
     let postResp = await cfetch(
-      `${process.env.REACT_APP_SQUARELET_API_URL}/rest-auth/login/`,
+      `${process.env.REACT_APP_SQUARELET_API_URL}/auth/login/`,
       {
         method: "POST",
         credentials: "include",
