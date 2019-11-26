@@ -45,7 +45,7 @@ const App = (props: AppProps) => {
   return (
     <Router>
       <div>
-        <Navbar {...authProps} actions={props.actions} />
+        <Navbar {...authProps} actions={props.actions} user={props.users.self} />
         <section className="section">
           <div className="container">
             <Switch>

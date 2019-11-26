@@ -8,6 +8,7 @@ export const ProfilePage: React.FC<AppProps> = (props: AppProps) => {
     }
     return (
         <div className="profile">
+
             <p>Name: {props.users.self.name}</p>
             <p>Username: {props.users.self.username}</p>
         </div>

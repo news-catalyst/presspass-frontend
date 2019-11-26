@@ -38,7 +38,7 @@ export const ChangePassword: React.FC<ChangePasswordPageProps> = (
 
   let savedConfirmation = saved ? (
     <div className="notification is-success limited-width">
-      Your account settings have been updated.
+      Your password has been changed.
     </div>
   ) : null;
 
