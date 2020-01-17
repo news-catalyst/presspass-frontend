@@ -28,7 +28,7 @@ class LoginCredentials {
 
   private serializeForLoginForm() {
     let data = {
-      username: this.username,
+      email: this.username,
       password: this.password
     };
     return JSON.stringify(data);
