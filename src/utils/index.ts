@@ -15,6 +15,7 @@ export function checkAuth(actions: AppActions) {
 
 function updateOptions(options: RequestInit) {
   const update = { ...options };
+  console.log(cookie.get("csrftoken"));
   if (cookie.get("csrftoken") !== undefined) {
     update.headers = {
       ...update.headers,
