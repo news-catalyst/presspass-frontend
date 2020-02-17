@@ -52,6 +52,9 @@ const App = (props: AppProps) => {
               <ProtectedRoute exact path="/" {...authProps}>
                 <Redirect to="/clients" />
               </ProtectedRoute>
+              <ProtectedRoute exact path="/index.html" {...authProps}>
+                <Redirect to="/clients" />
+              </ProtectedRoute>
               {authRoutes(props).map(route => route)}
               {clientsRoutes(props).map(route => route)}
               {accountRoutes(props).map(route => route)}
