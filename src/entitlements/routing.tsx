@@ -8,7 +8,7 @@ export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/entitlements" {...authProps}>
-      <EntitlementsList actions={props.actions} />
+      <EntitlementsList actions={props.actions} entitlements={props.entitlements} />
     </ProtectedRoute>
   ];
   return routes;

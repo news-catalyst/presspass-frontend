@@ -13,6 +13,7 @@ import {
 import { State, AppProps } from "./store";
 import * as authActions from "./store/auth/actions";
 import * as clientActions from "./store/clients/actions";
+import * as entitlementActions from "./store/entitlements/actions";
 import * as userActions from "./store/users/actions";
 import { AuthProps } from "./store/auth/types";
 import { forceCheckAuth } from "./store/auth/api";
@@ -74,13 +75,14 @@ const App = (props: AppProps) => {
 const mapStateToProps = (state: State) => ({
   auth: state.auth,
   clients: state.clients,
+  entitlements: state.entitlements,
   users: state.users,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   // TODO: assign type explicitly
   actions: bindActionCreators(
-    Object.assign({}, authActions, clientActions, userActions),
+    Object.assign({}, authActions, clientActions, entitlementActions, userActions),
     dispatch
   )
 });

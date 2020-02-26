@@ -13,6 +13,11 @@ import { upsertClient, upsertClients, deleteClient } from "./clients/actions";
 import { clientReducers } from "./clients/reducers";
 import { ClientState } from "./clients/types";
 
+// Entitlements
+import { upsertEntitlement, upsertEntitlements, deleteEntitlement } from "./entitlements/actions";
+import { entitlementReducers } from "./entitlements/reducers";
+import { EntitlementState } from "./entitlements/types";
+
 // Users
 import { upsertSelfUser } from "./users/actions";
 import { usersReducers } from "./users/reducers";
@@ -23,6 +28,7 @@ import { UsersState } from "./users/types";
 const reducers = combineReducers({
   auth: authReducers,
   clients: clientReducers,
+  entitlements: entitlementReducers,
   users: usersReducers
 });
 
@@ -41,6 +47,9 @@ export interface AppActions {
   upsertClient: typeof upsertClient;
   upsertClients: typeof upsertClients;
   deleteClient: typeof deleteClient;
+  upsertEntitlement: typeof upsertEntitlement;
+  upsertEntitlements: typeof upsertEntitlements;
+  deleteEntitlement: typeof deleteEntitlement;
   upsertSelfUser: typeof upsertSelfUser;
 }
 
@@ -48,6 +57,7 @@ export interface AppProps {
   auth: AuthState;
   actions: AppActions;
   clients: ClientState;
+  entitlements: EntitlementState;
   users: UsersState;
 }
 
