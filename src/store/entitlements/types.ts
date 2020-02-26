@@ -1,3 +1,5 @@
+import { Client } from '../clients/types'
+
 export const UPSERT_ENTITLEMENT = "UPSERT_ENTITLEMENT";
 export const UPSERT_ENTITLEMENTS = "UPSERT_ENTITLEMENTS";
 export const DELETE_ENTITLEMENT = "DELETE_ENTITLEMENT";
@@ -6,6 +8,7 @@ export interface Entitlement {
   id: number;
   name: string;
   description: string;
+  client: Client;
 }
 
 export interface EntitlementState {

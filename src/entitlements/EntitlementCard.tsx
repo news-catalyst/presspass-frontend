@@ -9,7 +9,7 @@ interface EntitlementCardProps {
 const EntitlementCard: React.FC<EntitlementCardProps> = (props: EntitlementCardProps) => {
   let entitlement = props.entitlement;
   return (
-    <Link className="box" to={"/entitlements/" + entitlement.id}>
+    <a className="box" target="_blank" href={entitlement.client.website_url}>
       <h5 className="title is-size-5">{entitlement.name}</h5>
       <div className="field is-grouped is-grouped-multiline">
         <div className="control">
@@ -23,7 +23,7 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (props: EntitlementCardP
       <div className="content">
         <p>{entitlement.description}</p>
       </div>
-    </Link>
+    </a>
   );
 };
 
