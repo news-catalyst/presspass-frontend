@@ -19,12 +19,9 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (props: EntitlementCardP
           </div>
         </div>
 
-        <div className="control">
-          <div className="tags has-addons">
-            <span className="tag is-dark">Description</span>
-            <span className="tag is-primary">{entitlement.description}</span>
-          </div>
-        </div>
+      </div>
+      <div className="content">
+        <p>{entitlement.description}</p>
       </div>
     </Link>
   );
