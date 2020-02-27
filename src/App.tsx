@@ -1,40 +1,39 @@
 // React/redux
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   BrowserRouter as Router,
   Switch,
   Redirect,
   Route
-} from "react-router-dom";
+} from 'react-router-dom';
 
 // Local Redux store
-import { State, AppProps } from "./store";
-import * as authActions from "./store/auth/actions";
-import * as clientActions from "./store/clients/actions";
-import * as entitlementActions from "./store/entitlements/actions";
-import * as organizationActions from "./store/organizations/actions";
-import * as userActions from "./store/users/actions";
-import { AuthProps } from "./store/auth/types";
-import { forceCheckAuth } from "./store/auth/api";
-import { fetchSelfUser } from "./store/users/api";
+import { State, AppProps } from './store';
+import * as authActions from './store/auth/actions';
+import * as clientActions from './store/clients/actions';
+import * as entitlementActions from './store/entitlements/actions';
+import * as organizationActions from './store/organizations/actions';
+import * as userActions from './store/users/actions';
+import { AuthProps } from './store/auth/types';
+import { forceCheckAuth } from './store/auth/api';
+import { fetchSelfUser } from './store/users/api';
 
 // Common
-import Navbar from "./common/Navbar";
-import { ProtectedRoute } from "./common/routing";
-import NotFound from "./common/NotFound";
+import Navbar from './common/Navbar';
+import { ProtectedRoute } from './common/routing';
+import NotFound from './common/NotFound';
 
 // Routes
-import { getRoutes as authRoutes } from "./auth/routing";
-import { getRoutes as clientsRoutes } from "./clients/routing";
-import { getRoutes as accountRoutes } from "./account/routing";
-import { getRoutes as entitlementsRoutes } from "./entitlements/routing";
-import { getRoutes as organizationsRoutes } from "./organization/routing";
+import { getRoutes as authRoutes } from './auth/routing';
+import { getRoutes as clientsRoutes } from './clients/routing';
+import { getRoutes as accountRoutes } from './account/routing';
+import { getRoutes as entitlementsRoutes } from './entitlements/routing';
+import { getRoutes as organizationsRoutes } from './organization/routing';
 
 // Styles
-import "./App.css";
-
+import './App.css';
 
 const App = (props: AppProps) => {
   useEffect(() => {
@@ -47,7 +46,11 @@ const App = (props: AppProps) => {
   return (
     <Router>
       <div>
-        <Navbar {...authProps} actions={props.actions} user={props.users.self} />
+        <Navbar
+          {...authProps}
+          actions={props.actions}
+          user={props.users.self}
+        />
         <section className="section">
           <div className="container">
             <Switch>
@@ -78,13 +81,20 @@ const mapStateToProps = (state: State) => ({
   clients: state.clients,
   entitlements: state.entitlements,
   organizations: state.organizations,
-  users: state.users,
+  users: state.users
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   // TODO: assign type explicitly
   actions: bindActionCreators(
-    Object.assign({}, authActions, clientActions, entitlementActions, userActions),
+    Object.assign(
+      {},
+      authActions,
+      clientActions,
+      entitlementActions,
+      organizationActions,
+      userActions
+    ),
     dispatch
   )
 });

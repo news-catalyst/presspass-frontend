@@ -30,7 +30,6 @@ export function upsertOrganization(
 export function upsertOrganizations(
   organizations: Organization[]
 ): UpsertOrganizationsAction {
-  console.log(organizations);
   return {
     type: UPSERT_ORGANIZATIONS,
     organizations: organizations
