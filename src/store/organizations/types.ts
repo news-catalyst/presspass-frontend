@@ -1,4 +1,6 @@
 export const UPSERT_ORGANIZATION = "UPSERT_ORGANIZATION";
+export const UPSERT_ORGANIZATIONS = "UPSERT_ORGANIZATIONS";
+export const DELETE_ORGANIZATION = "DELETE_ORGANIZATION";
 export const UPSERT_INVITATION = "UPSERT_INVITATION";
 export const UPSERT_MEMBERSHIP = "UPSERT_MEMBERSHIP";
 
@@ -16,6 +18,11 @@ export interface Organization {
   avatar: string;
 }
 
+export interface OrganizationState {
+  organizations: { [id: number]: Organization };
+  hydrated: boolean;
+}
+
 export interface Invitation {
   organization: number;
   email: string;
@@ -30,3 +37,23 @@ export interface Membership {
   user: number;
   admin: boolean;
 }
+
+export interface UpsertOrganizationAction {
+  type: typeof UPSERT_ORGANIZATION;
+  organization: Organization;
+}
+
+export interface UpsertOrganizationsAction {
+  type: typeof UPSERT_ORGANIZATIONS;
+  organizations: Organization[];
+}
+
+export interface DeleteOrganizationAction {
+  type: typeof DELETE_ORGANIZATION;
+  organization: Organization;
+}
+
+export type OrganizationAction =
+  | UpsertOrganizationAction
+  | UpsertOrganizationsAction
+  | DeleteOrganizationAction;

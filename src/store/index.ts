@@ -23,12 +23,16 @@ import { upsertSelfUser } from "./users/actions";
 import { usersReducers } from "./users/reducers";
 import { UsersState } from "./users/types";
 
-
+// Organizations
+import { upsertOrganization, upsertOrganizations, deleteOrganization } from "./organizations/actions";
+import { organizationReducers } from "./organizations/reducers";
+import { OrganizationState } from "./organizations/types";
 
 const reducers = combineReducers({
   auth: authReducers,
   clients: clientReducers,
   entitlements: entitlementReducers,
+  organizations: organizationReducers,
   users: usersReducers
 });
 
@@ -47,6 +51,9 @@ export interface AppActions {
   upsertClient: typeof upsertClient;
   upsertClients: typeof upsertClients;
   deleteClient: typeof deleteClient;
+  upsertOrganization: typeof upsertOrganization;
+  upsertOrganizations: typeof upsertOrganizations;
+  deleteOrganization: typeof deleteOrganization;
   upsertEntitlement: typeof upsertEntitlement;
   upsertEntitlements: typeof upsertEntitlements;
   deleteEntitlement: typeof deleteEntitlement;
