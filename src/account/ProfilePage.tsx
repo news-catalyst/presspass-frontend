@@ -70,6 +70,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               </tbody>
             </table>
 
+            <h1 className="title is-size-3">Your Memberships</h1>
             <div className="columns is-multiline">
               {Object.values(props.organizations.organizations).map(
                 (organization: Organization) => (
