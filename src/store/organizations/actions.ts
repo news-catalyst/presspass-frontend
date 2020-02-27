@@ -6,9 +6,11 @@ import {
   DeleteOrganizationAction,
   UpsertOrganizationAction,
   UpsertOrganizationsAction
-} from "./types";
+} from './types';
 
-export function upsertOrganization(organization: Organization): UpsertOrganizationAction {
+export function upsertOrganization(
+  organization: Organization
+): UpsertOrganizationAction {
   return {
     type: UPSERT_ORGANIZATION,
     organization: organization
@@ -25,14 +27,19 @@ export function upsertOrganization(organization: Organization): UpsertOrganizati
 // before displaying data from a particular organization. If
 // `hydrated` is set to `true` too early, this can cause
 // these views to fail.
-export function upsertOrganizations(organizations: Organization[]): UpsertOrganizationsAction {
+export function upsertOrganizations(
+  organizations: Organization[]
+): UpsertOrganizationsAction {
+  console.log(organizations);
   return {
     type: UPSERT_ORGANIZATIONS,
     organizations: organizations
   };
 }
 
-export function deleteOrganization(organization: Organization): DeleteOrganizationAction {
+export function deleteOrganization(
+  organization: Organization
+): DeleteOrganizationAction {
   return {
     type: DELETE_ORGANIZATION,
     organization: organization

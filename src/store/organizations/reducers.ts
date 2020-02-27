@@ -4,7 +4,7 @@ import {
   OrganizationState,
   UPSERT_ORGANIZATIONS,
   DELETE_ORGANIZATION
-} from "./types";
+} from './types';
 
 const initialState: OrganizationState = {
   organizations: {},
@@ -31,7 +31,8 @@ export function organizationReducers(
         organizations: Object.assign({}, state.organizations),
         hydrated: true
       };
-      incomingObject.organizations[action.organization.id] = action.organization;
+      incomingObject.organizations[action.organization.uuid] =
+        action.organization;
       return Object.assign({}, state, incomingObject);
     }
     case DELETE_ORGANIZATION: {
@@ -39,7 +40,7 @@ export function organizationReducers(
         organizations: Object.assign({}, state.organizations),
         hydrated: true
       };
-      delete incomingObject.organizations[action.organization.id];
+      delete incomingObject.organizations[action.organization.uuid];
       return Object.assign({}, state, incomingObject);
     }
     default:

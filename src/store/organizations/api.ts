@@ -1,4 +1,4 @@
-import { AppActions } from "..";
+import { AppActions } from '..';
 import {
   checkAuth,
   cfetch,
@@ -9,18 +9,18 @@ import {
   PATCH,
   POST,
   DELETE
-} from "../../utils";
-import { Organization, OrganizationState } from "./types";
+} from '../../utils';
+import { Organization, OrganizationState } from './types';
 
 const serializeOrganization = (organization: Organization) => ({
   uuid: organization.uuid,
-  name: organization.name || "",
-  avatar: organization.avatar || "",
+  name: organization.name || '',
+  avatar: organization.avatar || '',
   slug: organization.slug,
   plan: organization.plan,
   max_users: organization.max_users,
   individual: organization.individual,
-  private: organization.private,
+  private: organization.private
   // Explicitly setting each field is necessary here, because
   // not all of the fields in organization are write-available, and
   // including them in the request would result in a 400 response.
@@ -32,16 +32,44 @@ export const fetchOrganizations = (actions: AppActions) =>
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertOrganizations(data.results)]))
     .catch(error => {
-      console.error("API Error fetchOrganizations", error, error.code);
+      console.error('API Error fetchOrganizations', error, error.code);
     });
 
-export const ensureOrganizations = (actions: AppActions, organizations: OrganizationState) => {
+export const ensureOrganizations = (
+  actions: AppActions,
+  organizations: OrganizationState
+) => {
   if (!organizations.hydrated) {
     return fetchOrganizations(actions);
   }
 };
 
-export const updateOrganization = (organization: Organization, actions: AppActions) => {
+export const fetchOrganizationsForUser = (actions: AppActions, uuid: string) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/?user=${uuid}`,
+    GET
+  )
+    .then(checkAuth(actions))
+    .then(response => response.json())
+    .then(data => Promise.all([actions.upsertOrganizations(data.results)]))
+    .catch(error => {
+      console.error('API Error fetchOrganizationsForUser', error, error.code);
+    });
+
+export const ensureOrganizationsForUser = (
+  actions: AppActions,
+  uuid: string,
+  organizations: OrganizationState
+) => {
+  if (!organizations.hydrated) {
+    return fetchOrganizationsForUser(actions, uuid);
+  }
+};
+
+export const updateOrganization = (
+  organization: Organization,
+  actions: AppActions
+) => {
   let formData = new FormData();
   let packagedOrganization: any = serializeOrganization(organization);
   for (let key of Object.keys(packagedOrganization)) {
@@ -55,12 +83,15 @@ export const updateOrganization = (organization: Organization, actions: AppActio
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertOrganization(status.body as Organization);
-        notify(`Successfully updated ${organization.name}.`, "success");
+        notify(`Successfully updated ${organization.name}.`, 'success');
       })
     );
 };
 
-export const createOrganization = (organization: Organization, actions: AppActions) => {
+export const createOrganization = (
+  organization: Organization,
+  actions: AppActions
+) => {
   let formData = new FormData();
   let packagedOrganization: any = serializeOrganization(organization);
   for (let key of Object.keys(packagedOrganization)) {
@@ -76,13 +107,16 @@ export const createOrganization = (organization: Organization, actions: AppActio
       .then(response =>
         validate(response, (status: ItemizedResponse) => {
           actions.upsertOrganization(status.body as Organization);
-          notify(`Successfully created ${organization.name}.`, "success");
+          notify(`Successfully created ${organization.name}.`, 'success');
         })
       )
   );
 };
 
-export const deleteOrganization = (organization: Organization, actions: AppActions) =>
+export const deleteOrganization = (
+  organization: Organization,
+  actions: AppActions
+) =>
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization.uuid}`,
     DELETE
@@ -91,6 +125,6 @@ export const deleteOrganization = (organization: Organization, actions: AppActio
     .then(response =>
       validate(response, () => {
         actions.deleteOrganization(organization);
-        notify(`Successfully deleted ${organization.name}.`, "success");
+        notify(`Successfully deleted ${organization.name}.`, 'success');
       })
     );
