@@ -95,6 +95,11 @@ export const PATCH = (body?: any): RequestInit => ({
   method: 'PATCH',
   body: body
 });
+export const PUT = (body?: any): RequestInit => ({
+  ...REQ_BASE,
+  method: 'PUT',
+  body: body
+});
 export const JSON_POST = (body?: object): RequestInit => ({
   ...JSON_REQ_BASE,
   method: 'POST',

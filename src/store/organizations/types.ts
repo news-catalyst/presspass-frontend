@@ -1,8 +1,8 @@
-export const UPSERT_ORGANIZATION = "UPSERT_ORGANIZATION";
-export const UPSERT_ORGANIZATIONS = "UPSERT_ORGANIZATIONS";
-export const DELETE_ORGANIZATION = "DELETE_ORGANIZATION";
-export const UPSERT_INVITATION = "UPSERT_INVITATION";
-export const UPSERT_MEMBERSHIP = "UPSERT_MEMBERSHIP";
+export const UPSERT_ORGANIZATION = 'UPSERT_ORGANIZATION';
+export const UPSERT_ORGANIZATIONS = 'UPSERT_ORGANIZATIONS';
+export const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION';
+export const UPSERT_INVITATION = 'UPSERT_INVITATION';
+export const UPSERT_MEMBERSHIP = 'UPSERT_MEMBERSHIP';
 
 export interface Organization {
   uuid: string;
@@ -31,11 +31,6 @@ export interface Invitation {
   created_at: Date;
   accepted_at: Date;
   rejected_at: Date;
-}
-
-export interface Membership {
-  user: number;
-  admin: boolean;
 }
 
 export interface UpsertOrganizationAction {

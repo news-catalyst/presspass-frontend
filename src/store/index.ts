@@ -36,11 +36,21 @@ import {
 import { organizationReducers } from './organizations/reducers';
 import { OrganizationState } from './organizations/types';
 
+// Memberships
+import {
+  upsertMembership,
+  upsertMemberships,
+  deleteMembership
+} from './memberships/actions';
+import { membershipReducers } from './memberships/reducers';
+import { MembershipState } from './memberships/types';
+
 const reducers = combineReducers({
   auth: authReducers,
   clients: clientReducers,
   entitlements: entitlementReducers,
   organizations: organizationReducers,
+  memberships: membershipReducers,
   users: usersReducers
 });
 
@@ -62,6 +72,9 @@ export interface AppActions {
   upsertOrganization: typeof upsertOrganization;
   upsertOrganizations: typeof upsertOrganizations;
   deleteOrganization: typeof deleteOrganization;
+  upsertMembership: typeof upsertMembership;
+  upsertMemberships: typeof upsertMemberships;
+  deleteMembership: typeof deleteMembership;
   upsertEntitlement: typeof upsertEntitlement;
   upsertEntitlements: typeof upsertEntitlements;
   deleteEntitlement: typeof deleteEntitlement;
@@ -74,6 +87,7 @@ export interface AppProps {
   clients: ClientState;
   entitlements: EntitlementState;
   organizations: OrganizationState;
+  memberships: MembershipState;
   users: UsersState;
 }
 
