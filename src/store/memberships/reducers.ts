@@ -22,7 +22,7 @@ export function membershipReducers(
         hydrated: true
       };
       for (let membership of action.memberships) {
-        incomingObject.memberships[membership.user] = membership;
+        incomingObject.memberships[membership.organization] = membership;
       }
       return Object.assign({}, state, incomingObject);
     }

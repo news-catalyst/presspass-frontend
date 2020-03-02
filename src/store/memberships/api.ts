@@ -11,6 +11,7 @@ import {
   DELETE
 } from '../../utils';
 import { Membership, MembershipState } from './types';
+import { OrganizationState, Organization } from '../organizations/types';
 
 const serializeMembership = (membership: Membership) => ({
   user: membership.user,
@@ -20,6 +21,53 @@ const serializeMembership = (membership: Membership) => ({
   // not all of the fields in membership are write-available, and
   // including them in the request would result in a 400 response.
 });
+
+export const fetchMembershipsForUser = (actions: AppActions, uuid: string) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/users/${uuid}/memberships`,
+    GET
+  )
+    .then(checkAuth(actions))
+    .then(response => response.json())
+    .then(data => Promise.all([actions.upsertMemberships(data.results)]))
+    .catch(error => {
+      console.error('API Error fetchMembershipsForUser', error, error.code);
+    });
+
+export const ensureMembershipsForUser = (
+  actions: AppActions,
+  uuid: string,
+  memberships: MembershipState
+) => {
+  if (!memberships.hydrated) {
+    return fetchMembershipsForUser(actions, uuid);
+  }
+};
+
+export const fetchMembershipsForOrganizations = (
+  actions: AppActions,
+  organizations: OrganizationState,
+  memberships: MembershipState
+) => {
+  Object.values(organizations.organizations).map(
+    (organization: Organization) => {
+      cfetch(
+        `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization.uuid}/memberships`,
+        GET
+      )
+        .then(checkAuth(actions))
+        .then(response => response.json())
+        .then(data => Promise.all([actions.upsertMemberships(data.results)]))
+        .catch(error => {
+          console.error(
+            'API Error fetchMembershipsForOrganizations',
+            error,
+            error.code
+          );
+        });
+    }
+  );
+};
 
 export const fetchMembershipsForOrganization = (
   actions: AppActions,

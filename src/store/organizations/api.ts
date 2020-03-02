@@ -44,28 +44,6 @@ export const ensureOrganizations = (
   }
 };
 
-export const fetchOrganizationsForUser = (actions: AppActions, uuid: string) =>
-  cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/?user=${uuid}`,
-    GET
-  )
-    .then(checkAuth(actions))
-    .then(response => response.json())
-    .then(data => Promise.all([actions.upsertOrganizations(data.results)]))
-    .catch(error => {
-      console.error('API Error fetchOrganizationsForUser', error, error.code);
-    });
-
-export const ensureOrganizationsForUser = (
-  actions: AppActions,
-  uuid: string,
-  organizations: OrganizationState
-) => {
-  if (!organizations.hydrated) {
-    return fetchOrganizationsForUser(actions, uuid);
-  }
-};
-
 export const updateOrganization = (
   organization: Organization,
   actions: AppActions

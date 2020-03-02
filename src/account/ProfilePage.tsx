@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
 import { Link } from 'react-router-dom';
-import { Organization, OrganizationState } from '../store/organizations/types';
-import { ensureOrganizationsForUser } from '../store/organizations/api';
-import OrganizationCard from '../organization/OrganizationCard';
+import { Membership, MembershipState } from '../store/memberships/types';
+import { ensureMembershipsForUser } from '../store/memberships/api';
+import MembershipCard from '../membership/MembershipCard';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
 interface ProfilePageProps {
   actions: AppActions;
   users: UsersState;
-  organizations: OrganizationState;
+  memberships: MembershipState;
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = (
   props: ProfilePageProps
 ) => {
+  // load user's memberships list
   useEffect(() => {
     if (props.users.self !== null) {
       const uuid = props.users.self.uuid;
-      ensureOrganizationsForUser(props.actions, uuid, props.organizations);
+      ensureMembershipsForUser(props.actions, uuid, props.memberships);
     }
-  }, [props.actions, props.organizations, props.users, props.users.self]);
+  }, [props.actions, props.memberships, props.users, props.users.self]);
 
   if (props.users.self == null) {
     return <LoadingPlaceholder />;
@@ -29,7 +30,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
     let name = props.users.self!.name;
     let username = props.users.self!.username;
     let email = props.users.self!.email;
-    let uuid = props.users.self!.uuid;
+    // let uuid = props.users.self!.uuid;
     let avatar = props.users.self!.avatar;
 
     return (
@@ -72,10 +73,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
 
             <h1 className="title is-size-3">Your Memberships</h1>
             <div className="columns is-multiline">
-              {Object.values(props.organizations.organizations).map(
-                (organization: Organization) => (
-                  <div className="column is-4">
-                    <OrganizationCard organization={organization} />
+              {Object.values(props.memberships.memberships).map(
+                (membership: Membership) => (
+                  <div key={membership.organization} className="column is-4">
+                    <MembershipCard membership={membership} />
                   </div>
                 )
               )}

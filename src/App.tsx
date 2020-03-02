@@ -15,6 +15,7 @@ import * as authActions from './store/auth/actions';
 import * as clientActions from './store/clients/actions';
 import * as entitlementActions from './store/entitlements/actions';
 import * as organizationActions from './store/organizations/actions';
+import * as membershipActions from './store/memberships/actions';
 import * as userActions from './store/users/actions';
 import { AuthProps } from './store/auth/types';
 import { forceCheckAuth } from './store/auth/api';
@@ -80,6 +81,7 @@ const mapStateToProps = (state: State) => ({
   auth: state.auth,
   clients: state.clients,
   entitlements: state.entitlements,
+  memberships: state.memberships,
   organizations: state.organizations,
   users: state.users
 });
@@ -92,6 +94,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       authActions,
       clientActions,
       entitlementActions,
+      membershipActions,
       organizationActions,
       userActions
     ),
