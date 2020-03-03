@@ -14,9 +14,12 @@ import { Invitation, InvitationState } from './types';
 import { OrganizationState, Organization } from '../organizations/types';
 
 const serializeInvitation = (invitation: Invitation) => ({
+  uuid: invitation.uuid,
   user: invitation.user,
   organization: invitation.organization,
-  request: invitation.request
+  request: invitation.request,
+  accept: invitation.accept,
+  reject: invitation.reject
   // not all of the fields in invitation are write-available, and
   // including them in the request would result in a 400 response.
 });
@@ -103,7 +106,7 @@ export const updateInvitation = (
     formData.append(key, packagedInvitation[key]);
   }
   return cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${invitation.organization}/invitations/${invitation.user}/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${invitation.uuid}/`,
     PATCH(formData)
   )
     .then(checkAuth(actions))
@@ -112,6 +115,60 @@ export const updateInvitation = (
         actions.upsertInvitation(status.body as Invitation);
         notify(
           `Successfully updated user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          'success'
+        );
+      })
+    );
+};
+
+export const acceptInvitation = (
+  invitation: Invitation,
+  actions: AppActions
+) => {
+  let formData = new FormData();
+  let packagedInvitation: any = serializeInvitation(invitation);
+  packagedInvitation.accept = true;
+  packagedInvitation.reject = false;
+  for (let key of Object.keys(packagedInvitation)) {
+    formData.append(key, packagedInvitation[key]);
+  }
+  return cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${invitation.uuid}/`,
+    PATCH(formData)
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertInvitation(status.body as Invitation);
+        notify(
+          `Successfully accepted user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          'success'
+        );
+      })
+    );
+};
+
+export const rejectInvitation = (
+  invitation: Invitation,
+  actions: AppActions
+) => {
+  let formData = new FormData();
+  let packagedInvitation: any = serializeInvitation(invitation);
+  packagedInvitation.accept = false;
+  packagedInvitation.reject = true;
+  for (let key of Object.keys(packagedInvitation)) {
+    formData.append(key, packagedInvitation[key]);
+  }
+  return cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${invitation.uuid}/`,
+    PATCH(formData)
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertInvitation(status.body as Invitation);
+        notify(
+          `Successfully rejected user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
           'success'
         );
       })

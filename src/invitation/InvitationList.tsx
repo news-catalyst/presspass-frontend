@@ -25,7 +25,7 @@ const InvitationList: React.FC<InvitationListProps> = (
       <div className="columns is-multiline">
         {Object.values(invites).map((invitation: Invitation) => (
           <div key={invitation.organization} className="column is-4">
-            <InvitationCard invitation={invitation} />
+            <InvitationCard actions={props.actions} invitation={invitation} />
           </div>
         ))}
       </div>

@@ -3,12 +3,15 @@ export const UPSERT_INVITATION = 'UPSERT_INVITATION';
 export const UPSERT_INVITATIONS = 'UPSERT_INVITATIONS';
 
 export interface Invitation {
+  uuid: number;
   organization: number;
   user: number;
   request: boolean;
   created_at: Date;
   accepted_at: Date;
   rejected_at: Date;
+  accept: boolean;
+  reject: boolean;
 }
 
 export interface InvitationState {
