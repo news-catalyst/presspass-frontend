@@ -1,13 +1,13 @@
-import { AppActions } from "../store/";
-import cookie from "js-cookie";
-import { store as notifications } from "react-notifications-component";
+import { AppActions } from '../store/';
+import cookie from 'js-cookie';
+import { store as notifications } from 'react-notifications-component';
 
 export function checkAuth(actions: AppActions) {
   return (response: Response): Response => {
     if (response.status === 403) {
       actions.logout();
-      notify("Please log in to continue.", "success");
-      throw new Error("Not logged in");
+      notify('Please log in to continue.', 'success');
+      throw new Error('Not logged in');
     }
     return response;
   };
@@ -15,11 +15,11 @@ export function checkAuth(actions: AppActions) {
 
 function updateOptions(options: RequestInit) {
   const update = { ...options };
-  console.log(cookie.get("csrftoken"));
-  if (cookie.get("csrftoken") !== undefined) {
+  console.log(cookie.get('csrftoken'));
+  if (cookie.get('csrftoken') !== undefined) {
     update.headers = {
       ...update.headers,
-      "X-CSRFToken": cookie.get("csrftoken") || ""
+      'X-CSRFToken': cookie.get('csrftoken') || ''
     };
   }
   return update;
@@ -30,8 +30,8 @@ function updateOptions(options: RequestInit) {
 export function cfetch(url: string, options: RequestInit) {
   return fetch(url, updateOptions(options)).catch(e => {
     notify(
-      "Unable to connect to the internet. Check your connection and try again.",
-      "danger"
+      'Unable to connect to the internet. Check your connection and try again.',
+      'danger'
     );
     throw e;
   });
@@ -55,7 +55,7 @@ export async function validate(
       ok(itemizedResponse);
     }
   } else {
-    notify("Please fix the errors to continue.", "danger");
+    notify('Please fix the errors to continue.', 'danger');
   }
   return itemizedResponse;
 }
@@ -64,9 +64,9 @@ export function notify(message: string, type: string) {
   notifications.addNotification({
     message,
     type,
-    container: "bottom-right",
-    animationIn: ["animated", "fadeIn"],
-    animationOut: ["animated", "fadeOut"],
+    container: 'bottom-right',
+    animationIn: ['animated', 'fadeIn'],
+    animationOut: ['animated', 'fadeOut'],
     dismiss: {
       duration: 2500
     }
@@ -75,33 +75,38 @@ export function notify(message: string, type: string) {
 
 // For cfetch
 const REQ_BASE: RequestInit = {
-  credentials: "include"
+  credentials: 'include'
 };
 const JSON_REQ_BASE: RequestInit = {
-  credentials: "include",
+  credentials: 'include',
   headers: {
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json'
   }
 };
-export const GET = Object.assign({}, REQ_BASE, { method: "GET" });
-export const DELETE = Object.assign({}, REQ_BASE, { method: "DELETE" });
+export const GET = Object.assign({}, REQ_BASE, { method: 'GET' });
+export const DELETE = Object.assign({}, REQ_BASE, { method: 'DELETE' });
 export const POST = (body?: any): RequestInit => ({
   ...REQ_BASE,
-  method: "POST",
+  method: 'POST',
   body: body
 });
 export const PATCH = (body?: any): RequestInit => ({
   ...REQ_BASE,
-  method: "PATCH",
+  method: 'PATCH',
+  body: body
+});
+export const PUT = (body?: any): RequestInit => ({
+  ...REQ_BASE,
+  method: 'PUT',
   body: body
 });
 export const JSON_POST = (body?: object): RequestInit => ({
   ...JSON_REQ_BASE,
-  method: "POST",
+  method: 'POST',
   body: JSON.stringify(body)
 });
 export const JSON_PATCH = (body?: object): RequestInit => ({
   ...JSON_REQ_BASE,
-  method: "PATCH",
+  method: 'PATCH',
   body: JSON.stringify(body)
 });

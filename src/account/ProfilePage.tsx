@@ -1,16 +1,97 @@
-import React from 'react';
-import { AppProps } from '../store';
+import React, { useEffect } from 'react';
+import { AppActions } from '../store';
+import { Link } from 'react-router-dom';
+import { Membership, MembershipState } from '../store/memberships/types';
+import { Invitation, InvitationState } from '../store/invitations/types';
+import { ensureMembershipsForUser } from '../store/memberships/api';
+import MembershipCard from '../membership/MembershipCard';
+import InvitationList from '../invitation/InvitationList';
+import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
-export const ProfilePage: React.FC<AppProps> = (props: AppProps) => {
-    if (props.users.self == null) {
-        return (<LoadingPlaceholder/>);
-    }
-    return (
-        <div className="profile">
-
-            <p>Name: {props.users.self.name}</p>
-            <p>Username: {props.users.self.username}</p>
-        </div>
-    )
+interface ProfilePageProps {
+  actions: AppActions;
+  users: UsersState;
+  memberships: MembershipState;
+  invitations: InvitationState;
 }
+
+export const ProfilePage: React.FC<ProfilePageProps> = (
+  props: ProfilePageProps
+) => {
+  // load user's memberships list
+  useEffect(() => {
+    if (props.users.self !== null) {
+      const uuid = props.users.self.uuid;
+      ensureMembershipsForUser(props.actions, uuid, props.memberships);
+    }
+  }, [props.actions, props.memberships, props.users, props.users.self]);
+
+  if (props.users.self == null) {
+    return <LoadingPlaceholder />;
+  } else {
+    let name = props.users.self!.name;
+    let username = props.users.self!.username;
+    let email = props.users.self!.email;
+    let avatar = props.users.self!.avatar;
+
+    return (
+      <article className="media profile">
+        <figure className="media-left">
+          <p className="image is-64x64">
+            <img src={avatar} />
+          </p>
+        </figure>
+        <div className="media-content">
+          <div className="content">
+            <h1 className="title is-size-1">Your Profile</h1>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <th>Name:</th>
+                  <td>{name}</td>
+                </tr>
+                <tr>
+                  <th>Username:</th>
+                  <td>{username}</td>
+                </tr>
+                <tr>
+                  <th>Email:</th>
+                  <td>{email}</td>
+                </tr>
+                <tr>
+                  <th>Password:</th>
+                  <td>
+                    <Link
+                      to="/profile/change-password"
+                      className="is-link is-outlined"
+                    >
+                      Change Password
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h1 className="title is-size-3">Your Memberships</h1>
+            <div className="columns is-multiline">
+              {Object.values(props.memberships.memberships).map(
+                (membership: Membership) => (
+                  <div key={membership.organization} className="column is-4">
+                    <MembershipCard membership={membership} />
+                  </div>
+                )
+              )}
+            </div>
+
+            <InvitationList
+              actions={props.actions}
+              uuid={props.users.self!.uuid}
+              invitations={props.invitations}
+            />
+          </div>
+        </div>
+      </article>
+    );
+  }
+};

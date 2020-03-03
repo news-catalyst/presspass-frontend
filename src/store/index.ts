@@ -1,34 +1,66 @@
 // Redux & external redux libs
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 // Auth
-import { login, logout } from "./auth/actions";
-import { authReducers } from "./auth/reducers";
-import { AuthState } from "./auth/types";
+import { login, logout } from './auth/actions';
+import { authReducers } from './auth/reducers';
+import { AuthState } from './auth/types';
 
 // Clients
-import { upsertClient, upsertClients, deleteClient } from "./clients/actions";
-import { clientReducers } from "./clients/reducers";
-import { ClientState } from "./clients/types";
+import { upsertClient, upsertClients, deleteClient } from './clients/actions';
+import { clientReducers } from './clients/reducers';
+import { ClientState } from './clients/types';
 
 // Entitlements
-import { upsertEntitlement, upsertEntitlements, deleteEntitlement } from "./entitlements/actions";
-import { entitlementReducers } from "./entitlements/reducers";
-import { EntitlementState } from "./entitlements/types";
+import {
+  upsertEntitlement,
+  upsertEntitlements,
+  deleteEntitlement
+} from './entitlements/actions';
+import { entitlementReducers } from './entitlements/reducers';
+import { EntitlementState } from './entitlements/types';
 
 // Users
-import { upsertSelfUser } from "./users/actions";
-import { usersReducers } from "./users/reducers";
-import { UsersState } from "./users/types";
+import { upsertSelfUser } from './users/actions';
+import { usersReducers } from './users/reducers';
+import { UsersState } from './users/types';
 
+// Organizations
+import {
+  upsertOrganization,
+  upsertOrganizations,
+  deleteOrganization
+} from './organizations/actions';
+import { organizationReducers } from './organizations/reducers';
+import { OrganizationState } from './organizations/types';
 
+//`Memberships
+import {
+  upsertInvitation,
+  upsertInvitations,
+  deleteInvitation
+} from './invitations/actions';
+import { invitationReducers } from './invitations/reducers';
+import { InvitationState } from './invitations/types';
+
+// Memberships
+import {
+  upsertMembership,
+  upsertMemberships,
+  deleteMembership
+} from './memberships/actions';
+import { membershipReducers } from './memberships/reducers';
+import { MembershipState } from './memberships/types';
 
 const reducers = combineReducers({
   auth: authReducers,
   clients: clientReducers,
   entitlements: entitlementReducers,
+  organizations: organizationReducers,
+  invitations: invitationReducers,
+  memberships: membershipReducers,
   users: usersReducers
 });
 
@@ -47,6 +79,15 @@ export interface AppActions {
   upsertClient: typeof upsertClient;
   upsertClients: typeof upsertClients;
   deleteClient: typeof deleteClient;
+  upsertOrganization: typeof upsertOrganization;
+  upsertOrganizations: typeof upsertOrganizations;
+  deleteOrganization: typeof deleteOrganization;
+  upsertMembership: typeof upsertMembership;
+  upsertMemberships: typeof upsertMemberships;
+  deleteMembership: typeof deleteMembership;
+  upsertInvitation: typeof upsertInvitation;
+  upsertInvitations: typeof upsertInvitations;
+  deleteInvitation: typeof deleteInvitation;
   upsertEntitlement: typeof upsertEntitlement;
   upsertEntitlements: typeof upsertEntitlements;
   deleteEntitlement: typeof deleteEntitlement;
@@ -58,6 +99,9 @@ export interface AppProps {
   actions: AppActions;
   clients: ClientState;
   entitlements: EntitlementState;
+  organizations: OrganizationState;
+  invitations: InvitationState;
+  memberships: MembershipState;
   users: UsersState;
 }
 
