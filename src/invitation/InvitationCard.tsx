@@ -14,30 +14,26 @@ const InvitationActions: React.FC<InvitationCardProps> = (
 ) => {
   let [saved, setSaved] = useState(false);
   let [errors, setErrors] = useState({});
+  let accepted = !!props.invitation.accepted_at;
+  let rejected = !!props.invitation.rejected_at;
   let invitation = props.invitation;
 
   // i've been invited, and I can say yes or no
   let showActionButtons =
-    props.invitation.accepted_at === null &&
-    props.invitation.rejected_at === null &&
-    !props.invitation.request;
+    !accepted &&
+    !rejected &&
+    !invitation.request;
 
   // I've requested membership and it's pending
   let showRequestIsPendingStatus =
-    props.invitation.accepted_at === null &&
-    props.invitation.rejected_at === null &&
-    props.invitation.request;
+    !accepted &&
+    !rejected &&
+    invitation.request;
 
   // I've requested membership and it's either been approved or booed
-  let showRequestIsHandledStatus =
-    (props.invitation.accepted_at !== null ||
-      props.invitation.rejected_at !== null) &&
-    props.invitation.request;
+  let showInvitationIsHandledStatus = (accepted || rejected)
 
   const onAcceptClick = () => {
-    invitation.accept = true; // pretty sure I'm not supposed to do that here
-    invitation.reject = false; // pretty sure I'm not supposed to do that here
-    console.log('accept', invitation);
     acceptInvitation(invitation, props.actions).then(status => {
       if (status.ok) {
         console.log('successfully accepted the invite');
@@ -49,9 +45,6 @@ const InvitationActions: React.FC<InvitationCardProps> = (
   };
 
   const onRejectClick = () => {
-    invitation.accept = false; // pretty sure I'm not supposed to do that here
-    invitation.reject = true; // pretty sure I'm not supposed to do that here
-    console.log('reject', invitation);
     rejectInvitation(invitation, props.actions).then(status => {
       if (status.ok) {
         console.log('successfully rejected the invite');
@@ -81,10 +74,10 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         </p>
       </div>
     );
-  } else if (showRequestIsHandledStatus) {
+  } else if (showInvitationIsHandledStatus) {
     return (
       <div>
-        {invitation.accepted_at !== null ? (
+        {accepted ? (
           <p>
             <strong>Accepted at:</strong>{' '}
             <small>{invitation.accepted_at}</small>
@@ -92,7 +85,7 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         ) : (
           ''
         )}
-        {invitation.rejected_at !== null ? (
+        {rejected ? (
           <p>
             <strong>Rejected at:</strong>{' '}
             <small>{invitation.rejected_at}</small>
