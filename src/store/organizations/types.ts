@@ -1,8 +1,6 @@
 export const UPSERT_ORGANIZATION = 'UPSERT_ORGANIZATION';
 export const UPSERT_ORGANIZATIONS = 'UPSERT_ORGANIZATIONS';
 export const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION';
-export const UPSERT_INVITATION = 'UPSERT_INVITATION';
-export const UPSERT_MEMBERSHIP = 'UPSERT_MEMBERSHIP';
 
 export interface Organization {
   uuid: string;
@@ -21,16 +19,6 @@ export interface Organization {
 export interface OrganizationState {
   organizations: { [id: number]: Organization };
   hydrated: boolean;
-}
-
-export interface Invitation {
-  organization: number;
-  email: string;
-  user: number;
-  request: boolean;
-  created_at: Date;
-  accepted_at: Date;
-  rejected_at: Date;
 }
 
 export interface UpsertOrganizationAction {

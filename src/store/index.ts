@@ -36,6 +36,15 @@ import {
 import { organizationReducers } from './organizations/reducers';
 import { OrganizationState } from './organizations/types';
 
+//`Memberships
+import {
+  upsertInvitation,
+  upsertInvitations,
+  deleteInvitation
+} from './invitations/actions';
+import { invitationReducers } from './invitations/reducers';
+import { InvitationState } from './invitations/types';
+
 // Memberships
 import {
   upsertMembership,
@@ -50,6 +59,7 @@ const reducers = combineReducers({
   clients: clientReducers,
   entitlements: entitlementReducers,
   organizations: organizationReducers,
+  invitations: invitationReducers,
   memberships: membershipReducers,
   users: usersReducers
 });
@@ -75,6 +85,9 @@ export interface AppActions {
   upsertMembership: typeof upsertMembership;
   upsertMemberships: typeof upsertMemberships;
   deleteMembership: typeof deleteMembership;
+  upsertInvitation: typeof upsertInvitation;
+  upsertInvitations: typeof upsertInvitations;
+  deleteInvitation: typeof deleteInvitation;
   upsertEntitlement: typeof upsertEntitlement;
   upsertEntitlements: typeof upsertEntitlements;
   deleteEntitlement: typeof deleteEntitlement;
@@ -87,6 +100,7 @@ export interface AppProps {
   clients: ClientState;
   entitlements: EntitlementState;
   organizations: OrganizationState;
+  invitations: InvitationState;
   memberships: MembershipState;
   users: UsersState;
 }
