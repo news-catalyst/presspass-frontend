@@ -27,7 +27,6 @@ export function invitationReducers(
       return Object.assign({}, state, incomingObject);
     }
     case UPSERT_INVITATION: {
-      console.log(state, action.invitation.user);
       let incomingObject: InvitationState = {
         invitations: Object.assign({}, state.invitations),
         hydrated: true
