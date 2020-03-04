@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { AppActions } from '../store';
 import { Link } from 'react-router-dom';
 import { Membership, MembershipState } from '../store/memberships/types';
-import { Invitation, InvitationState } from '../store/invitations/types';
 import { ensureMembershipsForUser } from '../store/memberships/api';
 import MembershipCard from '../membership/MembershipCard';
-import InvitationList from '../invitation/InvitationList';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
@@ -13,7 +11,6 @@ interface ProfilePageProps {
   actions: AppActions;
   users: UsersState;
   memberships: MembershipState;
-  invitations: InvitationState;
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = (
@@ -81,17 +78,14 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
                     key={membership.organization.uuid}
                     className="column is-4"
                   >
-                    <MembershipCard membership={membership} />
+                    <MembershipCard
+                      membership={membership}
+                      actions={props.actions}
+                    />
                   </div>
                 )
               )}
             </div>
-
-            <InvitationList
-              actions={props.actions}
-              uuid={props.users.self!.uuid}
-              invitations={props.invitations}
-            />
           </div>
         </div>
       </article>

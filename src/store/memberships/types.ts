@@ -5,7 +5,7 @@ export const UPSERT_MEMBERSHIP = 'UPSERT_MEMBERSHIP';
 export const UPSERT_MEMBERSHIPS = 'UPSERT_MEMBERSHIPS';
 
 export interface Membership {
-  user: number;
+  user: string;
   organization: Organization;
   admin: boolean;
 }

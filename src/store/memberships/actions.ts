@@ -28,8 +28,13 @@ export function upsertMembership(
 // `hydrated` is set to `true` too early, this can cause
 // these views to fail.
 export function upsertMemberships(
+  uuid: string,
   memberships: Membership[]
 ): UpsertMembershipsAction {
+  //ensure each membership has a user id
+  Object.values(memberships).map((membership: Membership) => {
+    membership.user = uuid;
+  });
   return {
     type: UPSERT_MEMBERSHIPS,
     memberships: memberships

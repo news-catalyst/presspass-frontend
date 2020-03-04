@@ -30,8 +30,8 @@ export const MembershipsList: React.FC<MembershipsListProps> = (
       <div className="columns is-multiline">
         {Object.values(props.memberships.memberships).map(
           (membership: Membership) => (
-            <div className="column is-4">
-              <MembershipCard membership={membership} />
+            <div className="column is-4" key={membership.organization.uuid}>
+              <MembershipCard actions={props.actions} membership={membership} />
             </div>
           )
         )}

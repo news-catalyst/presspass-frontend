@@ -29,7 +29,7 @@ export const fetchMembershipsForUser = (actions: AppActions, uuid: string) =>
   )
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data => Promise.all([actions.upsertMemberships(data.results)]))
+    .then(data => Promise.all([actions.upsertMemberships(uuid, data.results)]))
     .catch(error => {
       console.error('API Error fetchMembershipsForUser', error, error.code);
     });
@@ -41,56 +41,6 @@ export const ensureMembershipsForUser = (
 ) => {
   if (!memberships.hydrated) {
     return fetchMembershipsForUser(actions, uuid);
-  }
-};
-
-export const fetchMembershipsForOrganizations = (
-  actions: AppActions,
-  organizations: OrganizationState,
-  memberships: MembershipState
-) => {
-  Object.values(organizations.organizations).map(
-    (organization: Organization) => {
-      cfetch(
-        `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization.uuid}/memberships`,
-        GET
-      )
-        .then(checkAuth(actions))
-        .then(response => response.json())
-        .then(data => Promise.all([actions.upsertMemberships(data.results)]))
-        .catch(error => {
-          console.error(
-            'API Error fetchMembershipsForOrganizations',
-            error,
-            error.code
-          );
-        });
-    }
-  );
-};
-
-export const fetchMembershipsForOrganization = (
-  actions: AppActions,
-  uuid: string
-) =>
-  cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/memberships`,
-    GET
-  )
-    .then(checkAuth(actions))
-    .then(response => response.json())
-    .then(data => Promise.all([actions.upsertMemberships(data.results)]))
-    .catch(error => {
-      console.error('API Error fetchMembershipsForUser', error, error.code);
-    });
-
-export const ensureMembershipsForOrganization = (
-  actions: AppActions,
-  uuid: string,
-  memberships: MembershipState
-) => {
-  if (!memberships.hydrated) {
-    return fetchMembershipsForOrganization(actions, uuid);
   }
 };
 
@@ -149,7 +99,7 @@ export const createMembership = (
 
 export const deleteMembership = (membership: Membership, actions: AppActions) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${membership.organization}/memberships/${membership.user}`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${membership.organization.uuid}/memberships/${membership.user}`,
     DELETE
   )
     .then(checkAuth(actions))
@@ -157,7 +107,7 @@ export const deleteMembership = (membership: Membership, actions: AppActions) =>
       validate(response, () => {
         actions.deleteMembership(membership);
         notify(
-          `Successfully deleted user ${membership.user} from organization ${membership.organization}.`,
+          `Successfully deleted user ${membership.user} from organization ${membership.organization.name}.`,
           'success'
         );
       })

@@ -1,10 +1,12 @@
 import React from 'react';
+import { AppActions } from '../store';
 import { Membership } from '../store/memberships/types';
 import { Link } from 'react-router-dom';
-import { deleteMembership } from '../store/memberships/actions';
+import { deleteMembership } from '../store/memberships/api';
 
 interface MembershipCardProps {
   membership: Membership;
+  actions: AppActions;
 }
 
 interface AdminTagProps {
@@ -26,18 +28,25 @@ const MembershipCard: React.FC<MembershipCardProps> = (
   props: MembershipCardProps
 ) => {
   let membership = props.membership;
+  const removeMembership = () => {
+    deleteMembership(membership, props.actions);
+  };
 
   return (
-    <Link className="box" to={'/organizations/' + membership.organization.uuid}>
-      <h5 className="title is-size-5">{membership.organization.name}</h5>
+    <div className="box">
+      <Link to={'/organizations/' + membership.organization.uuid}>
+        <h5 className="title is-size-5">{membership.organization.name}</h5>
+      </Link>
       <div className="field is-grouped is-grouped-multiline">
         <div className="control">
           <div className="tags has-addons"></div>
           <AdminTag isAdmin={membership.admin} />
-          <button className="button is-danger">Remove</button>
+          <button onClick={removeMembership} className="button is-danger">
+            Remove
+          </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
