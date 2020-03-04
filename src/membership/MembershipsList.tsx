@@ -31,7 +31,11 @@ export const MembershipsList: React.FC<MembershipsListProps> = (
         {Object.values(props.memberships.memberships).map(
           (membership: Membership) => (
             <div className="column is-4" key={membership.organization.uuid}>
-              <MembershipCard actions={props.actions} membership={membership} />
+              <MembershipCard
+                actions={props.actions}
+                key={membership.organization.uuid}
+                membership={membership}
+              />
             </div>
           )
         )}
