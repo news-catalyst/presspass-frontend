@@ -1,12 +1,13 @@
-import React from "react";
-import { Entitlement } from "../store/entitlements/types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Entitlement } from '../store/entitlements/types';
 
 interface EntitlementCardProps {
   entitlement: Entitlement;
 }
 
-const EntitlementCard: React.FC<EntitlementCardProps> = (props: EntitlementCardProps) => {
+const EntitlementCard: React.FC<EntitlementCardProps> = (
+  props: EntitlementCardProps
+) => {
   let entitlement = props.entitlement;
   return (
     <a className="box" target="_blank" href={entitlement.client.website_url}>
@@ -18,7 +19,6 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (props: EntitlementCardP
             <span className="tag is-info">{entitlement.name}</span>
           </div>
         </div>
-
       </div>
       <div className="content">
         <p>{entitlement.description}</p>

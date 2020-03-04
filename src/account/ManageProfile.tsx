@@ -1,7 +1,7 @@
-import React, { useState, SyntheticEvent, useEffect } from 'react';
-import { AppActions } from "../store";
-import { updateSelfUser } from "../store/users/api";
-import Field from "../common/Field";
+import React, { useState, SyntheticEvent } from 'react';
+import { AppActions } from '../store';
+import { updateSelfUser } from '../store/users/api';
+import Field from '../common/Field';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
@@ -14,11 +14,11 @@ export const ManageProfile: React.FC<ManageProfilePageProps> = (
   props: ManageProfilePageProps
 ) => {
   if (props.users.self == null) {
-    return (<LoadingPlaceholder/>);
+    return <LoadingPlaceholder />;
   } else {
-    return <HydratedManageProfile {...props} />
+    return <HydratedManageProfile {...props} />;
   }
-}
+};
 
 export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
   props: ManageProfilePageProps
@@ -33,7 +33,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
     let user = {
       ...props.users.self!,
       name,
-      username,
+      username
     };
     updateSelfUser(user, props.actions).then(status => {
       if (status.ok) {
@@ -65,7 +65,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
         <Field label="Display Name" errors={errors.name}>
           <input
             type="text"
-            className={errors.name ? "input is-danger" : "input"}
+            className={errors.name ? 'input is-danger' : 'input'}
             value={name}
             onChange={event => setName(event.target.value)}
           />
@@ -73,7 +73,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
         <Field label="Username" errors={errors.username}>
           <input
             type="text"
-            className={errors.username ? "input is-danger" : "input"}
+            className={errors.username ? 'input is-danger' : 'input'}
             value={username}
             onChange={event => setUsername(event.target.value)}
           />
@@ -84,4 +84,4 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
       </form>
     </section>
   );
-}
+};
