@@ -3,6 +3,7 @@ import { AppActions } from '../store';
 import { Membership } from '../store/memberships/types';
 import { Link } from 'react-router-dom';
 import { deleteMembership } from '../store/memberships/api';
+import { membershipReducers } from '../store/memberships/reducers';
 
 interface MembershipCardProps {
   membership: Membership;
@@ -24,6 +25,26 @@ const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
     </div>
   );
 };
+
+interface ManageButtonProps {
+  membership: Membership;
+}
+const ManageButton: React.FC<ManageButtonProps> = (
+  props: ManageButtonProps
+) => {
+  if (!props.membership.admin) {
+    return null;
+  }
+  return (
+    <Link
+      to={'/organizations/' + props.membership.organization.uuid + '/manage'}
+      className="button"
+    >
+      Manage
+    </Link>
+  );
+};
+
 const MembershipCard: React.FC<MembershipCardProps> = (
   props: MembershipCardProps
 ) => {
@@ -41,6 +62,7 @@ const MembershipCard: React.FC<MembershipCardProps> = (
         <div className="control">
           <div className="tags has-addons"></div>
           <AdminTag isAdmin={membership.admin} />
+          <ManageButton membership={membership} />
           <button onClick={removeMembership} className="button is-danger">
             Remove
           </button>
