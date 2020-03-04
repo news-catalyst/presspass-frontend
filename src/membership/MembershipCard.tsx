@@ -1,6 +1,7 @@
 import React from 'react';
 import { Membership } from '../store/memberships/types';
 import { Link } from 'react-router-dom';
+import { deleteMembership } from '../store/memberships/actions';
 
 interface MembershipCardProps {
   membership: Membership;
@@ -25,6 +26,7 @@ const MembershipCard: React.FC<MembershipCardProps> = (
   props: MembershipCardProps
 ) => {
   let membership = props.membership;
+
   return (
     <Link className="box" to={'/organizations/' + membership.organization.uuid}>
       <h5 className="title is-size-5">{membership.organization.name}</h5>

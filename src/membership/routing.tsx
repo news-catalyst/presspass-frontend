@@ -3,6 +3,7 @@ import { AppProps } from '../store';
 import { AuthProps } from '../store/auth/types';
 import { ProtectedRoute } from '../common/routing';
 import { MembershipsList } from './MembershipsList';
+import { MembershipDeletePage } from './MembershipDeletePage';
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
@@ -13,7 +14,18 @@ export const getRoutes = (props: AppProps) => {
         users={props.users}
         memberships={props.memberships}
       />
-    </ProtectedRoute>
+    </ProtectedRoute>,
+    <ProtectedRoute
+      exact
+      path="/memberships/:membership/delete"
+      render={routeProps => (
+        <MembershipDeletePage
+          {...props}
+          membership={routeProps.match.params.membership}
+        />
+      )}
+      {...authProps}
+    />
   ];
   return routes;
 };
