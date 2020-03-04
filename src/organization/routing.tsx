@@ -1,13 +1,20 @@
-import React from "react";
-import { AppProps } from "../store";
-import { AuthProps } from "../store/auth/types";
-import { ProtectedRoute } from "../common/routing";
-import { OrganizationPage } from "./OrganizationPage";
-import { ManageOrganizationPage } from "./ManageOrganizationPage";
+import React from 'react';
+import { AppProps } from '../store';
+import { AuthProps } from '../store/auth/types';
+import { ProtectedRoute } from '../common/routing';
+import { OrganizationPage } from './OrganizationPage';
+import { ManageOrganizationPage } from './ManageOrganizationPage';
+import { OrganizationsList } from './OrganizationsList';
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
+    <ProtectedRoute exact path="/organizations" {...authProps}>
+      <OrganizationsList
+        actions={props.actions}
+        organizations={props.organizations}
+      />
+    </ProtectedRoute>,
     <ProtectedRoute
       exact
       path="/organizations/:id"
@@ -23,7 +30,7 @@ export const getRoutes = (props: AppProps) => {
         <ManageOrganizationPage {...props} id={routeProps.match.params.id} />
       )}
       {...authProps}
-    />,
+    />
   ];
   return routes;
 };
