@@ -4,6 +4,7 @@ import { UsersState } from '../store/users/types';
 import { MembershipState, Membership } from '../store/memberships/types';
 import { ensureMembershipsForUser } from '../store/memberships/api';
 import MembershipCard from './MembershipCard';
+import { Link } from 'react-router-dom';
 
 interface MembershipsListProps {
   actions: AppActions;
@@ -35,6 +36,9 @@ export const MembershipsList: React.FC<MembershipsListProps> = (
           )
         )}
       </div>
+      <Link to="/organizations" className="button is-link is-outlined">
+        + Join An Organization
+      </Link>
     </div>
   );
 };
