@@ -1,4 +1,4 @@
-import { AppActions } from "..";
+import { AppActions } from '..';
 import {
   checkAuth,
   cfetch,
@@ -6,11 +6,9 @@ import {
   ItemizedResponse,
   notify,
   GET,
-  PATCH,
-  POST,
-  DELETE
-} from "../../utils";
-import { User, UsersState } from "./types";
+  PATCH
+} from '../../utils';
+import { User } from './types';
 
 const serializeUser = (user: User) => ({
   name: user.name,
@@ -25,7 +23,7 @@ export const fetchSelfUser = (actions: AppActions) =>
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertSelfUser(data)]))
     .catch(error => {
-      console.error("API Error fetchSelfUser", error, error.code);
+      console.error('API Error fetchSelfUser', error, error.code);
     });
 
 export const updateSelfUser = (user: User, actions: AppActions) => {
@@ -42,7 +40,7 @@ export const updateSelfUser = (user: User, actions: AppActions) => {
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertSelfUser(status.body as User);
-        notify(`Successfully updated your profile.`, "success");
+        notify(`Successfully updated your profile.`, 'success');
       })
     );
 };
