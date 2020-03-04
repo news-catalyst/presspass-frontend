@@ -1,10 +1,12 @@
+import { Organization } from '../organizations/types';
+
 export const DELETE_MEMBERSHIP = 'DELETE_MEMBERSHIP';
 export const UPSERT_MEMBERSHIP = 'UPSERT_MEMBERSHIP';
 export const UPSERT_MEMBERSHIPS = 'UPSERT_MEMBERSHIPS';
 
 export interface Membership {
   user: number;
-  organization: number;
+  organization: Organization;
   admin: boolean;
 }
 

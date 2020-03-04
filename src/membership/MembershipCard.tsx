@@ -10,23 +10,29 @@ interface AdminTagProps {
   isAdmin: boolean;
 }
 const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
-  if (props.isAdmin) {
-    return <span className="tag is-primary">Admin</span>;
-  } else {
-    return <span className="tag is-dark">NOT Admin</span>;
-  }
+  return (
+    <div className="tags has-addons">
+      <span className="tag">Admin?</span>
+      {props.isAdmin ? (
+        <span className="tag is-success">Yes</span>
+      ) : (
+        <span className="tag is-danger">No</span>
+      )}
+    </div>
+  );
 };
 const MembershipCard: React.FC<MembershipCardProps> = (
   props: MembershipCardProps
 ) => {
   let membership = props.membership;
   return (
-    <Link className="box" to={'/organizations/' + membership.organization}>
-      <h5 className="title is-size-5">{membership.organization}</h5>
+    <Link className="box" to={'/organizations/' + membership.organization.uuid}>
+      <h5 className="title is-size-5">{membership.organization.name}</h5>
       <div className="field is-grouped is-grouped-multiline">
         <div className="control">
           <div className="tags has-addons"></div>
           <AdminTag isAdmin={membership.admin} />
+          <button className="button is-danger">Remove</button>
         </div>
       </div>
     </Link>

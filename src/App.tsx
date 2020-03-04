@@ -32,6 +32,7 @@ import { getRoutes as authRoutes } from './auth/routing';
 import { getRoutes as clientsRoutes } from './clients/routing';
 import { getRoutes as accountRoutes } from './account/routing';
 import { getRoutes as entitlementsRoutes } from './entitlements/routing';
+import { getRoutes as membershipsRoutes } from './membership/routing';
 import { getRoutes as organizationsRoutes } from './organization/routing';
 
 // Styles
@@ -66,6 +67,7 @@ const App = (props: AppProps) => {
               {clientsRoutes(props).map(route => route)}
               {accountRoutes(props).map(route => route)}
               {entitlementsRoutes(props).map(route => route)}
+              {membershipsRoutes(props).map(route => route)}
               {organizationsRoutes(props).map(route => route)}
               <Route path="*">
                 <NotFound />
