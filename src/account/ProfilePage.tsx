@@ -74,8 +74,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
             <div className="columns is-multiline">
               {Object.values(props.memberships.memberships).map(
                 (membership: Membership) => (
-                  <div key={membership.organization} className="column is-4">
-                    <MembershipCard membership={membership} />
+                  <div className="column is-4">
+                    <MembershipCard
+                      key={membership.organization.uuid}
+                      membership={membership}
+                      actions={props.actions}
+                    />
                   </div>
                 )
               )}

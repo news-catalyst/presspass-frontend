@@ -22,7 +22,7 @@ export function membershipReducers(
         hydrated: true
       };
       for (let membership of action.memberships) {
-        incomingObject.memberships[membership.organization] = membership;
+        incomingObject.memberships[membership.organization.uuid] = membership;
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -39,7 +39,7 @@ export function membershipReducers(
         memberships: Object.assign({}, state.memberships),
         hydrated: true
       };
-      delete incomingObject.memberships[action.membership.user];
+      delete incomingObject.memberships[action.membership.organization.uuid];
       return Object.assign({}, state, incomingObject);
     }
     default:
