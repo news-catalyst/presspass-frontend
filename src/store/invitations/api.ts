@@ -150,7 +150,7 @@ export const acceptInvitation = (
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
         notify(
-          `Successfully accepted user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          `Successfully accepted invitation to join organization ${invitation.organization.name}.`,
           'success'
         );
       })
@@ -177,7 +177,7 @@ export const rejectInvitation = (
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
         notify(
-          `Successfully rejected user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          `Successfully rejected invitation to join organization ${invitation.organization.name}.`,
           'success'
         );
       })
