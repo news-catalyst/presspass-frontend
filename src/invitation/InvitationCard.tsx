@@ -19,19 +19,13 @@ const InvitationActions: React.FC<InvitationCardProps> = (
   let invitation = props.invitation;
 
   // i've been invited, and I can say yes or no
-  let showActionButtons =
-    !accepted &&
-    !rejected &&
-    !invitation.request;
+  let showActionButtons = !accepted && !rejected && !invitation.request;
 
   // I've requested membership and it's pending
-  let showRequestIsPendingStatus =
-    !accepted &&
-    !rejected &&
-    invitation.request;
+  let showRequestIsPendingStatus = !accepted && !rejected && invitation.request;
 
   // I've requested membership and it's either been approved or booed
-  let showInvitationIsHandledStatus = (accepted || rejected)
+  let showInvitationIsHandledStatus = accepted || rejected;
 
   const onAcceptClick = () => {
     acceptInvitation(invitation, props.actions).then(status => {
@@ -107,7 +101,7 @@ const InvitationCard: React.FC<InvitationCardProps> = (
 
   return (
     <div key={invitation.uuid} className="box">
-      <h5 className="title is-size-5">{invitation.organization.name}</h5>
+      <h5 className="title is-size-5">{invitation.organization}</h5>
       <div>
         <InvitationActions actions={props.actions} invitation={invitation} />
         <p>

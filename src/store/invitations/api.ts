@@ -24,10 +24,14 @@ const serializeInvitation = (invitation: Invitation) => ({
   // including them in the request would result in a 400 response.
 });
 
-export const fetchInvitation = (actions: AppActions, id: string) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${id}`, GET)
+export const fetchInvitation = (actions: AppActions, uuid: string) =>
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${uuid}`, GET)
     .then(checkAuth(actions))
     .then(response => response.json())
+    .then(data => {
+      data.uuid = uuid; // necessary because the API lacks this ID in the response
+      return data;
+    })
     .then(data => Promise.all([actions.upsertInvitation(data)]))
     .catch(error => {
       console.error('API Error fetchInvitation', error, error.code);
