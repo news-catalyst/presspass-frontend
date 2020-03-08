@@ -3,7 +3,6 @@ import { AppActions } from '../store';
 import { Membership } from '../store/memberships/types';
 import { Link } from 'react-router-dom';
 import { deleteMembership } from '../store/memberships/api';
-import { membershipReducers } from '../store/memberships/reducers';
 
 interface MembershipCardProps {
   membership: Membership;

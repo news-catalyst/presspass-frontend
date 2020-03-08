@@ -10,7 +10,12 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (
 ) => {
   let entitlement = props.entitlement;
   return (
-    <a className="box" target="_blank" href={entitlement.client.website_url}>
+    <a
+      className="box"
+      target="_blank"
+      rel="noopener noreferrer"
+      href={entitlement.client.website_url}
+    >
       <h5 className="title is-size-5">{entitlement.name}</h5>
       <div className="field is-grouped is-grouped-multiline">
         <div className="control">

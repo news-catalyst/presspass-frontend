@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
-import { Invitation, InvitationState } from '../store/invitations/types';
+import { InvitationState } from '../store/invitations/types';
 import { fetchInvitation } from '../store/invitations/api';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import InvitationCard from './InvitationCard';
@@ -16,7 +16,7 @@ export const InvitationPage: React.FC<InvitationPageProps> = (
 ) => {
   useEffect(() => {
     fetchInvitation(props.actions, props.id);
-  }, [props.actions]);
+  }, [props.actions, props.id]);
 
   if (!props.invitations.hydrated) {
     return <LoadingPlaceholder />;
