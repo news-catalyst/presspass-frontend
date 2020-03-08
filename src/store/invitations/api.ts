@@ -25,7 +25,10 @@ const serializeInvitation = (invitation: Invitation) => ({
 });
 
 export const fetchInvitation = (actions: AppActions, uuid: string) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${uuid}`, GET)
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${uuid}?expand=organization`,
+    GET
+  )
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => {
