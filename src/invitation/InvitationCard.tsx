@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AppActions } from '../store';
 import { Invitation } from '../store/invitations/types';
 import { acceptInvitation, rejectInvitation } from '../store/invitations/api';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 interface InvitationCardProps {
   actions: AppActions;
@@ -48,6 +48,10 @@ const InvitationActions: React.FC<InvitationCardProps> = (
       }
     });
   };
+
+  if (saved) {
+    return <Redirect to={`/profile`} />;
+  }
 
   if (showActionButtons) {
     return (
