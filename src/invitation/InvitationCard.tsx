@@ -89,6 +89,8 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         )}
       </div>
     );
+  } else if (saved) {
+    return <div>All done!</div>;
   } else {
     return <div>Unhandled invitation state.</div>;
   }
@@ -101,7 +103,7 @@ const InvitationCard: React.FC<InvitationCardProps> = (
 
   return (
     <div key={invitation.uuid} className="box">
-      <h5 className="title is-size-5">{invitation.organization}</h5>
+      <h5 className="title is-size-5">{invitation.organization.name}</h5>
       <div>
         <InvitationActions actions={props.actions} invitation={invitation} />
         <p>
