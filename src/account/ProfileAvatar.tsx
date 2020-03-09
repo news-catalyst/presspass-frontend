@@ -9,11 +9,11 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = (
 ) => {
   if (props.avatar) {
     return (
-      <figure className="media-left">
-        <p className="image is-64x64">
+      <div className="media-left">
+        <figure className="image is-64x64">
           <img alt="profile" src={props.avatar} />
-        </p>
-      </figure>
+        </figure>
+      </div>
     );
   } else {
     return null;
