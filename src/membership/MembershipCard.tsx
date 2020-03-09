@@ -37,7 +37,7 @@ const ManageButton: React.FC<ManageButtonProps> = (
   return (
     <Link
       to={'/organizations/' + props.membership.organization.uuid + '/manage'}
-      className="button"
+      className="card-footer-item"
     >
       Manage
     </Link>
@@ -53,20 +53,30 @@ const MembershipCard: React.FC<MembershipCardProps> = (
   };
 
   return (
-    <div className="box">
-      <Link to={'/organizations/' + membership.organization.uuid}>
-        <h5 className="title is-size-5">{membership.organization.name}</h5>
-      </Link>
-      <div className="field is-grouped is-grouped-multiline">
-        <div className="control">
-          <div className="tags has-addons"></div>
+    <div className="card">
+      <header className="card-header">
+        <p className="card-header-title">
+          <Link to={'/organizations/' + membership.organization.uuid}>
+            {membership.organization.name}
+          </Link>
+        </p>
+        <p className="card-header-icon">
+          <span className="icon">
+            <i className="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </p>
+      </header>
+      <div className="card-content">
+        <div className="content">
           <AdminTag isAdmin={membership.admin} />
-          <ManageButton membership={membership} />
-          <button onClick={removeMembership} className="button is-danger">
-            Remove
-          </button>
         </div>
       </div>
+      <footer className="card-footer">
+        <ManageButton membership={membership} />
+        <a onClick={removeMembership} className="card-footer-item">
+          Remove
+        </a>
+      </footer>
     </div>
   );
 };
