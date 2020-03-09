@@ -86,9 +86,13 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
   }
 
   // necessary as just linking to /register results in location missing the original return url
+  let returnUrl = '/';
+  if (location.state) {
+    returnUrl = location.state.return;
+  }
   const registerLocation = {
     pathname: '/register',
-    state: { return: location.state.return }
+    state: { return: returnUrl }
   };
   const redirectUrl = location.state ? location.state.return : '/';
 
