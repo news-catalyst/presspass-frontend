@@ -1,22 +1,26 @@
-import React, { useState, SyntheticEvent } from "react";
-import { AppActions } from "../store";
-import { registerAccount } from "../store/auth/api";
-import Field from "../common/Field";
-import { Link } from "react-router-dom";
+import React, { useState, SyntheticEvent } from 'react';
+import { AppActions } from '../store';
+import { registerAccount } from '../store/auth/api';
+import Field from '../common/Field';
+import { Link } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router';
 
 interface AccountEditPageProps {
   actions: AppActions;
+  location?: any;
 }
 
 const RegisterPage: React.FC<AccountEditPageProps> = (
   props: AccountEditPageProps
 ) => {
   let [errors, setErrors] = useState<any>({});
-  let [username, setUsername] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let [passwordConfirm, setPasswordConfirm] = useState("");
+  let [username, setUsername] = useState('');
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+  let [passwordConfirm, setPasswordConfirm] = useState('');
   let [saved, setSaved] = useState(false);
+
+  let location = useLocation();
 
   function handleFormSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -36,13 +40,17 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
     });
   }
 
+  const redirectUrl = location.state ? location.state.return : '/';
+
   if (saved) {
     return (
       <div className="notification is-success">
-        <strong>Welcome!</strong> Thank you for signing up for PressPass. You will receive an email confirmation
-        email shortly. In the meantime, you can continue to the <Link to="/">homepage</Link>.
+        <strong>Welcome!</strong> Thank you for signing up for PressPass. You
+        will receive an email confirmation email shortly. In the meantime, we'll
+        redirect you or you can continue to the <Link to="/">homepage</Link>.
+        <Redirect to={redirectUrl} />
       </div>
-    )
+    );
   }
 
   return (
@@ -52,7 +60,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
         <Field label="Username" errors={errors.username}>
           <input
             type="text"
-            className={errors.username ? "input is-danger" : "input"}
+            className={errors.username ? 'input is-danger' : 'input'}
             value={username}
             onChange={event => setUsername(event.target.value)}
           />
@@ -60,7 +68,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
         <Field label="Email" errors={errors.email}>
           <input
             type="email"
-            className={errors.email ? "input is-danger" : "input"}
+            className={errors.email ? 'input is-danger' : 'input'}
             value={email}
             onChange={event => setEmail(event.target.value)}
           />
@@ -68,7 +76,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
         <Field label="New Password" errors={errors.password1}>
           <input
             type="password"
-            className={errors.password1 ? "input is-danger" : "input"}
+            className={errors.password1 ? 'input is-danger' : 'input'}
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
@@ -76,7 +84,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
         <Field label="Confirm New Password" errors={errors.password2}>
           <input
             type="password"
-            className={errors.password2 ? "input is-danger" : "input"}
+            className={errors.password2 ? 'input is-danger' : 'input'}
             value={passwordConfirm}
             onChange={event => setPasswordConfirm(event.target.value)}
           />
