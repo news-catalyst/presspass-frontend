@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Membership, MembershipState } from '../store/memberships/types';
 import { ensureMembershipsForUser } from '../store/memberships/api';
 import MembershipCard from '../membership/MembershipCard';
+import ProfileAvatar from './ProfileAvatar';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
@@ -33,43 +34,34 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
     let avatar = props.users.self!.avatar;
 
     return (
-      <article className="media profile">
-        <figure className="media-left">
-          <p className="image is-64x64">
-            <img alt="profile" src={avatar} />
-          </p>
-        </figure>
-        <div className="media-content">
-          <div className="content">
-            <h1 className="title is-size-1">Your Profile</h1>
-            <table className="table">
-              <tbody>
-                <tr>
-                  <th>Name:</th>
-                  <td>{name}</td>
-                </tr>
-                <tr>
-                  <th>Username:</th>
-                  <td>{username}</td>
-                </tr>
-                <tr>
-                  <th>Email:</th>
-                  <td>{email}</td>
-                </tr>
-                <tr>
-                  <th>Password:</th>
-                  <td>
-                    <Link
-                      to="/profile/change-password"
-                      className="is-link is-outlined"
-                    >
-                      Change Password
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <div>
+        <div className="section">
+          <div className="card">
+            <div className="card-content">
+              <div className="media">
+                <ProfileAvatar avatar={avatar} />
+                <div className="media-content">
+                  <p className="title is-4">{name}</p>
+                  <p className="subtitle is-6">@{username}</p>
+                </div>
+              </div>
 
+              <div className="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <footer className="card-footer">
+              <Link to="/profile/change-password" className="card-footer-item">
+                Change Password
+              </Link>
+              <Link to="/clients/create" className="card-footer-item">
+                Create New Client
+              </Link>
+            </footer>
+          </div>
+        </div>
+        <div className="section">
+          <div className="container">
             <h1 className="title is-size-3">Your Memberships</h1>
             <div className="columns is-multiline">
               {Object.values(props.memberships.memberships).map(
@@ -86,7 +78,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
             </div>
           </div>
         </div>
-      </article>
+      </div>
     );
   }
 };
