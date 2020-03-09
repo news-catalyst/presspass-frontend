@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Membership, MembershipState } from '../store/memberships/types';
 import { ensureMembershipsForUser } from '../store/memberships/api';
 import MembershipCard from '../membership/MembershipCard';
+import ProfileAvatar from './ProfileAvatar';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
@@ -34,11 +35,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
 
     return (
       <article className="media profile">
-        <figure className="media-left">
-          <p className="image is-64x64">
-            <img alt="profile" src={avatar} />
-          </p>
-        </figure>
+        <ProfileAvatar avatar={avatar} />
         <div className="media-content">
           <div className="content">
             <h1 className="title is-size-1">Your Profile</h1>
