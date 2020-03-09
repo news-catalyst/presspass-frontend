@@ -13,16 +13,15 @@ interface AdminTagProps {
   isAdmin: boolean;
 }
 const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
-  return (
-    <div className="tags has-addons">
-      <span className="tag">Admin?</span>
-      {props.isAdmin ? (
-        <span className="tag is-success">Yes</span>
-      ) : (
-        <span className="tag is-danger">No</span>
-      )}
-    </div>
-  );
+  if (props.isAdmin) {
+    return (
+      <div className="tags has-addons">
+        <span className="tag is-success">Admin</span>
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 interface ManageButtonProps {
@@ -61,14 +60,12 @@ const MembershipCard: React.FC<MembershipCardProps> = (
           </Link>
         </p>
         <p className="card-header-icon">
-          <span className="icon">
-            <i className="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
+          <AdminTag isAdmin={membership.admin} />
         </p>
       </header>
       <div className="card-content">
         <div className="content">
-          <AdminTag isAdmin={membership.admin} />
+          Lorem ipsum about the org, maybe a link, not sure what might go here.
         </div>
       </div>
       <footer className="card-footer">
