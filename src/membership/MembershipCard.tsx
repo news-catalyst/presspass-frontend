@@ -24,6 +24,25 @@ const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
   }
 };
 
+interface InviteButtonProps {
+  membership: Membership;
+}
+const InviteButton: React.FC<InviteButtonProps> = (
+  props: InviteButtonProps
+) => {
+  if (!props.membership.admin) {
+    return null;
+  }
+  return (
+    <Link
+      to={'/organizations/' + props.membership.organization.uuid + '/invite'}
+      className="card-footer-item"
+    >
+      Invite
+    </Link>
+  );
+};
+
 interface ManageButtonProps {
   membership: Membership;
 }
@@ -70,6 +89,7 @@ const MembershipCard: React.FC<MembershipCardProps> = (
       </div>
       <footer className="card-footer">
         <ManageButton membership={membership} />
+        <InviteButton membership={membership} />
         <a onClick={removeMembership} className="card-footer-item">
           Remove
         </a>
