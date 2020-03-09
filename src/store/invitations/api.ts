@@ -24,6 +24,22 @@ const serializeInvitation = (invitation: Invitation) => ({
   // including them in the request would result in a 400 response.
 });
 
+export const fetchInvitation = (actions: AppActions, uuid: string) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/invitations/${uuid}?expand=organization`,
+    GET
+  )
+    .then(checkAuth(actions))
+    .then(response => response.json())
+    .then(data => {
+      data.uuid = uuid; // necessary because the API lacks this ID in the response
+      return data;
+    })
+    .then(data => Promise.all([actions.upsertInvitation(data)]))
+    .catch(error => {
+      console.error('API Error fetchInvitation', error, error.code);
+    });
+
 export const fetchInvitationsForUser = (actions: AppActions, uuid: string) =>
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/users/${uuid}/invitations`,
@@ -141,7 +157,7 @@ export const acceptInvitation = (
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
         notify(
-          `Successfully accepted user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          `Successfully accepted invitation to join organization ${invitation.organization.name}.`,
           'success'
         );
       })
@@ -168,7 +184,7 @@ export const rejectInvitation = (
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
         notify(
-          `Successfully rejected user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
+          `Successfully rejected invitation to join organization ${invitation.organization.name}.`,
           'success'
         );
       })

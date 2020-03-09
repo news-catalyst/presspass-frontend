@@ -11,7 +11,6 @@ import {
   DELETE
 } from '../../utils';
 import { Membership, MembershipState } from './types';
-import { OrganizationState, Organization } from '../organizations/types';
 
 const serializeMembership = (membership: Membership) => ({
   user: membership.user,

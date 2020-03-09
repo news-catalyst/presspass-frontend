@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AppActions } from '../store';
 import { Invitation } from '../store/invitations/types';
 import { acceptInvitation, rejectInvitation } from '../store/invitations/api';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 interface InvitationCardProps {
   actions: AppActions;
@@ -19,19 +19,13 @@ const InvitationActions: React.FC<InvitationCardProps> = (
   let invitation = props.invitation;
 
   // i've been invited, and I can say yes or no
-  let showActionButtons =
-    !accepted &&
-    !rejected &&
-    !invitation.request;
+  let showActionButtons = !accepted && !rejected && !invitation.request;
 
   // I've requested membership and it's pending
-  let showRequestIsPendingStatus =
-    !accepted &&
-    !rejected &&
-    invitation.request;
+  let showRequestIsPendingStatus = !accepted && !rejected && invitation.request;
 
   // I've requested membership and it's either been approved or booed
-  let showInvitationIsHandledStatus = (accepted || rejected)
+  let showInvitationIsHandledStatus = accepted || rejected;
 
   const onAcceptClick = () => {
     acceptInvitation(invitation, props.actions).then(status => {
@@ -54,6 +48,10 @@ const InvitationActions: React.FC<InvitationCardProps> = (
       }
     });
   };
+
+  if (saved) {
+    return <Redirect to={`/profile`} />;
+  }
 
   if (showActionButtons) {
     return (
@@ -95,6 +93,8 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         )}
       </div>
     );
+  } else if (saved) {
+    return <div>All done!</div>;
   } else {
     return <div>Unhandled invitation state.</div>;
   }
@@ -107,7 +107,7 @@ const InvitationCard: React.FC<InvitationCardProps> = (
 
   return (
     <div key={invitation.uuid} className="box">
-      <h5 className="title is-size-5">{invitation.organization}</h5>
+      <h5 className="title is-size-5">{invitation.organization.name}</h5>
       <div>
         <InvitationActions actions={props.actions} invitation={invitation} />
         <p>

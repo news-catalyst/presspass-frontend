@@ -36,7 +36,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
       <article className="media profile">
         <figure className="media-left">
           <p className="image is-64x64">
-            <img alt="profile photo" src={avatar} />
+            <img alt="profile" src={avatar} />
           </p>
         </figure>
         <div className="media-content">

@@ -22,7 +22,7 @@ export function invitationReducers(
         hydrated: true
       };
       for (let invitation of action.invitations) {
-        incomingObject.invitations[invitation.organization] = invitation;
+        incomingObject.invitations[invitation.organization.uuid] = invitation;
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -31,7 +31,7 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
-      incomingObject.invitations[action.invitation.organization] = action.invitation;
+      incomingObject.invitations[action.invitation.uuid] = action.invitation;
       return Object.assign({}, state, incomingObject);
     }
     case DELETE_INVITATION: {
@@ -39,7 +39,7 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
-      delete incomingObject.invitations[action.invitation.organization];
+      delete incomingObject.invitations[action.invitation.organization.uuid];
       return Object.assign({}, state, incomingObject);
     }
     default:
