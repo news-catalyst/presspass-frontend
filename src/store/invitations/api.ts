@@ -7,7 +7,7 @@ import {
   notify,
   GET,
   PATCH,
-  PUT,
+  JSON_POST,
   DELETE
 } from '../../utils';
 import { Invitation, InvitationState } from './types';
@@ -192,32 +192,22 @@ export const rejectInvitation = (
 };
 
 export const createInvitation = (
-  invitation: Invitation,
+  organization_id: string,
+  email: string,
   actions: AppActions
-) => {
-  let formData = new FormData();
-  let packagedInvitation: any = serializeInvitation(invitation);
-  for (let key of Object.keys(packagedInvitation)) {
-    formData.append(key, packagedInvitation[key]);
-  }
-  return (
-    cfetch(
-      `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${invitation.organization}/invitations/${invitation.user}`,
-      PUT(formData)
-    )
-      .then(checkAuth(actions))
-      // Cannot call upsert invitation here, because IDs are assigned on the server side
-      .then(response =>
-        validate(response, (status: ItemizedResponse) => {
-          actions.upsertInvitation(status.body as Invitation);
-          notify(
-            `Successfully created invitation for user ${invitation.user} in organization ${invitation.organization}.`,
-            'success'
-          );
-        })
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization_id}/invitations/`,
+    JSON_POST({
+      email: email
+    })
+  )
+    .then(checkAuth(actions)) // Necessary
+    .then(response =>
+      validate(response, () =>
+        notify('Successfully sent the invitation.', 'success')
       )
-  );
-};
+    );
 
 export const deleteInvitation = (invitation: Invitation, actions: AppActions) =>
   cfetch(
