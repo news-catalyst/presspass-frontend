@@ -6,6 +6,7 @@ import { OrganizationPage } from './OrganizationPage';
 import { ManageOrganizationPage } from './ManageOrganizationPage';
 import { OrganizationsList } from './OrganizationsList';
 import { InvitationPage } from '../invitation/InvitationPage';
+import { InvitePage } from '../invitation/InvitePage';
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
@@ -37,6 +38,14 @@ export const getRoutes = (props: AppProps) => {
       path="/organizations/:id/invitation"
       render={routeProps => (
         <InvitationPage {...props} id={routeProps.match.params.id} />
+      )}
+      {...authProps}
+    />,
+    <ProtectedRoute
+      exact
+      path="/organizations/:id/invite"
+      render={routeProps => (
+        <InvitePage {...props} organization={routeProps.match.params.id} />
       )}
       {...authProps}
     />
