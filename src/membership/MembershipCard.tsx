@@ -66,6 +66,8 @@ const MembershipCard: React.FC<MembershipCardProps> = (
   props: MembershipCardProps
 ) => {
   let membership = props.membership;
+  let organization = membership.organization;
+
   const removeMembership = () => {
     deleteMembership(membership, props.actions);
   };
@@ -74,17 +76,24 @@ const MembershipCard: React.FC<MembershipCardProps> = (
     <div className="card">
       <header className="card-header">
         <p className="card-header-title">
-          <Link to={'/organizations/' + membership.organization.uuid}>
-            {membership.organization.name}
+          <Link to={'/organizations/' + organization.uuid}>
+            {organization.name}
           </Link>
         </p>
-        <p className="card-header-icon">
+        <div className="card-header-icon">
           <AdminTag isAdmin={membership.admin} />
-        </p>
+        </div>
       </header>
+
       <div className="card-content">
         <div className="content">
-          Lorem ipsum about the org, maybe a link, not sure what might go here.
+          <div className="media-content">
+            <div className="content">
+              <p>{membership.organization.avatar}</p>
+              Lorem ipsum about the org, maybe a link, not sure what might go
+              here.
+            </div>
+          </div>
         </div>
       </div>
       <footer className="card-footer">

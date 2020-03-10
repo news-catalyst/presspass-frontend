@@ -28,7 +28,10 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id"
       render={routeProps => (
-        <OrganizationPage {...props} id={routeProps.match.params.id} />
+        <OrganizationPage
+          {...props}
+          organization={routeProps.match.params.id}
+        />
       )}
       {...authProps}
     />,
@@ -36,7 +39,10 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id/manage"
       render={routeProps => (
-        <ManageOrganizationPage {...props} id={routeProps.match.params.id} />
+        <ManageOrganizationPage
+          {...props}
+          organization={routeProps.match.params.id}
+        />
       )}
       {...authProps}
     />,

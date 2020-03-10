@@ -19,21 +19,20 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
   let [name, setName] = useState(organization.name);
   let [plan, setPlan] = useState(organization.plan);
   let [privateOrg, setPrivateOrg] = useState(organization.private);
-  // let [avatar, setAvatar] = useState(organization.avatar);
-  // let [avatar, setAvatar] = useState<File | undefined>(undefined);
+  let [avatar, setAvatar] = useState<File | undefined>(undefined);
 
   let newOrganization: Organization = {
     ...organization,
     name: name,
     plan: plan,
-    private: privateOrg
+    private: privateOrg,
+    avatar: avatar
   };
 
   let errors = props.errors;
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log(newOrganization);
     props.onSubmit(newOrganization);
   };
 
@@ -49,24 +48,20 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
         />
       </Field>
       <Field
-        label="Plan"
-        errors={errors.plan}
-        help="The current plan this organization is subscribed to"
+        label="Avatar"
+        errors={errors.avatar}
+        help="If you do not upload a file, the current photo will be kept."
       >
-        <div className={errors.plan ? 'select is-danger' : 'select'}>
-          <select value={plan} onChange={event => setPlan(event.target.value)}>
-            <option value="admin">Admin</option>
-            <option value="beta">Beta</option>
-            <option value="free">Free</option>
-            <option value="manual-pay-organization">
-              Manual Pay Organization
-            </option>
-            <option value="organization">Organization</option>
-            <option value="organization-plus">Organization Plus</option>
-            <option value="professional">Professional</option>
-            <option value="proxy">Proxy</option>
-          </select>
-        </div>
+        <input
+          className={errors.avatar ? 'input is-danger' : 'input'}
+          type="file"
+          placeholder="Your organization's logo..."
+          onChange={event =>
+            setAvatar(
+              event.target.files === null ? undefined : event.target.files[0]
+            )
+          }
+        />
       </Field>
       <Field errors={errors.private}>
         <label className={errors.private ? 'checkbox is-danger' : 'checkbox'}>
