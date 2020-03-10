@@ -83,9 +83,7 @@ const MembershipCard: React.FC<MembershipCardProps> = (
         </p>
       </header>
       <div className="card-content">
-        <div className="content">
-          Lorem ipsum about the org, maybe a link, not sure what might go here.
-        </div>
+        <div className="content">TK Members, TK Subscriptions</div>
       </div>
       <footer className="card-footer">
         <ManageButton membership={membership} />
