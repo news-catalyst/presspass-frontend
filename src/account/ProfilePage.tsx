@@ -57,6 +57,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               <Link to="/clients/create" className="card-footer-item">
                 Create New Client
               </Link>
+              <Link to="/organizations/create" className="card-footer-item">
+                Create New Organization
+              </Link>
             </footer>
           </div>
         </div>
