@@ -204,9 +204,13 @@ export const createInvitation = (
   )
     .then(checkAuth(actions)) // Necessary
     .then(response =>
-      validate(response, () =>
-        notify('Successfully sent the invitation.', 'success')
-      )
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertInvitation(status.body as Invitation);
+        notify(
+          '[TODO remove this?] Successfully sent the invitation.',
+          'success'
+        );
+      })
     );
 
 export const deleteInvitation = (invitation: Invitation, actions: AppActions) =>

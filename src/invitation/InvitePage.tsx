@@ -48,7 +48,8 @@ export const InvitePage: React.FC<InvitePageProps> = (
   if (saved) {
     return (
       <div className="notification is-success">
-        <strong>Success!</strong> You've invited TK to the org TKTK.
+        <strong>Success!</strong> You've invited {email} to the org{' '}
+        {organization.name}.
       </div>
     );
   }
