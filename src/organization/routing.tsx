@@ -5,6 +5,7 @@ import { ProtectedRoute } from '../common/routing';
 import { OrganizationPage } from './OrganizationPage';
 import { ManageOrganizationPage } from './ManageOrganizationPage';
 import { OrganizationsList } from './OrganizationsList';
+import { OrganizationCreatePage } from './OrganizationCreatePage';
 import { InvitationPage } from '../invitation/InvitationPage';
 import { InvitePage } from '../invitation/InvitePage';
 
@@ -17,6 +18,12 @@ export const getRoutes = (props: AppProps) => {
         organizations={props.organizations}
       />
     </ProtectedRoute>,
+    <ProtectedRoute
+      exact
+      path="/organizations/create"
+      render={routeProps => <OrganizationCreatePage {...props} />}
+      {...authProps}
+    />,
     <ProtectedRoute
       exact
       path="/organizations/:id"
