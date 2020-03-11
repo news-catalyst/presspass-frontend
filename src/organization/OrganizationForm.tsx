@@ -4,9 +4,12 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { Organization } from '../store/organizations/types';
 import Field from '../common/Field';
+import { Plan, PlanState } from '../store/plans/types';
+import { organizationReducers } from '../store/organizations/reducers';
 
 interface OrganizationFormProps {
   organization: Organization;
+  plans: PlanState;
   onSubmit: (parameter: Organization) => void;
   errors: any;
 }
@@ -17,14 +20,14 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
   let organization = props.organization;
 
   let [name, setName] = useState(organization.name);
-  let [plan, setPlan] = useState(organization.plan);
+  let [selectedPlan, setSelectedPlan] = useState(organization.plan);
   let [privateOrg, setPrivateOrg] = useState(organization.private);
   let [avatar, setAvatar] = useState<File | undefined>(undefined);
 
   let newOrganization: Organization = {
     ...organization,
     name: name,
-    plan: plan,
+    plan: selectedPlan,
     private: privateOrg,
     avatar: avatar
   };
@@ -72,6 +75,20 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
           />
           This organization's information and membership is not made public
         </label>
+      </Field>
+      <Field errors={errors.plan}>
+        <div className={errors.client_type ? 'select is-danger' : 'select'}>
+          <select
+            value={selectedPlan}
+            onChange={event => setSelectedPlan(event.target.value)}
+          >
+            {Object.values(props.plans.plans).map((plan: Plan) => (
+              <option key={plan.name} value={plan.name}>
+                {plan.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </Field>
       <br />
       <button type="submit" className="button is-link">

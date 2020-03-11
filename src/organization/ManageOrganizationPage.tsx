@@ -1,34 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppActions } from '../store';
 import { OrganizationState, Organization } from '../store/organizations/types';
-import { ensureOrganizations } from '../store/organizations/api';
+import { PlanState, Plan } from '../store/plans/types';
+import {
+  ensureOrganizations,
+  updateOrganization
+} from '../store/organizations/api';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { AppProps } from '../store';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { ensurePlans } from '../store/plans/api';
+import OrganizationForm from './OrganizationForm';
 
 interface ManageOrganizationPageProps extends AppProps {
+  actions: AppActions;
   organization: string;
   organizations: OrganizationState;
-  actions: AppActions;
+  plans: PlanState;
 }
 
 export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
   useEffect(() => {
     ensureOrganizations(props.actions, props.organizations);
-  }, [props.actions, props.organizations]);
-  if (!props.organizations.hydrated) {
+    ensurePlans(props.actions, props.plans);
+  }, [props.actions, props.organizations, props.plans]);
+
+  let [saved, setSaved] = useState(false);
+  let [errors, setErrors] = useState({});
+
+  if (!props.organizations.hydrated || !props.plans.hydrated) {
     return <LoadingPlaceholder />;
   }
 
   let organization = props.organizations.organizations[props.organization];
-  return (
-    <section className="organization-page">
-      <p className="subtitle">Manage PressPass News Organization</p>
-      <h1 className="title is-size-1">{organization.name}</h1>
-      <p>
-        Manage organization page (id {organization.uuid}) (
-        <Link to=".">view</Link>)
-      </p>
-    </section>
-  );
+
+  const handleSubmit = (updatedOrganization: Organization) => {
+    updateOrganization(updatedOrganization, props.actions).then(status => {
+      if (status.ok) {
+        setSaved(true);
+      } else {
+        setErrors(status.body);
+      }
+    });
+  };
+
+  if (saved) {
+    return <Redirect to={`/profile`} />;
+  } else {
+    return (
+      <section className="organization-page">
+        <p className="subtitle">Manage PressPass News Organization</p>
+        <h1 className="title is-size-1">{organization.name}</h1>
+        <OrganizationForm
+          organization={organization}
+          plans={props.plans}
+          onSubmit={handleSubmit}
+          errors={errors}
+        />
+        <p>
+          Manage organization page (id {organization.uuid}) (
+          <Link to=".">view</Link>)
+        </p>
+      </section>
+    );
+  }
 };
