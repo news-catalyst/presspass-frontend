@@ -80,10 +80,12 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
         <div className={errors.client_type ? 'select is-danger' : 'select'}>
           <select
             value={selectedPlan}
-            onChange={event => setSelectedPlan(event.target.value)}
+            onChange={event =>
+              setSelectedPlan(event.target.value.toLowerCase())
+            }
           >
             {Object.values(props.plans.plans).map((plan: Plan) => (
-              <option key={plan.name} value={plan.name}>
+              <option key={plan.name} value={plan.name.toLowerCase()}>
                 {plan.name}
               </option>
             ))}
