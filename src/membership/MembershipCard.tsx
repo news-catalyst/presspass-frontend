@@ -80,21 +80,13 @@ const MembershipCard: React.FC<MembershipCardProps> = (
             {organization.name}
           </Link>
         </p>
-        <div className="card-header-icon">
+        <p className="card-header-icon">
           <AdminTag isAdmin={membership.admin} />
-        </div>
+        </p>
       </header>
 
       <div className="card-content">
-        <div className="content">
-          <div className="media-content">
-            <div className="content">
-              <p>{membership.organization.avatar}</p>
-              Lorem ipsum about the org, maybe a link, not sure what might go
-              here.
-            </div>
-          </div>
-        </div>
+        <div className="content">TK Members, TK Subscriptions</div>
       </div>
       <footer className="card-footer">
         <ManageButton membership={membership} />
