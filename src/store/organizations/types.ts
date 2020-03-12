@@ -13,7 +13,7 @@ export interface Organization {
   update_on: Date;
   updated_at: Date;
   payment_failed: boolean;
-  avatar: string;
+  avatar?: string | File;
 }
 
 export interface OrganizationState {
