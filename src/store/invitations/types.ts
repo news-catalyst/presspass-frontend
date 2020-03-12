@@ -8,6 +8,7 @@ export interface Invitation {
   uuid: number;
   organization: Organization;
   user: number;
+  email: string;
   request: boolean;
   created_at: Date;
   accepted_at: Date;

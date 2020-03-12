@@ -13,15 +13,33 @@ interface AdminTagProps {
   isAdmin: boolean;
 }
 const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
+  if (props.isAdmin) {
+    return (
+      <div className="tags has-addons">
+        <span className="tag is-success">Admin</span>
+      </div>
+    );
+  } else {
+    return null;
+  }
+};
+
+interface InviteButtonProps {
+  membership: Membership;
+}
+const InviteButton: React.FC<InviteButtonProps> = (
+  props: InviteButtonProps
+) => {
+  if (!props.membership.admin) {
+    return null;
+  }
   return (
-    <div className="tags has-addons">
-      <span className="tag">Admin?</span>
-      {props.isAdmin ? (
-        <span className="tag is-success">Yes</span>
-      ) : (
-        <span className="tag is-danger">No</span>
-      )}
-    </div>
+    <Link
+      to={'/organizations/' + props.membership.organization.uuid + '/invite'}
+      className="card-footer-item"
+    >
+      Invite
+    </Link>
   );
 };
 
@@ -61,18 +79,15 @@ const MembershipCard: React.FC<MembershipCardProps> = (
           </Link>
         </p>
         <p className="card-header-icon">
-          <span className="icon">
-            <i className="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
+          <AdminTag isAdmin={membership.admin} />
         </p>
       </header>
       <div className="card-content">
-        <div className="content">
-          <AdminTag isAdmin={membership.admin} />
-        </div>
+        <div className="content">TK Members, TK Subscriptions</div>
       </div>
       <footer className="card-footer">
         <ManageButton membership={membership} />
+        <InviteButton membership={membership} />
         <a onClick={removeMembership} className="card-footer-item">
           Remove
         </a>
