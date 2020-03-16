@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AppActions } from '../store';
 import { Organization } from '../store/organizations/types';
+import { Plan } from '../store/plans/types';
 import { createOrganization } from '../store/organizations/api';
 import OrganizationForm from './OrganizationForm';
 import { Redirect } from 'react-router';
@@ -16,7 +17,6 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
 ) => {
   let organization: Organization = {
     name: '',
-    plan: 'free',
     private: false,
     individual: false,
     payment_failed: false,

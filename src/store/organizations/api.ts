@@ -17,7 +17,6 @@ const serializeOrganization = (organization: Organization) => ({
   name: organization.name || '',
   avatar: organization.avatar || '',
   slug: organization.slug,
-  plan: organization.plan,
   max_users: organization.max_users,
   individual: organization.individual,
   private: organization.private

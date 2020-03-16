@@ -22,14 +22,12 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
   let organization = props.organization;
 
   let [name, setName] = useState(organization.name);
-  let [selectedPlan, setSelectedPlan] = useState(organization.plan);
   let [privateOrg, setPrivateOrg] = useState(organization.private);
   let [avatar, setAvatar] = useState<File | undefined>(undefined);
 
   let newOrganization: Organization = {
     ...organization,
     name: name,
-    plan: selectedPlan,
     private: privateOrg,
     avatar: avatar
   };
@@ -78,20 +76,14 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
           This organization's information and membership is not made public
         </label>
       </Field>
-      <Field errors={errors.plan}>
-        <div className={errors.client_type ? 'select is-danger' : 'select'}>
-          <select
-            value={selectedPlan}
-            onChange={event =>
-              setSelectedPlan(event.target.value.toLowerCase())
-            }
-          >
-            {Object.values(props.plans.plans).map((plan: Plan) => (
-              <option key={plan.name} value={plan.name.toLowerCase()}>
-                {plan.name}
-              </option>
-            ))}
-          </select>
+      <Field>
+        <div className="control">
+          {Object.values(props.plans.plans).map((plan: Plan) => (
+            <label className="checkbox" key={plan.name}>
+              <input type="checkbox" value={plan.name.toLowerCase()} />
+              {plan.name}
+            </label>
+          ))}
         </div>
       </Field>
       <br />

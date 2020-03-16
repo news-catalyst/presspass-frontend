@@ -22,9 +22,6 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
             <dt>Private?</dt>
             <dd>{organization.private}</dd>
 
-            <dt>Plan:</dt>
-            <dd>{organization.plan}</dd>
-
             <dt>Max users:</dt>
             <dd>{organization.max_users}</dd>
 
