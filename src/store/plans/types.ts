@@ -2,6 +2,7 @@ export const UPSERT_PLAN = 'UPSERT_PLAN';
 export const UPSERT_PLANS = 'UPSERT_PLANS';
 
 export interface Plan {
+  id: number;
   name: string;
   slug: string;
   minimum_users: number;
@@ -9,10 +10,11 @@ export interface Plan {
   price_per_user: number;
   for_individuals: boolean;
   for_groups: boolean;
+  subscribed: boolean;
 }
 
 export interface PlanState {
-  plans: { [name: string]: Plan };
+  plans: { [id: number]: Plan };
   hydrated: boolean;
 }
 

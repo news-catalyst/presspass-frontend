@@ -1,9 +1,11 @@
 import {
   UPSERT_SUBSCRIPTION,
   UPSERT_SUBSCRIPTIONS,
+  DELETE_SUBSCRIPTION,
   Subscription,
   UpsertSubscriptionAction,
-  UpsertSubscriptionsAction
+  UpsertSubscriptionsAction,
+  DeleteSubscriptionAction
 } from './types';
 
 export function upsertSubscription(
@@ -21,5 +23,14 @@ export function upsertSubscriptions(
   return {
     type: UPSERT_SUBSCRIPTIONS,
     subscriptions: subscriptions
+  };
+}
+
+export function deleteSubscription(
+  subscription: Subscription
+): DeleteSubscriptionAction {
+  return {
+    type: DELETE_SUBSCRIPTION,
+    subscription: subscription
   };
 }

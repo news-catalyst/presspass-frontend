@@ -6,7 +6,8 @@ import {
   ItemizedResponse,
   notify,
   GET,
-  JSON_POST
+  JSON_POST,
+  DELETE
 } from '../../utils';
 import { Subscription, SubscriptionState } from './types';
 
@@ -48,18 +49,14 @@ export const ensureSubscriptionsForOrganization = (
 };
 
 export const createSubscription = (
-  subscription: Subscription,
+  plan: number,
+  organization: string,
   actions: AppActions
 ) => {
-  let formData = new FormData();
-  let packagedSubscription: any = serializeSubscription(subscription);
-  for (let key of Object.keys(packagedSubscription)) {
-    formData.append(key, packagedSubscription[key]);
-  }
   return (
     cfetch(
-      `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${subscription.organization}/subscriptions/`,
-      JSON_POST(formData)
+      `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization}/subscriptions/`,
+      JSON_POST({ plan: plan })
     )
       .then(checkAuth(actions))
       // Cannot call upsert subscription here, because IDs are assigned on the server side
@@ -67,10 +64,29 @@ export const createSubscription = (
         validate(response, (status: ItemizedResponse) => {
           actions.upsertSubscription(status.body as Subscription);
           notify(
-            `Successfully created subscription for organization ${subscription.organization} to plan ${subscription.plan}.`,
+            `Successfully created subscription for organization ${organization} to plan ${plan}.`,
             'success'
           );
         })
       )
   );
 };
+
+export const deleteSubscription = (
+  subscription: Subscription,
+  actions: AppActions
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${subscription.organization.uuid}/subscriptions/${subscription.id}`,
+    DELETE
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, () => {
+        actions.deleteSubscription(subscription);
+        notify(
+          `Successfully deleted ${subscription.id} from organization ${subscription.organization.name}.`,
+          'success'
+        );
+      })
+    );

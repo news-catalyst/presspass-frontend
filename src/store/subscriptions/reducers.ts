@@ -2,7 +2,8 @@ import {
   SubscriptionAction,
   UPSERT_SUBSCRIPTION,
   SubscriptionState,
-  UPSERT_SUBSCRIPTIONS
+  UPSERT_SUBSCRIPTIONS,
+  DELETE_SUBSCRIPTION
 } from './types';
 
 const initialState: SubscriptionState = {
@@ -21,9 +22,7 @@ export function subscriptionReducers(
         hydrated: true
       };
       for (let subscription of action.subscriptions) {
-        incomingObject.subscriptions[
-          subscription.organization.uuid
-        ] = subscription;
+        incomingObject.subscriptions[subscription.id] = subscription;
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -32,8 +31,16 @@ export function subscriptionReducers(
         subscriptions: Object.assign({}, state.subscriptions),
         hydrated: true
       };
-      incomingObject.subscriptions[action.subscription.organization.uuid] =
+      incomingObject.subscriptions[action.subscription.id] =
         action.subscription;
+      return Object.assign({}, state, incomingObject);
+    }
+    case DELETE_SUBSCRIPTION: {
+      let incomingObject: SubscriptionState = {
+        subscriptions: Object.assign({}, state.subscriptions),
+        hydrated: true
+      };
+      delete incomingObject.subscriptions[action.subscription.id];
       return Object.assign({}, state, incomingObject);
     }
     default:

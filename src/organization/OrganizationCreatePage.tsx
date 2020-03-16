@@ -49,6 +49,7 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
       <section className="organization-page">
         <h1 className="title is-size-1">New Organization</h1>
         <OrganizationForm
+          actions={props.actions}
           organization={organization}
           plans={props.plans}
           subscriptions={props.subscriptions}

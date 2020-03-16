@@ -57,7 +57,8 @@ import { PlanState } from './plans/types';
 // Subscriptions
 import {
   upsertSubscription,
-  upsertSubscriptions
+  upsertSubscriptions,
+  deleteSubscription
 } from './subscriptions/actions';
 import { subscriptionReducers } from './subscriptions/reducers';
 import { SubscriptionState } from './subscriptions/types';
@@ -104,6 +105,7 @@ export interface AppActions {
   upsertPlans: typeof upsertPlans;
   upsertSubscription: typeof upsertSubscription;
   upsertSubscriptions: typeof upsertSubscriptions;
+  deleteSubscription: typeof deleteSubscription;
   upsertInvitation: typeof upsertInvitation;
   upsertInvitations: typeof upsertInvitations;
   deleteInvitation: typeof deleteInvitation;

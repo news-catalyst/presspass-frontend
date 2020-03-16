@@ -12,7 +12,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { ensurePlans } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
 import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
-import { SubscriptionState } from '../store/subscriptions/types';
+import { SubscriptionState, Subscription } from '../store/subscriptions/types';
 
 interface ManageOrganizationPageProps extends AppProps {
   actions: AppActions;
@@ -70,6 +70,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
         <p className="subtitle">Manage PressPass News Organization</p>
         <h1 className="title is-size-1">{organization.name}</h1>
         <OrganizationForm
+          actions={props.actions}
           organization={organization}
           plans={props.plans}
           subscriptions={props.subscriptions}

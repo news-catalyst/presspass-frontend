@@ -3,10 +3,12 @@ import { Plan } from '../plans/types';
 
 export const UPSERT_SUBSCRIPTION = 'UPSERT_SUBSCRIPTION';
 export const UPSERT_SUBSCRIPTIONS = 'UPSERT_SUBSCRIPTIONS';
+export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION';
 
 export interface Subscription {
+  id: number;
   organization: Organization;
-  plan: string;
+  plan: Plan;
 }
 
 export interface SubscriptionState {
@@ -24,6 +26,12 @@ export interface UpsertSubscriptionsAction {
   subscriptions: Subscription[];
 }
 
+export interface DeleteSubscriptionAction {
+  type: typeof DELETE_SUBSCRIPTION;
+  subscription: Subscription;
+}
+
 export type SubscriptionAction =
   | UpsertSubscriptionAction
-  | UpsertSubscriptionsAction;
+  | UpsertSubscriptionsAction
+  | DeleteSubscriptionAction;

@@ -16,7 +16,7 @@ export function planReducers(
         hydrated: true
       };
       for (let plan of action.plans) {
-        incomingObject.plans[plan.name] = plan;
+        incomingObject.plans[plan.id] = plan;
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -25,7 +25,7 @@ export function planReducers(
         plans: Object.assign({}, state.plans),
         hydrated: true
       };
-      incomingObject.plans[action.plan.name] = action.plan;
+      incomingObject.plans[action.plan.id] = action.plan;
       return Object.assign({}, state, incomingObject);
     }
     default:
