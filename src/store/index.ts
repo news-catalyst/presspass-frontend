@@ -54,6 +54,14 @@ import { upsertPlan, upsertPlans } from './plans/actions';
 import { planReducers } from './plans/reducers';
 import { PlanState } from './plans/types';
 
+// Subscriptions
+import {
+  upsertSubscription,
+  upsertSubscriptions
+} from './subscriptions/actions';
+import { subscriptionReducers } from './subscriptions/reducers';
+import { SubscriptionState } from './subscriptions/types';
+
 // Users
 import { upsertSelfUser } from './users/actions';
 import { usersReducers } from './users/reducers';
@@ -67,6 +75,7 @@ const reducers = combineReducers({
   invitations: invitationReducers,
   memberships: membershipReducers,
   plans: planReducers,
+  subscriptions: subscriptionReducers,
   users: usersReducers
 });
 
@@ -93,6 +102,8 @@ export interface AppActions {
   deleteMembership: typeof deleteMembership;
   upsertPlan: typeof upsertPlan;
   upsertPlans: typeof upsertPlans;
+  upsertSubscription: typeof upsertSubscription;
+  upsertSubscriptions: typeof upsertSubscriptions;
   upsertInvitation: typeof upsertInvitation;
   upsertInvitations: typeof upsertInvitations;
   deleteInvitation: typeof deleteInvitation;
@@ -111,6 +122,7 @@ export interface AppProps {
   invitations: InvitationState;
   memberships: MembershipState;
   plans: PlanState;
+  subscriptions: SubscriptionState;
   users: UsersState;
 }
 

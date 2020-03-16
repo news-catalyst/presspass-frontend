@@ -18,6 +18,7 @@ import * as organizationActions from './store/organizations/actions';
 import * as invitationActions from './store/invitations/actions';
 import * as membershipActions from './store/memberships/actions';
 import * as planActions from './store/plans/actions';
+import * as subscriptionActions from './store/subscriptions/actions';
 import * as userActions from './store/users/actions';
 import { AuthProps } from './store/auth/types';
 import { forceCheckAuth } from './store/auth/api';
@@ -89,6 +90,7 @@ const mapStateToProps = (state: State) => ({
   invitations: state.invitations,
   organizations: state.organizations,
   plans: state.plans,
+  subscriptions: state.subscriptions,
   users: state.users
 });
 
@@ -104,6 +106,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       invitationActions,
       organizationActions,
       planActions,
+      subscriptionActions,
       userActions
     ),
     dispatch
