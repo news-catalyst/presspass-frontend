@@ -28,9 +28,7 @@ export const fetchSubscriptionsForOrganization = (
   )
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data =>
-      Promise.all([actions.upsertSubscriptions(uuid, data.results)])
-    )
+    .then(data => Promise.all([actions.upsertSubscriptions(data.results)]))
     .catch(error => {
       console.error(
         'API Error fetchSubscriptionsForOrganization',

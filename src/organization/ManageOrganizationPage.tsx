@@ -11,24 +11,42 @@ import { AppProps } from '../store';
 import { Link, Redirect } from 'react-router-dom';
 import { ensurePlans } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
+import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
+import { SubscriptionState } from '../store/subscriptions/types';
 
 interface ManageOrganizationPageProps extends AppProps {
   actions: AppActions;
   organization: string;
   organizations: OrganizationState;
   plans: PlanState;
+  subscriptions: SubscriptionState;
 }
 
 export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
   useEffect(() => {
-    ensureOrganizations(props.actions, props.organizations);
-    ensurePlans(props.actions, props.plans);
-  }, [props.actions, props.organizations, props.plans]);
+    async function fetchData() {
+      const organizations = await ensureOrganizations(
+        props.actions,
+        props.organizations
+      );
+      const plans = await ensurePlans(props.actions, props.plans);
+      const subscriptions = await ensureSubscriptionsForOrganization(
+        props.actions,
+        props.organization,
+        props.subscriptions
+      );
+    }
+    fetchData();
+  }, []);
 
   let [saved, setSaved] = useState(false);
   let [errors, setErrors] = useState({});
 
-  if (!props.organizations.hydrated || !props.plans.hydrated) {
+  if (
+    !props.organizations.hydrated ||
+    !props.plans.hydrated ||
+    !props.subscriptions.hydrated
+  ) {
     return <LoadingPlaceholder />;
   }
 
@@ -54,6 +72,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
         <OrganizationForm
           organization={organization}
           plans={props.plans}
+          subscriptions={props.subscriptions}
           onSubmit={handleSubmit}
           errors={errors}
         />

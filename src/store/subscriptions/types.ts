@@ -5,9 +5,8 @@ export const UPSERT_SUBSCRIPTION = 'UPSERT_SUBSCRIPTION';
 export const UPSERT_SUBSCRIPTIONS = 'UPSERT_SUBSCRIPTIONS';
 
 export interface Subscription {
-  user: string;
   organization: Organization;
-  plan: Plan;
+  plan: string;
 }
 
 export interface SubscriptionState {

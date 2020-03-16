@@ -32,7 +32,7 @@ export function subscriptionReducers(
         subscriptions: Object.assign({}, state.subscriptions),
         hydrated: true
       };
-      incomingObject.subscriptions[action.subscription.user] =
+      incomingObject.subscriptions[action.subscription.organization.uuid] =
         action.subscription;
       return Object.assign({}, state, incomingObject);
     }

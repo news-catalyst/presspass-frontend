@@ -6,10 +6,12 @@ import { Organization } from '../store/organizations/types';
 import Field from '../common/Field';
 import { Plan, PlanState } from '../store/plans/types';
 import { organizationReducers } from '../store/organizations/reducers';
+import { SubscriptionState } from '../store/subscriptions/types';
 
 interface OrganizationFormProps {
   organization: Organization;
   plans: PlanState;
+  subscriptions: SubscriptionState;
   onSubmit: (parameter: Organization) => void;
   errors: any;
 }

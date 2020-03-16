@@ -8,6 +8,7 @@ import { Redirect } from 'react-router';
 interface OrganizationCreatePageProps {
   actions: AppActions;
   plans?: any;
+  subscriptions?: any;
 }
 
 export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
@@ -50,6 +51,7 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
         <OrganizationForm
           organization={organization}
           plans={props.plans}
+          subscriptions={props.subscriptions}
           onSubmit={handleSubmit}
           errors={errors}
         />
