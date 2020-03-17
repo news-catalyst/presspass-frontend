@@ -7,6 +7,7 @@ import Field from '../common/Field';
 import { Plan, PlanState } from '../store/plans/types';
 import { Subscription, SubscriptionState } from '../store/subscriptions/types';
 import { AppActions } from '../store';
+import PlanCard from '../plans/PlanCard';
 import SubscriptionCard from '../subscriptions/SubscriptionCard';
 
 interface OrganizationFormProps {
@@ -26,6 +27,14 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
   let [name, setName] = useState(organization.name);
   let [privateOrg, setPrivateOrg] = useState(organization.private);
   let [avatar, setAvatar] = useState<File | undefined>(undefined);
+
+  // build a list of plans noting which are subscribed
+  Object.values(props.plans.plans).map((plan: Plan) => {
+    plan.subscribed = Object.values(props.subscriptions.subscriptions).some(
+      sub => sub.plan.id === plan.id
+    );
+    return plan;
+  });
 
   let newOrganization: Organization = {
     ...organization,
@@ -78,20 +87,41 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
           This organization's information and membership is not made public
         </label>
       </Field>
-      <div className="columns is-multiline">
+      <hr />
+      <div className="container">
         <h1 className="title">Subscriptions</h1>
-        {Object.values(props.subscriptions.subscriptions).map(
-          (subscription: Subscription) => (
-            <div className="column is-4" key={organization.uuid}>
-              <SubscriptionCard
-                actions={props.actions}
-                key={subscription.id}
-                subscription={subscription}
-                organization={organization.uuid}
-              />
-            </div>
-          )
-        )}
+        <div className="columns">
+          {Object.values(props.subscriptions.subscriptions).map(
+            (subscription: Subscription) => (
+              <div className="column is-4" key={subscription.id}>
+                <SubscriptionCard
+                  actions={props.actions}
+                  key={subscription.id}
+                  subscription={subscription}
+                  organization={organization.uuid}
+                />
+              </div>
+            )
+          )}
+        </div>
+      </div>
+      <hr />
+      <div className="container">
+        <h1 className="title">Available Plans</h1>
+        <div className="columns is-multiline">
+          {Object.values(props.plans.plans)
+            .filter(plan => !plan.subscribed)
+            .map((plan: Plan) => (
+              <div className="column is-4" key={plan.id}>
+                <PlanCard
+                  actions={props.actions}
+                  key={plan.id}
+                  plan={plan}
+                  organization={organization.uuid}
+                />
+              </div>
+            ))}
+        </div>
       </div>
       <br />
       <button type="submit" className="button is-link">
