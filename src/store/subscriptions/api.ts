@@ -74,10 +74,11 @@ export const createSubscription = (
 
 export const deleteSubscription = (
   subscription: Subscription,
+  organization: string,
   actions: AppActions
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${subscription.organization.uuid}/subscriptions/${subscription.id}`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization}/subscriptions/${subscription.id}`,
     DELETE
   )
     .then(checkAuth(actions))
@@ -85,7 +86,7 @@ export const deleteSubscription = (
       validate(response, () => {
         actions.deleteSubscription(subscription);
         notify(
-          `Successfully deleted ${subscription.id} from organization ${subscription.organization.name}.`,
+          `Successfully deleted subscription ID#${subscription.id} from organization ${organization}.`,
           'success'
         );
       })
