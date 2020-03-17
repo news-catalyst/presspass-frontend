@@ -24,7 +24,7 @@ export const fetchSubscriptionsForOrganization = (
   uuid: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/subscriptions/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/subscriptions/?expand=plan`,
     GET
   )
     .then(checkAuth(actions))
