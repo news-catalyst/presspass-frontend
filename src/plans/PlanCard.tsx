@@ -9,19 +9,33 @@ interface PlanCardProps {
   actions: AppActions;
 }
 
+const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
+  const subscribeToPlan = () => {
+    createSubscription(props.plan.id, props.organization, props.actions).then(
+      status => {
+        if (status.ok) {
+          console.log('success', status);
+        } else {
+          console.log('error', status);
+        }
+      }
+    );
+  };
+
+  if (props.plan.base_price > 0) {
+    return <footer className="card-footer">Paid subs TK</footer>;
+  }
+  return (
+    <footer className="card-footer">
+      <a onClick={subscribeToPlan} className="card-footer-item">
+        Subscribe
+      </a>
+    </footer>
+  );
+};
 const PlanCard: React.FC<PlanCardProps> = (props: PlanCardProps) => {
   let plan = props.plan;
   let organization = props.organization;
-
-  const subscribeToPlan = () => {
-    createSubscription(plan.id, organization, props.actions).then(status => {
-      if (status.ok) {
-        console.log('success', status);
-      } else {
-        console.log('error', status);
-      }
-    });
-  };
 
   return (
     <div className="card">
@@ -39,11 +53,11 @@ const PlanCard: React.FC<PlanCardProps> = (props: PlanCardProps) => {
           </div>
         </div>
       </div>
-      <footer className="card-footer">
-        <a onClick={subscribeToPlan} className="card-footer-item">
-          Subscribe
-        </a>
-      </footer>
+      <SubscribeFooter
+        plan={plan}
+        organization={organization}
+        actions={props.actions}
+      />
     </div>
   );
 };
