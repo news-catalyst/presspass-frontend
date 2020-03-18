@@ -126,8 +126,9 @@ const PlanCard: React.FC<PlanCardProps> = (props: PlanCardProps) => {
         <div className="content">
           <div className="media-content">
             <div className="content">
-              Lorem ipsum about the plan, maybe a link, not sure what might go
-              here.
+              {plan.base_price > 0
+                ? `This plan's base price is $${plan.base_price}.`
+                : 'This is a free plan.'}
             </div>
           </div>
         </div>
