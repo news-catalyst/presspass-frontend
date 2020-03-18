@@ -3,6 +3,12 @@ import Field from '../common/Field';
 import { AppActions } from '../store';
 import { Plan } from '../store/plans/types';
 import { createSubscription } from '../store/subscriptions/api';
+import PlanForm from './PlanForm';
+
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 interface PlanCardProps {
   plan: Plan;
@@ -50,17 +56,9 @@ const SubscribeModal: React.FC<SubscribeModalProps> = (
           ></button>
         </header>
         <section className="modal-card-body">
-          <form onSubmit={handleSubmit} className="limited-width">
-            <Field label="Number" errors={errors.number}>
-              <input
-                className={errors.number ? 'input is-danger' : 'input'}
-                type="text"
-                placeholder="credit card number"
-                value={number}
-                onChange={event => setNumber(event.target.value)}
-              />
-            </Field>
-          </form>
+          <Elements stripe={stripePromise}>
+            <PlanForm />
+          </Elements>
         </section>
         <footer className="modal-card-foot">
           <button className="button is-success">Submit</button>
