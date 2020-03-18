@@ -46,6 +46,15 @@ export default function PlanForm() {
     } else {
       console.log('[PaymentMethod]', paymentMethod);
     }
+
+    stripe.createToken(cardElement).then(function(result) {
+      if (result.error) {
+        console.log('[token error]', result.error);
+      } else {
+        // TODO pass the token to create a subscription for this plan
+        console.log('[Token]', result.token);
+      }
+    });
   };
 
   return (

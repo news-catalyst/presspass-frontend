@@ -77,6 +77,7 @@ const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
   };
 
   const subscribeToPlan = () => {
+    // TODO needs the token from stripe
     createSubscription(props.plan.id, props.organization, props.actions).then(
       status => {
         if (status.ok) {
