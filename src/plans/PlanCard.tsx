@@ -8,7 +8,7 @@ import PlanForm from './PlanForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = loadStripe('pk_test_tAB5WRZLYKrFvFhM9lYjQs7q');
 
 interface PlanCardProps {
   plan: Plan;
@@ -60,10 +60,6 @@ const SubscribeModal: React.FC<SubscribeModalProps> = (
             <PlanForm />
           </Elements>
         </section>
-        <footer className="modal-card-foot">
-          <button className="button is-success">Submit</button>
-          <button className="button">Cancel</button>
-        </footer>
       </div>
     </div>
   );

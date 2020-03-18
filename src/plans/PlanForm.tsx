@@ -54,7 +54,9 @@ export default function PlanForm() {
         Card details
         <CardElement options={CARD_ELEMENT_OPTIONS} />
       </label>
-      <button disabled={!stripe}>Confirm order</button>
+      <button className="button is-success" disabled={!stripe}>
+        Submit
+      </button>
     </form>
   );
 }
