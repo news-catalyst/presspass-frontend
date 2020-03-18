@@ -21,15 +21,17 @@ const serializeSubscription = (subscription: Subscription) => ({
 
 export const fetchSubscriptionsForOrganization = (
   actions: AppActions,
-  uuid: string
+  organization: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/subscriptions/?expand=plan`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization}/subscriptions/?expand=plan`,
     GET
   )
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data => Promise.all([actions.upsertSubscriptions(data.results)]))
+    .then(data =>
+      Promise.all([actions.upsertSubscriptions(organization, data.results)])
+    )
     .catch(error => {
       console.error(
         'API Error fetchSubscriptionsForOrganization',
@@ -62,7 +64,7 @@ export const createSubscription = (
       // Cannot call upsert subscription here, because IDs are assigned on the server side
       .then(response =>
         validate(response, (status: ItemizedResponse) => {
-          actions.upsertSubscription(status.body as Subscription);
+          actions.upsertSubscription(organization, status.body as Subscription);
           notify(
             `Successfully created subscription for organization ${organization} to plan ${plan}.`,
             'success'

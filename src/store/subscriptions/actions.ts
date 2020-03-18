@@ -9,20 +9,24 @@ import {
 } from './types';
 
 export function upsertSubscription(
+  organization: string,
   subscription: Subscription
 ): UpsertSubscriptionAction {
   return {
     type: UPSERT_SUBSCRIPTION,
-    subscription: subscription
+    subscription: subscription,
+    organization: organization
   };
 }
 
 export function upsertSubscriptions(
+  organization: string,
   subscriptions: Subscription[]
 ): UpsertSubscriptionsAction {
   return {
     type: UPSERT_SUBSCRIPTIONS,
-    subscriptions: subscriptions
+    subscriptions: subscriptions,
+    organization: organization
   };
 }
 
