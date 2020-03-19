@@ -51,7 +51,6 @@ export const createSubscription = (
       JSON_POST({ plan: plan })
     )
       .then(checkAuth(actions))
-      // Cannot call upsert subscription here, because IDs are assigned on the server side
       .then(response =>
         validate(response, (status: ItemizedResponse) => {
           actions.upsertSubscription(status.body as Subscription);
@@ -76,7 +75,6 @@ export const createPaidSubscription = (
       JSON_POST({ plan: plan, token: token })
     )
       .then(checkAuth(actions))
-      // Cannot call upsert subscription here, because IDs are assigned on the server side
       .then(response =>
         validate(response, (status: ItemizedResponse) => {
           actions.upsertSubscription(status.body as Subscription);

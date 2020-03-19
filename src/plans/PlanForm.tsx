@@ -39,28 +39,28 @@ export default function PlanForm(props) {
 
     const cardElement = elements.getElement(CardElement)!;
 
-    const createPaymentMethodAndCustomer = function(stripe, card) {
-      stripe
-        .createPaymentMethod('card', card, {
-          billing_details: {
-            email: props.user.email
-          }
-        })
-        .then(function(result) {
-          if (result.error) {
-            notify(
-              `failed creating payment method with stripe ${result.error}`,
-              'danger'
-            );
-            console.log(
-              'Failed creating payment method with Stripe:',
-              result.error
-            );
-          } else {
-            createCustomer(stripe, result.paymentMethod.id, props.user.email);
-          }
-        });
-    };
+    // const createPaymentMethodAndCustomer = function(stripe, card) {
+    //   stripe
+    //     .createPaymentMethod('card', card, {
+    //       billing_details: {
+    //         email: props.user.email
+    //       }
+    //     })
+    //     .then(function(result) {
+    //       if (result.error) {
+    //         notify(
+    //           `failed creating payment method with stripe ${result.error}`,
+    //           'danger'
+    //         );
+    //         console.log(
+    //           'Failed creating payment method with Stripe:',
+    //           result.error
+    //         );
+    //       } else {
+    //         createCustomer(stripe, result.paymentMethod.id, props.user.email);
+    //       }
+    //     });
+    // };
 
     // this function calls Stripe's API to create a customer there
     //  it requires the customer's email address an a reference to their payment method,
@@ -146,31 +146,31 @@ export default function PlanForm(props) {
         });
     }
 
-    createPaymentMethodAndCustomer(stripe, cardElement);
+    // createPaymentMethodAndCustomer(stripe, cardElement);
     // NOTE/TODO: this API POST to create a subscription with token is failing:
     //      stripe.error.InvalidRequestError: Request req_oBO1S8WwwZF2Qs: No such token: pm_1GODQbBxz3xP5jBmD7qhlYGl
     //
-    // createPaidSubscription(
-    //   props.plan.id,
-    //   props.organization,
-    //   paymentId,
-    //   props.actions
-    // ).then(status => {
-    //   if (status.ok) {
-    //     console.log('success', status);
-    //   } else {
-    //     console.log('error', status);
-    //   }
-    // });
 
-    // // stripe.createToken(cardElement).then(function(result) {
-    // //   if (result.error) {
-    // //     console.log('[token error]', result.error);
-    // //   } else {
-    // //     // TODO pass the token to create a subscription for this plan
-    // //     console.log('[Token]', result.token);
-    // //   }
-    // });
+    stripe.createToken(cardElement).then(function(result) {
+      if (result.error) {
+        console.log('[token error]', result.error);
+      } else {
+        // TODO pass the token to create a subscription for this plan
+        console.log('[Token]', result.token);
+        createPaidSubscription(
+          props.plan.id,
+          props.organization,
+          result.token ? result.token.id : '',
+          props.actions
+        ).then(status => {
+          if (status.ok) {
+            console.log('success', status);
+          } else {
+            console.log('error', status);
+          }
+        });
+      }
+    });
   };
 
   return (
