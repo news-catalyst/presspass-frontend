@@ -9,7 +9,7 @@ import {
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { AppProps } from '../store';
 import { Link, Redirect } from 'react-router-dom';
-import { ensurePlans } from '../store/plans/api';
+import { ensurePlansForOrganization } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
 import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
 import { SubscriptionState, Subscription } from '../store/subscriptions/types';
@@ -31,7 +31,12 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
         props.actions,
         props.organizations
       );
-      const plans = await ensurePlans(props.actions, props.plans);
+
+      const plans = await ensurePlansForOrganization(
+        props.actions,
+        props.organization,
+        props.plans
+      );
       const subscriptions = await ensureSubscriptionsForOrganization(
         props.actions,
         props.organization,

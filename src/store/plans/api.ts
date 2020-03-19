@@ -15,8 +15,11 @@ const serializePlan = (plan: Plan) => ({
   // including them in the request would result in a 400 response.
 });
 
-export const fetchPlans = (actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/plans/`, GET)
+export const fetchPlans = (actions: AppActions, organization: string) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/plans/?organization=${organization}&account=1`,
+    GET
+  )
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertPlans(data.results)]))
@@ -25,8 +28,12 @@ export const fetchPlans = (actions: AppActions) =>
       console.error('API Error fetchPlans', error, error.code);
     });
 
-export const ensurePlans = (actions: AppActions, plans: PlanState) => {
+export const ensurePlansForOrganization = (
+  actions: AppActions,
+  organization: string,
+  plans: PlanState
+) => {
   if (!plans.hydrated) {
-    return fetchPlans(actions);
+    return fetchPlans(actions, organization);
   }
 };
