@@ -9,12 +9,14 @@ import { Subscription, SubscriptionState } from '../store/subscriptions/types';
 import { AppActions } from '../store';
 import PlanCard from '../plans/PlanCard';
 import SubscriptionCard from '../subscriptions/SubscriptionCard';
+import { UsersState } from '../store/users/types';
 
 interface OrganizationFormProps {
   actions: AppActions;
   organization: Organization;
   plans: PlanState;
   subscriptions: SubscriptionState;
+  users: UsersState;
   onSubmit: (parameter: Organization) => void;
   errors: any;
 }
@@ -117,6 +119,7 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
                   actions={props.actions}
                   key={plan.id}
                   plan={plan}
+                  users={props.users}
                   organization={organization.uuid}
                 />
               </div>

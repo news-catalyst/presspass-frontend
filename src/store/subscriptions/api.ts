@@ -11,14 +11,6 @@ import {
 } from '../../utils';
 import { Subscription, SubscriptionState } from './types';
 
-const serializeSubscription = (subscription: Subscription) => ({
-  plan: subscription.plan,
-  organization: subscription.organization
-  // Explicitly setting each field is necessary here, because
-  // not all of the fields in subscription are write-available, and
-  // including them in the request would result in a 400 response.
-});
-
 export const fetchSubscriptionsForOrganization = (
   actions: AppActions,
   uuid: string
@@ -65,6 +57,31 @@ export const createSubscription = (
           actions.upsertSubscription(status.body as Subscription);
           notify(
             `Successfully created subscription for organization ${organization} to plan ${plan}.`,
+            'success'
+          );
+        })
+      )
+  );
+};
+
+export const createPaidSubscription = (
+  plan: number,
+  organization: string,
+  token: string,
+  actions: AppActions
+) => {
+  return (
+    cfetch(
+      `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization}/subscriptions/`,
+      JSON_POST({ plan: plan, token: token })
+    )
+      .then(checkAuth(actions))
+      // Cannot call upsert subscription here, because IDs are assigned on the server side
+      .then(response =>
+        validate(response, (status: ItemizedResponse) => {
+          actions.upsertSubscription(status.body as Subscription);
+          notify(
+            `Successfully created paid subscription for organization ${organization} to plan ${plan} with token ${token}.`,
             'success'
           );
         })

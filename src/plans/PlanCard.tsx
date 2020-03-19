@@ -1,5 +1,4 @@
-import React, { useState, SyntheticEvent } from 'react';
-import Field from '../common/Field';
+import React, { useState } from 'react';
 import { AppActions } from '../store';
 import { Plan } from '../store/plans/types';
 import { createSubscription } from '../store/subscriptions/api';
@@ -7,12 +6,12 @@ import PlanForm from './PlanForm';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-
-const stripePromise = loadStripe('pk_test_tAB5WRZLYKrFvFhM9lYjQs7q');
+import { UsersState } from '../store/users/types';
 
 interface PlanCardProps {
   plan: Plan;
   organization: string;
+  users: UsersState;
   actions: AppActions;
 }
 
@@ -21,25 +20,16 @@ interface SubscribeModalProps {
   hideModal: () => void;
   plan: Plan;
   organization: string;
+  users: UsersState;
   actions: AppActions;
 }
+
 const SubscribeModal: React.FC<SubscribeModalProps> = (
   props: SubscribeModalProps
 ) => {
-  let [errors, setErrors] = useState<any>({});
-  let [number, setNumber] = useState('');
-  const handleSubmit = (event: SyntheticEvent) => {
-    event.preventDefault();
-    createSubscription(props.plan.id, props.organization, props.actions).then(
-      status => {
-        if (status.ok) {
-          console.log('success', status);
-        } else {
-          console.log('error', status);
-        }
-      }
-    );
-  };
+  const stripePubKey = process.env.REACT_APP_STRIPE_PUB_KEY!;
+  const stripePromise = loadStripe(stripePubKey);
+
   if (!props.show) {
     return null;
   }
@@ -57,7 +47,12 @@ const SubscribeModal: React.FC<SubscribeModalProps> = (
         </header>
         <section className="modal-card-body">
           <Elements stripe={stripePromise}>
-            <PlanForm />
+            <PlanForm
+              plan={props.plan}
+              organization={props.organization}
+              user={props.users.self!}
+              actions={props.actions}
+            />
           </Elements>
         </section>
       </div>
@@ -95,6 +90,7 @@ const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
         <SubscribeModal
           plan={props.plan}
           organization={props.organization}
+          users={props.users}
           actions={props.actions}
           show={show}
           hideModal={hideModal}
@@ -137,6 +133,7 @@ const PlanCard: React.FC<PlanCardProps> = (props: PlanCardProps) => {
       <SubscribeFooter
         plan={plan}
         organization={organization}
+        users={props.users}
         actions={props.actions}
       />
     </div>

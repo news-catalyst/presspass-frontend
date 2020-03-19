@@ -13,6 +13,7 @@ import { ensurePlans } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
 import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
 import { SubscriptionState, Subscription } from '../store/subscriptions/types';
+import { UsersState } from '../store/users/types';
 
 interface ManageOrganizationPageProps extends AppProps {
   actions: AppActions;
@@ -20,6 +21,7 @@ interface ManageOrganizationPageProps extends AppProps {
   organizations: OrganizationState;
   plans: PlanState;
   subscriptions: SubscriptionState;
+  users: UsersState;
 }
 
 export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
@@ -71,11 +73,12 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
         <h1 className="title is-size-1">{organization.name}</h1>
         <OrganizationForm
           actions={props.actions}
+          errors={errors}
+          onSubmit={handleSubmit}
           organization={organization}
           plans={props.plans}
           subscriptions={props.subscriptions}
-          onSubmit={handleSubmit}
-          errors={errors}
+          users={props.users}
         />
         <p>
           Manage organization page (id {organization.uuid}) (
