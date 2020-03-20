@@ -20,13 +20,13 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
     <div className="organizations">
       <h1 className="title is-size-1">Organizations</h1>
       <div className="columns is-multiline">
-        {Object.values(props.organizations.organizations).map(
-          (organization: Organization) => (
+        {Object.values(props.organizations.organizations)
+          .sort((a, b) => (a.name > b.name ? 1 : -1))
+          .map((organization: Organization) => (
             <div className="column is-4">
               <OrganizationCard organization={organization} />
             </div>
-          )
-        )}
+          ))}
       </div>
     </div>
   );
