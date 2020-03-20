@@ -8,7 +8,7 @@ import { Plan, PlanState } from '../store/plans/types';
 import { Subscription, SubscriptionState } from '../store/subscriptions/types';
 import { AppActions } from '../store';
 import PlanCard from '../plans/PlanCard';
-import SubscriptionCard from '../subscriptions/SubscriptionCard';
+import SubscriptionsList from '../subscriptions/SubscriptionsList';
 import { UsersState } from '../store/users/types';
 
 interface OrganizationFormProps {
@@ -92,20 +92,11 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
       <hr />
       <div className="container">
         <h1 className="title">Subscriptions</h1>
-        <div className="columns">
-          {Object.values(props.subscriptions.subscriptions).map(
-            (subscription: Subscription) => (
-              <div className="column is-4" key={subscription.id}>
-                <SubscriptionCard
-                  actions={props.actions}
-                  key={subscription.id}
-                  subscription={subscription}
-                  organization={organization.uuid}
-                />
-              </div>
-            )
-          )}
-        </div>
+        <SubscriptionsList
+          organization={organization}
+          subscriptions={props.subscriptions}
+          actions={props.actions}
+        />
       </div>
       <hr />
       <div className="container">
