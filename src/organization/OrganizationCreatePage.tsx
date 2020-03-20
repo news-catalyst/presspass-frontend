@@ -4,9 +4,13 @@ import { Organization } from '../store/organizations/types';
 import { createOrganization } from '../store/organizations/api';
 import OrganizationForm from './OrganizationForm';
 import { Redirect } from 'react-router';
+import { UsersState } from '../store/users/types';
 
 interface OrganizationCreatePageProps {
   actions: AppActions;
+  plans?: any;
+  subscriptions?: any;
+  users: UsersState;
 }
 
 export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
@@ -14,7 +18,6 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
 ) => {
   let organization: Organization = {
     name: '',
-    plan: 'free',
     private: false,
     individual: false,
     payment_failed: false,
@@ -47,9 +50,13 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
       <section className="organization-page">
         <h1 className="title is-size-1">New Organization</h1>
         <OrganizationForm
-          organization={organization}
-          onSubmit={handleSubmit}
+          actions={props.actions}
           errors={errors}
+          onSubmit={handleSubmit}
+          organization={organization}
+          plans={props.plans}
+          subscriptions={props.subscriptions}
+          users={props.users}
         />
         <br />
       </section>

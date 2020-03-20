@@ -67,8 +67,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
           <div className="container">
             <h1 className="title is-size-3">Your Memberships</h1>
             <div className="columns is-multiline">
-              {Object.values(props.memberships.memberships).map(
-                (membership: Membership) => (
+              {Object.values(props.memberships.memberships)
+                .sort((a, b) =>
+                  a.organization.name > b.organization.name ? 1 : -1
+                )
+                .map((membership: Membership) => (
                   <div className="column is-4">
                     <MembershipCard
                       key={membership.organization.uuid}
@@ -76,8 +79,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
                       actions={props.actions}
                     />
                   </div>
-                )
-              )}
+                ))}
             </div>
           </div>
         </div>

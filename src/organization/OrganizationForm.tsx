@@ -4,9 +4,19 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { Organization } from '../store/organizations/types';
 import Field from '../common/Field';
+import { Plan, PlanState } from '../store/plans/types';
+import { SubscriptionState } from '../store/subscriptions/types';
+import { AppActions } from '../store';
+import PlansList from '../plans/PlansList';
+import SubscriptionsList from '../subscriptions/SubscriptionsList';
+import { UsersState } from '../store/users/types';
 
 interface OrganizationFormProps {
+  actions: AppActions;
   organization: Organization;
+  plans: PlanState;
+  subscriptions: SubscriptionState;
+  users: UsersState;
   onSubmit: (parameter: Organization) => void;
   errors: any;
 }
@@ -17,14 +27,20 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
   let organization = props.organization;
 
   let [name, setName] = useState(organization.name);
-  let [plan, setPlan] = useState(organization.plan);
   let [privateOrg, setPrivateOrg] = useState(organization.private);
   let [avatar, setAvatar] = useState<File | undefined>(undefined);
+
+  // build a list of plans noting which are subscribed
+  Object.values(props.plans.plans).map((plan: Plan) => {
+    plan.subscribed = Object.values(props.subscriptions.subscriptions).some(
+      sub => sub.plan.id === plan.id
+    );
+    return plan;
+  });
 
   let newOrganization: Organization = {
     ...organization,
     name: name,
-    plan: plan,
     private: privateOrg,
     avatar: avatar
   };
@@ -73,6 +89,25 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
           This organization's information and membership is not made public
         </label>
       </Field>
+      <hr />
+      <div className="container">
+        <h1 className="title">Subscriptions</h1>
+        <SubscriptionsList
+          organization={organization}
+          subscriptions={props.subscriptions}
+          actions={props.actions}
+        />
+      </div>
+      <hr />
+      <div className="container">
+        <h1 className="title">Available Plans</h1>
+        <PlansList
+          organization={organization}
+          plans={props.plans}
+          users={props.users}
+          actions={props.actions}
+        />
+      </div>
       <br />
       <button type="submit" className="button is-link">
         Save

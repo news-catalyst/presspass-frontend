@@ -22,21 +22,7 @@ import {
 import { entitlementReducers } from './entitlements/reducers';
 import { EntitlementState } from './entitlements/types';
 
-// Users
-import { upsertSelfUser } from './users/actions';
-import { usersReducers } from './users/reducers';
-import { UsersState } from './users/types';
-
-// Organizations
-import {
-  upsertOrganization,
-  upsertOrganizations,
-  deleteOrganization
-} from './organizations/actions';
-import { organizationReducers } from './organizations/reducers';
-import { OrganizationState } from './organizations/types';
-
-//`Memberships
+//Invitations
 import {
   upsertInvitation,
   upsertInvitations,
@@ -54,6 +40,34 @@ import {
 import { membershipReducers } from './memberships/reducers';
 import { MembershipState } from './memberships/types';
 
+// Organizations
+import {
+  upsertOrganization,
+  upsertOrganizations,
+  deleteOrganization
+} from './organizations/actions';
+import { organizationReducers } from './organizations/reducers';
+import { OrganizationState } from './organizations/types';
+
+// Plans
+import { upsertPlan, upsertPlans } from './plans/actions';
+import { planReducers } from './plans/reducers';
+import { PlanState } from './plans/types';
+
+// Subscriptions
+import {
+  upsertSubscription,
+  upsertSubscriptions,
+  deleteSubscription
+} from './subscriptions/actions';
+import { subscriptionReducers } from './subscriptions/reducers';
+import { SubscriptionState } from './subscriptions/types';
+
+// Users
+import { upsertSelfUser } from './users/actions';
+import { usersReducers } from './users/reducers';
+import { UsersState } from './users/types';
+
 const reducers = combineReducers({
   auth: authReducers,
   clients: clientReducers,
@@ -61,6 +75,8 @@ const reducers = combineReducers({
   organizations: organizationReducers,
   invitations: invitationReducers,
   memberships: membershipReducers,
+  plans: planReducers,
+  subscriptions: subscriptionReducers,
   users: usersReducers
 });
 
@@ -85,6 +101,11 @@ export interface AppActions {
   upsertMembership: typeof upsertMembership;
   upsertMemberships: typeof upsertMemberships;
   deleteMembership: typeof deleteMembership;
+  upsertPlan: typeof upsertPlan;
+  upsertPlans: typeof upsertPlans;
+  upsertSubscription: typeof upsertSubscription;
+  upsertSubscriptions: typeof upsertSubscriptions;
+  deleteSubscription: typeof deleteSubscription;
   upsertInvitation: typeof upsertInvitation;
   upsertInvitations: typeof upsertInvitations;
   deleteInvitation: typeof deleteInvitation;
@@ -102,6 +123,8 @@ export interface AppProps {
   organizations: OrganizationState;
   invitations: InvitationState;
   memberships: MembershipState;
+  plans: PlanState;
+  subscriptions: SubscriptionState;
   users: UsersState;
 }
 

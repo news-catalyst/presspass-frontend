@@ -6,7 +6,6 @@ export interface Organization {
   uuid: string;
   name: string;
   slug: string;
-  plan: string;
   max_users: number;
   individual: boolean;
   private: boolean;

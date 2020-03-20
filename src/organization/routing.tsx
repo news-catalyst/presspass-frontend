@@ -41,6 +41,7 @@ export const getRoutes = (props: AppProps) => {
       render={routeProps => (
         <ManageOrganizationPage
           {...props}
+          plans={props.plans}
           organization={routeProps.match.params.id}
         />
       )}
