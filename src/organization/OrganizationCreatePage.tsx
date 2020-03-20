@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AppActions } from '../store';
 import { Organization } from '../store/organizations/types';
-import { Plan } from '../store/plans/types';
 import { createOrganization } from '../store/organizations/api';
 import OrganizationForm from './OrganizationForm';
 import { Redirect } from 'react-router';

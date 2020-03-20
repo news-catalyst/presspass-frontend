@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AppActions } from '../store';
-import { OrganizationState, Organization } from '../store/organizations/types';
+import { OrganizationState } from '../store/organizations/types';
 import { ensureOrganizations } from '../store/organizations/api';
 import { AppProps } from '../store';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';

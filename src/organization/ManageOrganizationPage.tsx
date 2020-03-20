@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppActions } from '../store';
 import { OrganizationState, Organization } from '../store/organizations/types';
-import { PlanState, Plan } from '../store/plans/types';
+import { PlanState } from '../store/plans/types';
 import {
   ensureOrganizations,
   updateOrganization
@@ -12,7 +12,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { ensurePlansForOrganization } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
 import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
-import { SubscriptionState, Subscription } from '../store/subscriptions/types';
+import { SubscriptionState } from '../store/subscriptions/types';
 import { UsersState } from '../store/users/types';
 
 interface ManageOrganizationPageProps extends AppProps {
@@ -27,24 +27,27 @@ interface ManageOrganizationPageProps extends AppProps {
 export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
   useEffect(() => {
     async function fetchData() {
-      const organizations = await ensureOrganizations(
-        props.actions,
-        props.organizations
-      );
+      await ensureOrganizations(props.actions, props.organizations);
 
-      const plans = await ensurePlansForOrganization(
+      await ensurePlansForOrganization(
         props.actions,
         props.organization,
         props.plans
       );
-      const subscriptions = await ensureSubscriptionsForOrganization(
+      await ensureSubscriptionsForOrganization(
         props.actions,
         props.organization,
         props.subscriptions
       );
     }
     fetchData();
-  }, []);
+  }, [
+    props.actions,
+    props.organization,
+    props.organizations,
+    props.plans,
+    props.subscriptions
+  ]);
 
   let [saved, setSaved] = useState(false);
   let [errors, setErrors] = useState({});
