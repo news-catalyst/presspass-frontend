@@ -14,8 +14,8 @@ const SubscriptionsList: React.FC<SubscriptionsListProps> = (
   props: SubscriptionsListProps
 ) => {
   let organization = props.organization;
-
   let subscriptions = Object.values(props.subscriptions.subscriptions);
+
   if (subscriptions.length === 0) {
     return (
       <div className="subscriptions">

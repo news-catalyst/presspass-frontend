@@ -8,6 +8,7 @@ import { Plan, PlanState } from '../store/plans/types';
 import { Subscription, SubscriptionState } from '../store/subscriptions/types';
 import { AppActions } from '../store';
 import PlanCard from '../plans/PlanCard';
+import PlansList from '../plans/PlansList';
 import SubscriptionsList from '../subscriptions/SubscriptionsList';
 import { UsersState } from '../store/users/types';
 
@@ -101,21 +102,12 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
       <hr />
       <div className="container">
         <h1 className="title">Available Plans</h1>
-        <div className="columns is-multiline">
-          {Object.values(props.plans.plans)
-            .filter(plan => !plan.subscribed)
-            .map((plan: Plan) => (
-              <div className="column is-4" key={plan.id}>
-                <PlanCard
-                  actions={props.actions}
-                  key={plan.id}
-                  plan={plan}
-                  users={props.users}
-                  organization={organization.uuid}
-                />
-              </div>
-            ))}
-        </div>
+        <PlansList
+          organization={organization}
+          plans={props.plans}
+          users={props.users}
+          actions={props.actions}
+        />
       </div>
       <br />
       <button type="submit" className="button is-link">
