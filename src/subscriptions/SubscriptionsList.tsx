@@ -27,16 +27,18 @@ const SubscriptionsList: React.FC<SubscriptionsListProps> = (
   }
   return (
     <div className="columns subscriptions">
-      {subscriptions.map((subscription: Subscription) => (
-        <div className="column is-4" key={subscription.id}>
-          <SubscriptionCard
-            actions={props.actions}
-            key={subscription.id}
-            subscription={subscription}
-            organization={organization.uuid}
-          />
-        </div>
-      ))}
+      {subscriptions
+        .sort((a, b) => (a.plan.name > b.plan.name ? 1 : -1))
+        .map((subscription: Subscription) => (
+          <div className="column is-4" key={subscription.id}>
+            <SubscriptionCard
+              actions={props.actions}
+              key={subscription.id}
+              subscription={subscription}
+              organization={organization.uuid}
+            />
+          </div>
+        ))}
     </div>
   );
 };

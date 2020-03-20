@@ -27,6 +27,7 @@ const PlansList: React.FC<PlansListProps> = (props: PlansListProps) => {
     <div className="columns is-multiline">
       {Object.values(props.plans.plans)
         .filter(plan => !plan.subscribed)
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
         .map((plan: Plan) => (
           <div className="column is-4" key={plan.id}>
             <PlanCard
