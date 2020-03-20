@@ -5,6 +5,8 @@ import Field from '../common/Field';
 import { OrganizationState } from '../store/organizations/types';
 import { ensureOrganizations } from '../store/organizations/api';
 import { createInvitation } from '../store/invitations/api';
+import { Link } from 'react-router-dom';
+import { Invitation } from '../store/invitations/types';
 
 interface InvitePageProps {
   actions: AppActions;
@@ -49,6 +51,9 @@ export const InvitePage: React.FC<InvitePageProps> = (
       <div className="notification is-success">
         <strong>Success!</strong> You've invited {email} to the org{' '}
         {organization.name}.
+        <p>
+          <Link to="/profile">Return to your profile</Link>.
+        </p>
       </div>
     );
   }
