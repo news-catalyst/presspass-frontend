@@ -22,7 +22,7 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
       <div className="columns is-multiline">
         {Object.values(props.entitlements.entitlements).map(
           (entitlement: Entitlement) => (
-            <div className="column is-4">
+            <div key={entitlement.id} className="column is-4">
               <EntitlementCard entitlement={entitlement} />
             </div>
           )
