@@ -60,10 +60,10 @@ const App = (props: AppProps) => {
           <div className="container">
             <Switch>
               <ProtectedRoute exact path="/" {...authProps}>
-                <Redirect to="/clients" />
+                <Redirect to="/entitlements" />
               </ProtectedRoute>
               <ProtectedRoute exact path="/index.html" {...authProps}>
-                <Redirect to="/clients" />
+                <Redirect to="/entitlements" />
               </ProtectedRoute>
               {authRoutes(props).map(route => route)}
               {clientsRoutes(props).map(route => route)}
