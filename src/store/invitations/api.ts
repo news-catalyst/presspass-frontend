@@ -213,6 +213,27 @@ export const createInvitation = (
       })
     );
 
+export const requestInvitation = (
+  organization_id: string,
+  actions: AppActions
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${organization_id}/invitations/`,
+    JSON_POST({
+      request: true
+    })
+  )
+    .then(checkAuth(actions)) // Necessary
+    .then(response =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertInvitation(status.body as Invitation);
+        notify(
+          '[TODO remove this?] Successfully requested an invite.',
+          'success'
+        );
+      })
+    );
+
 export const deleteInvitation = (invitation: Invitation, actions: AppActions) =>
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${invitation.organization}/invitations/${invitation.user}`,
