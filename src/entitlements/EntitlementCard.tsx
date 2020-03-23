@@ -10,25 +10,26 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (
 ) => {
   let entitlement = props.entitlement;
   return (
-    <a
-      className="box"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={entitlement.client.website_url}
-    >
-      <h5 className="title is-size-5">{entitlement.name}</h5>
-      <div className="field is-grouped is-grouped-multiline">
-        <div className="control">
-          <div className="tags has-addons">
-            <span className="tag is-dark">Name</span>
-            <span className="tag is-info">{entitlement.name}</span>
-          </div>
+    <div className="card">
+      <header className="card-header">
+        <p className="card-header-title">{entitlement.name}</p>
+      </header>
+      <div className="card-content">
+        <div className="content">
+          <strong>Client:</strong> {entitlement.client.name}
+          <br />
+          <strong>Link:</strong>{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={entitlement.client.website_url}
+          >
+            {entitlement.client.website_url}
+          </a>
+          <p>{entitlement.description}</p>
         </div>
       </div>
-      <div className="content">
-        <p>{entitlement.description}</p>
-      </div>
-    </a>
+    </div>
   );
 };
 
