@@ -1,7 +1,7 @@
-import React from "react";
-import { Link, RouteProps } from "react-router-dom";
-import { AppActions } from "../store";
-import { User } from "../store/users/types";
+import React from 'react';
+import { Link, RouteProps } from 'react-router-dom';
+import { AppActions } from '../store';
+import { User } from '../store/users/types';
 
 export interface NavbarProps extends RouteProps {
   isAuthenticated: boolean;
@@ -14,7 +14,7 @@ const Navbar = (props: NavbarProps) => {
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
       <a className="navbar-link" href="/">
-        {props.user === null ? "Account" : props.user.name}
+        {props.user === null ? 'Account' : props.user.name}
       </a>
 
       <div className="navbar-dropdown">
@@ -70,11 +70,11 @@ const Navbar = (props: NavbarProps) => {
 
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="/">
-              Apps
+            <a className="navbar-item" href="/entitlements">
+              Entitlements
             </a>
-            <a className="navbar-item" href="/">
-              Organization
+            <a className="navbar-item" href="/organizations">
+              Organizations
             </a>
           </div>
           <div className="navbar-end">
