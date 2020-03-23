@@ -21,7 +21,13 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
     async function fetchData() {
       await ensureOrganizations(props.actions, props.organizations);
       if (props.organizations.hydrated) {
-        setItems(Object.values(props.organizations.organizations));
+        setItems(
+          Object.values(props.organizations.organizations).filter(
+            (organization: Organization) => {
+              return !organization.private && !organization.individual;
+            }
+          )
+        );
       }
     }
     fetchData();
@@ -32,7 +38,11 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   }
 
   const filterList = event => {
-    let initialItems = Object.values(props.organizations.organizations);
+    let initialItems = Object.values(props.organizations.organizations).filter(
+      (organization: Organization) => {
+        return !organization.private && !organization.individual;
+      }
+    );
     let filteredItems = initialItems.filter(item => {
       return (
         item.name.toLowerCase().search(event.target.value.toLowerCase()) !== -1
