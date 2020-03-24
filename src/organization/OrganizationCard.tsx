@@ -1,13 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 
+import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { Organization } from '../store/organizations/types';
 import { Link } from 'react-router-dom';
+import { MembershipState } from '../store/memberships/types';
+import { requestInvitation } from '../store/invitations/api';
+import { AppActions } from '../store';
 
 interface OrganizationCardProps {
+  actions: AppActions;
   organization: Organization;
+  memberships: MembershipState;
 }
 
+const OrganizationCardNav: React.FC<OrganizationCardProps> = (
+  props: OrganizationCardProps
+) => {
+  let [requested, setRequested] = useState(false);
+  let [errors, setErrors] = useState({});
+
+  if (!props.memberships.hydrated) {
+    return <LoadingPlaceholder />;
+  }
+  const onRequestClick = () => {
+    requestInvitation(props.organization.uuid, props.actions).then(status => {
+      if (status.ok) {
+        setRequested(true);
+        setErrors({});
+      } else {
+        setErrors(status.body);
+      }
+    });
+  };
+  if (requested) {
+    return (
+      <nav className="level is-mobile">
+        <div className="level-left">
+          <span className="tag is-success">Requested</span>
+        </div>
+      </nav>
+    );
+  }
+  let userIsMember = props.organization.uuid in props.memberships.memberships;
+  if (userIsMember) {
+    return (
+      <nav className="level is-mobile">
+        <div className="level-left">
+          <span className="tag is-info">Member</span>
+        </div>
+      </nav>
+    );
+  }
+  return (
+    <nav className="level is-mobile">
+      <div className="level-left">
+        <a
+          onClick={onRequestClick}
+          className="level-item button is-success"
+          aria-label="request"
+        >
+          Request to join
+        </a>
+      </div>
+    </nav>
+  );
+};
 const OrganizationCard: React.FC<OrganizationCardProps> = (
   props: OrganizationCardProps
 ) => {
@@ -45,6 +103,11 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
               <small className="has-text-grey">{organization.uuid}</small>
             </p>
           </div>
+          <OrganizationCardNav
+            actions={props.actions}
+            memberships={props.memberships}
+            organization={organization}
+          />
         </div>
       </article>
     </div>

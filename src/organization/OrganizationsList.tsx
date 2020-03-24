@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { AppActions } from '../store';
 import { OrganizationState, Organization } from '../store/organizations/types';
 import { ensureOrganizations } from '../store/organizations/api';
+import { ensureMembershipsForUser } from '../store/memberships/api';
 import OrganizationCard from './OrganizationCard';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import Field from '../common/Field';
+import { MembershipState } from '../store/memberships/types';
+import { UsersState } from '../store/users/types';
 
 interface OrganizationsListProps {
   actions: AppActions;
   organizations: OrganizationState;
+  memberships: MembershipState;
+  users: UsersState;
 }
 
 export const OrganizationsList: React.FC<OrganizationsListProps> = (
@@ -29,9 +34,14 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
           )
         );
       }
+      // load user's memberships list
+      if (props.users.self !== null) {
+        const uuid = props.users.self.uuid;
+        await ensureMembershipsForUser(props.actions, uuid, props.memberships);
+      }
     }
     fetchData();
-  }, [props.actions, props.organizations]);
+  }, [props.actions, props.organizations, props.memberships]);
 
   if (!props.organizations.hydrated) {
     return <LoadingPlaceholder />;
@@ -68,7 +78,11 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
           .sort((a, b) => (a.name > b.name ? 1 : -1))
           .map((organization: Organization) => (
             <div className="column is-4" key={organization.uuid}>
-              <OrganizationCard organization={organization} />
+              <OrganizationCard
+                actions={props.actions}
+                organization={organization}
+                memberships={props.memberships}
+              />
             </div>
           ))}
       </div>

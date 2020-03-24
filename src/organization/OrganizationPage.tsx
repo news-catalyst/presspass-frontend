@@ -6,8 +6,10 @@ import { AppProps } from '../store';
 import OrganizationCard from './OrganizationCard';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { Link } from 'react-router-dom';
+import { MembershipState } from '../store/memberships/types';
 
 interface OrganizationPageProps extends AppProps {
+  memberships: MembershipState;
   organization: string;
   organizations: OrganizationState;
   actions: AppActions;
@@ -24,7 +26,11 @@ export const OrganizationPage = (props: OrganizationPageProps) => {
   let organization = props.organizations.organizations[props.organization];
   return (
     <section className="organization-page">
-      <OrganizationCard organization={organization} />
+      <OrganizationCard
+        actions={props.actions}
+        memberships={props.memberships}
+        organization={organization}
+      />
       <p>
         Organization page (id {organization.uuid}) (
         <Link to={`./${organization.uuid}/manage`}>manage</Link>)
