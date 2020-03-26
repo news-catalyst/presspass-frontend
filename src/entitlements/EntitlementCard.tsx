@@ -19,11 +19,7 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (
           <strong>Client:</strong> {entitlement.client.name}
           <br />
           <strong>Link:</strong>{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={entitlement.client.website_url}
-          >
+          <a href={entitlement.client.website_url}>
             {entitlement.client.website_url}
           </a>
           <p>{entitlement.description}</p>
