@@ -1,9 +1,9 @@
 // Form separated from page so that it can DRY-ly be used in both
 // the 'create' component and the 'edit' component.
 
-import React, { useState, SyntheticEvent } from "react";
-import { Client } from "../store/clients/types";
-import Field from "../common/Field";
+import React, { useState, SyntheticEvent } from 'react';
+import { Client } from '../store/clients/types';
+import Field from '../common/Field';
 
 interface ClientFormProps {
   client: Client;
@@ -50,7 +50,7 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
     <form onSubmit={handleSubmit} className="limited-width">
       <Field label="Name" errors={errors.name}>
         <input
-          className={errors.name ? "input is-danger" : "input"}
+          className={errors.name ? 'input is-danger' : 'input'}
           type="text"
           placeholder="Your app's name..."
           value={name}
@@ -62,25 +62,29 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
         errors={errors.client_type}
         help="Confidential clients can keep information private (e.g. a server); public clients cannot (e.g. SPA web app)."
       >
-        <div className={errors.client_type ? "select is-danger" : "select"}>
+        <div className={errors.client_type ? 'select is-danger' : 'select'}>
           <select value={type} onChange={event => setType(event.target.value)}>
             <option value="public">Public</option>
             <option value="confidential">Confidential</option>
           </select>
         </div>
       </Field>
-      <Field label="Website" errors={errors.website_url}>
+      <Field
+        label="Login URL"
+        errors={errors.website_url}
+        help="This should be the route that kicks off the OAuth process in your application."
+      >
         <input
-          className={errors.website_url ? "input is-danger" : "input"}
+          className={errors.website_url ? 'input is-danger' : 'input'}
           type="url"
-          placeholder="Your app's website..."
+          placeholder="https://example.org/login/presspass"
           value={website}
           onChange={event => setWebsite(event.target.value)}
         />
       </Field>
       <Field label="Terms of Service" errors={errors.terms_url}>
         <input
-          className={errors.terms_url ? "input is-danger" : "input"}
+          className={errors.terms_url ? 'input is-danger' : 'input'}
           type="url"
           placeholder="A URL to your app's Terms of Service..."
           value={termsUrl}
@@ -89,7 +93,7 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
       </Field>
       <Field label="Contact Email" errors={errors.contact_email}>
         <input
-          className={errors.contact_email ? "input is-danger" : "input"}
+          className={errors.contact_email ? 'input is-danger' : 'input'}
           type="email"
           placeholder="Your app's contact email..."
           value={contactEmail}
@@ -102,7 +106,7 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
         help="If you do not upload a file, the current logo will be kept."
       >
         <input
-          className={errors.logo ? "input is-danger" : "input"}
+          className={errors.logo ? 'input is-danger' : 'input'}
           type="file"
           placeholder="Your app's logo..."
           onChange={event =>
@@ -114,7 +118,7 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
       </Field>
       <Field errors={errors.reuse_consent}>
         <label
-          className={errors.reuse_consent ? "checkbox is-danger" : "checkbox"}
+          className={errors.reuse_consent ? 'checkbox is-danger' : 'checkbox'}
         >
           <input
             type="checkbox"
@@ -130,10 +134,10 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
         help="List of links that the app can redirect users to. One link per line."
       >
         <textarea
-          className={errors.redirect_uris ? "textarea is-danger" : "textarea"}
+          className={errors.redirect_uris ? 'textarea is-danger' : 'textarea'}
           placeholder="Your app's redirect links, one per line..."
           value={redirectUris}
-          onChange={event => setRedirectUris(event.target.value || "")}
+          onChange={event => setRedirectUris(event.target.value || '')}
         ></textarea>
       </Field>
       <Field
@@ -143,12 +147,12 @@ const ClientForm: React.FC<ClientFormProps> = (props: ClientFormProps) => {
       >
         <textarea
           className={
-            errors.post_logout_redirect_uris ? "textarea is-danger" : "textarea"
+            errors.post_logout_redirect_uris ? 'textarea is-danger' : 'textarea'
           }
           placeholder="Your app's logout redirect links, one per line..."
           value={postLogoutRedirectUris}
           onChange={event =>
-            setPostLogoutRedirectUris(event.target.value || "")
+            setPostLogoutRedirectUris(event.target.value || '')
           }
         ></textarea>
       </Field>
