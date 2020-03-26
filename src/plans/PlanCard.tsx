@@ -95,17 +95,17 @@ const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
           show={show}
           hideModal={hideModal}
         />
-        <a href="#" onClick={showModal} className="card-footer-item">
+        <button onClick={showModal} className="card-footer-item">
           Pay to Subscribe
-        </a>
+        </button>
       </footer>
     );
   }
   return (
     <footer className="card-footer">
-      <a onClick={subscribeToPlan} className="card-footer-item">
+      <button onClick={subscribeToPlan} className="card-footer-item">
         Subscribe
-      </a>
+      </button>
     </footer>
   );
 };

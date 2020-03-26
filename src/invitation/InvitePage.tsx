@@ -6,7 +6,6 @@ import { OrganizationState } from '../store/organizations/types';
 import { ensureOrganizations } from '../store/organizations/api';
 import { createInvitation } from '../store/invitations/api';
 import { Link } from 'react-router-dom';
-import { Invitation } from '../store/invitations/types';
 
 interface InvitePageProps {
   actions: AppActions;

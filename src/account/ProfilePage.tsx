@@ -30,7 +30,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
   } else {
     let name = props.users.self!.name;
     let username = props.users.self!.username;
-    let email = props.users.self!.email;
     let avatar = props.users.self!.avatar;
 
     return (

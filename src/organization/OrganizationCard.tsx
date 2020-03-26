@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
@@ -55,13 +55,13 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
   return (
     <nav className="level is-mobile">
       <div className="level-left">
-        <a
+        <button
           onClick={onRequestClick}
           className="level-item button is-success"
           aria-label="request"
         >
           Request to join
-        </a>
+        </button>
       </div>
     </nav>
   );
@@ -85,7 +85,7 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
       <article className="media">
         <div className="media-left">
           <figure className="image is-64x64">
-            <img src={avatar} />
+            <img src={avatar} alt="Organization avatar" />
           </figure>
         </div>
         <div className="media-content">
