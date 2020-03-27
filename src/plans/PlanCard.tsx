@@ -95,9 +95,9 @@ const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
           show={show}
           hideModal={hideModal}
         />
-        <button onClick={showModal} className="card-footer-item">
+        <a onClick={showModal} className="card-footer-item">
           Pay to Subscribe
-        </button>
+        </a>
       </footer>
     );
   }
