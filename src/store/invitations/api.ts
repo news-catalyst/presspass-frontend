@@ -206,10 +206,7 @@ export const createInvitation = (
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
-        notify(
-          '[TODO remove this?] Successfully sent the invitation.',
-          'success'
-        );
+        notify('Successfully sent the invitation.', 'success');
       })
     );
 
@@ -227,10 +224,7 @@ export const requestInvitation = (
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
-        notify(
-          '[TODO remove this?] Successfully requested an invite.',
-          'success'
-        );
+        notify('Successfully requested an invite.', 'success');
       })
     );
 
