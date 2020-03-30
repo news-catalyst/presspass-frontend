@@ -22,6 +22,9 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   const [items, setItems] = useState(
     Object.values(props.organizations.organizations)
   );
+  const [requests, setRequests] = useState({});
+  console.log('(before) requests: ', requests);
+
   useEffect(() => {
     async function fetchData() {
       await ensureOrganizations(props.actions, props.organizations);
@@ -82,6 +85,8 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
                 actions={props.actions}
                 organization={organization}
                 memberships={props.memberships}
+                requests={requests}
+                setRequests={setRequests}
               />
             </div>
           ))}

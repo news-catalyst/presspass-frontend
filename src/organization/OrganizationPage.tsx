@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppActions } from '../store';
 import { OrganizationState } from '../store/organizations/types';
 import { ensureOrganizations } from '../store/organizations/api';
@@ -16,6 +16,7 @@ interface OrganizationPageProps extends AppProps {
 }
 
 export const OrganizationPage = (props: OrganizationPageProps) => {
+  const [requests, setRequests] = useState({});
   useEffect(() => {
     ensureOrganizations(props.actions, props.organizations);
   }, [props.actions, props.organizations]);
@@ -30,6 +31,8 @@ export const OrganizationPage = (props: OrganizationPageProps) => {
         actions={props.actions}
         memberships={props.memberships}
         organization={organization}
+        requests={requests}
+        setRequests={setRequests}
       />
       <p>
         Organization page (id {organization.uuid}) (

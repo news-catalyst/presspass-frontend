@@ -12,6 +12,8 @@ interface OrganizationCardProps {
   actions: AppActions;
   organization: Organization;
   memberships: MembershipState;
+  requests: {};
+  setRequests: any;
 }
 
 const OrganizationCardNav: React.FC<OrganizationCardProps> = (
@@ -27,6 +29,11 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     requestInvitation(props.organization.uuid, props.actions).then(status => {
       if (status.ok) {
         setRequested(true);
+        props.setRequests({
+          ...props.requests,
+          [props.organization.uuid]: true
+        });
+        console.log('(after) requests: ', props.requests);
         setErrors({});
       } else {
         setErrors(status.body);
@@ -110,6 +117,8 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
             actions={props.actions}
             memberships={props.memberships}
             organization={organization}
+            requests={props.requests}
+            setRequests={props.setRequests}
           />
         </div>
       </article>
