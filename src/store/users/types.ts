@@ -1,4 +1,5 @@
 export const UPSERT_SELF_USER = 'UPSERT_SELF_USER';
+export const UPSERT_USER = 'UPSERT_USER';
 
 export interface User {
   name: string;
@@ -15,6 +16,7 @@ export interface User {
 
 export interface UsersState {
   self: User | null;
+  user: User | null;
 }
 
 export interface UpsertSelfUserAction {
@@ -22,4 +24,9 @@ export interface UpsertSelfUserAction {
   self: User;
 }
 
-export type UsersAction = UpsertSelfUserAction;
+export interface UpsertUserAction {
+  type: typeof UPSERT_USER;
+  user: User;
+}
+
+export type UsersAction = UpsertSelfUserAction | UpsertUserAction;

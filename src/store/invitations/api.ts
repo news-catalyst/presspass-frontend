@@ -99,7 +99,11 @@ export const fetchInvitationsForOrganization = (
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertInvitations(data.results)]))
     .catch(error => {
-      console.error('API Error fetchInvitationsForUser', error, error.code);
+      console.error(
+        'API Error fetchInvitationsForOrganization',
+        error,
+        error.code
+      );
     });
 
 export const ensureInvitationsForOrganization = (

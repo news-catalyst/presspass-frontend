@@ -8,6 +8,7 @@ import { UsersState } from '../store/users/types';
 
 interface OrganizationCreatePageProps {
   actions: AppActions;
+  invitations?: any;
   plans?: any;
   subscriptions?: any;
   users: UsersState;
@@ -52,6 +53,7 @@ export const OrganizationCreatePage: React.FC<OrganizationCreatePageProps> = (
         <OrganizationForm
           actions={props.actions}
           errors={errors}
+          invitations={props.invitations}
           onSubmit={handleSubmit}
           organization={organization}
           plans={props.plans}

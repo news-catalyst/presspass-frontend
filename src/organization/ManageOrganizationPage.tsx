@@ -9,14 +9,17 @@ import {
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { AppProps } from '../store';
 import { Link, Redirect } from 'react-router-dom';
+import { ensureInvitationsForOrganization } from '../store/invitations/api';
 import { ensurePlansForOrganization } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';
 import { ensureSubscriptionsForOrganization } from '../store/subscriptions/api';
 import { SubscriptionState } from '../store/subscriptions/types';
 import { UsersState } from '../store/users/types';
+import { InvitationState } from '../store/invitations/types';
 
 interface ManageOrganizationPageProps extends AppProps {
   actions: AppActions;
+  invitations: InvitationState;
   organization: string;
   organizations: OrganizationState;
   plans: PlanState;
@@ -29,6 +32,11 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
     async function fetchData() {
       await ensureOrganizations(props.actions, props.organizations);
 
+      await ensureInvitationsForOrganization(
+        props.actions,
+        props.organization,
+        props.invitations
+      );
       await ensurePlansForOrganization(
         props.actions,
         props.organization,
@@ -43,6 +51,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
     fetchData();
   }, [
     props.actions,
+    props.invitations,
     props.organization,
     props.organizations,
     props.plans,
@@ -54,6 +63,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
 
   if (
     !props.organizations.hydrated ||
+    !props.invitations.hydrated ||
     !props.plans.hydrated ||
     !props.subscriptions.hydrated
   ) {
@@ -82,6 +92,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
         <OrganizationForm
           actions={props.actions}
           errors={errors}
+          invitations={props.invitations}
           onSubmit={handleSubmit}
           organization={organization}
           plans={props.plans}

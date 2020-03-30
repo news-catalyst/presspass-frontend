@@ -64,7 +64,7 @@ import { subscriptionReducers } from './subscriptions/reducers';
 import { SubscriptionState } from './subscriptions/types';
 
 // Users
-import { upsertSelfUser } from './users/actions';
+import { upsertSelfUser, upsertUser } from './users/actions';
 import { usersReducers } from './users/reducers';
 import { UsersState } from './users/types';
 
@@ -113,6 +113,7 @@ export interface AppActions {
   upsertEntitlements: typeof upsertEntitlements;
   deleteEntitlement: typeof deleteEntitlement;
   upsertSelfUser: typeof upsertSelfUser;
+  upsertUser: typeof upsertUser;
 }
 
 export interface AppProps {

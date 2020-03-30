@@ -5,20 +5,23 @@ import React, { useState, SyntheticEvent } from 'react';
 import { Organization } from '../store/organizations/types';
 import Field from '../common/Field';
 import { Plan, PlanState } from '../store/plans/types';
+import { InvitationState } from '../store/invitations/types';
 import { SubscriptionState } from '../store/subscriptions/types';
 import { AppActions } from '../store';
+import InvitationsList from '../invitation/InvitationsList';
 import PlansList from '../plans/PlansList';
 import SubscriptionsList from '../subscriptions/SubscriptionsList';
 import { UsersState } from '../store/users/types';
 
 interface OrganizationFormProps {
   actions: AppActions;
+  errors: any;
+  invitations: InvitationState;
+  onSubmit: (parameter: Organization) => void;
   organization: Organization;
   plans: PlanState;
   subscriptions: SubscriptionState;
   users: UsersState;
-  onSubmit: (parameter: Organization) => void;
-  errors: any;
 }
 
 const OrganizationForm: React.FC<OrganizationFormProps> = (
@@ -89,6 +92,16 @@ const OrganizationForm: React.FC<OrganizationFormProps> = (
           This organization's information and membership is not made public
         </label>
       </Field>
+      <hr />
+      <div className="container">
+        <h1 className="title">Membership Requests</h1>
+        <InvitationsList
+          organization={organization}
+          users={props.users}
+          invitations={props.invitations}
+          actions={props.actions}
+        />
+      </div>
       <hr />
       <div className="container">
         <h1 className="title">Subscriptions</h1>
