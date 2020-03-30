@@ -3,6 +3,7 @@ import { AppActions } from '../store';
 import { ensureEntitlements } from '../store/entitlements/api';
 import EntitlementCard from './EntitlementCard';
 import { EntitlementState, Entitlement } from '../store/entitlements/types';
+import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
 interface EntitlementsListProps {
   actions: AppActions;
@@ -15,6 +16,10 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
   useEffect(() => {
     ensureEntitlements(props.actions, props.entitlements);
   }, [props.actions, props.entitlements]);
+
+  if (!props.entitlements.hydrated) {
+    return <LoadingPlaceholder />;
+  }
 
   return (
     <div className="entitlements">

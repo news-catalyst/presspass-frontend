@@ -103,9 +103,9 @@ const SubscribeFooter: React.FC<PlanCardProps> = (props: PlanCardProps) => {
   }
   return (
     <footer className="card-footer">
-      <button onClick={subscribeToPlan} className="card-footer-item">
+      <a onClick={subscribeToPlan} className="card-footer-item">
         Subscribe
-      </button>
+      </a>
     </footer>
   );
 };

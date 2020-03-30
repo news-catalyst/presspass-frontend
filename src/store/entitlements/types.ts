@@ -1,18 +1,19 @@
-import { Client } from '../clients/types'
+import { Client } from '../clients/types';
 
-export const UPSERT_ENTITLEMENT = "UPSERT_ENTITLEMENT";
-export const UPSERT_ENTITLEMENTS = "UPSERT_ENTITLEMENTS";
-export const DELETE_ENTITLEMENT = "DELETE_ENTITLEMENT";
+export const UPSERT_ENTITLEMENT = 'UPSERT_ENTITLEMENT';
+export const UPSERT_ENTITLEMENTS = 'UPSERT_ENTITLEMENTS';
+export const DELETE_ENTITLEMENT = 'DELETE_ENTITLEMENT';
 
 export interface Entitlement {
   id: number;
   name: string;
   description: string;
+  slug: string;
   client: Client;
 }
 
 export interface EntitlementState {
-  entitlements: { [id: number]: Entitlement };
+  entitlements: { [slug: string]: Entitlement };
   hydrated: boolean;
 }
 

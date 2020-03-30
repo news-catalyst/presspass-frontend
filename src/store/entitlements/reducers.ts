@@ -4,7 +4,7 @@ import {
   EntitlementState,
   UPSERT_ENTITLEMENTS,
   DELETE_ENTITLEMENT
-} from "./types";
+} from './types';
 
 const initialState: EntitlementState = {
   entitlements: {},
@@ -22,7 +22,7 @@ export function entitlementReducers(
         hydrated: true
       };
       for (let entitlement of action.entitlements) {
-        incomingObject.entitlements[entitlement.id] = entitlement;
+        incomingObject.entitlements[entitlement.slug] = entitlement;
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -31,7 +31,7 @@ export function entitlementReducers(
         entitlements: Object.assign({}, state.entitlements),
         hydrated: true
       };
-      incomingObject.entitlements[action.entitlement.id] = action.entitlement;
+      incomingObject.entitlements[action.entitlement.slug] = action.entitlement;
       return Object.assign({}, state, incomingObject);
     }
     case DELETE_ENTITLEMENT: {
@@ -39,7 +39,7 @@ export function entitlementReducers(
         entitlements: Object.assign({}, state.entitlements),
         hydrated: true
       };
-      delete incomingObject.entitlements[action.entitlement.id];
+      delete incomingObject.entitlements[action.entitlement.slug];
       return Object.assign({}, state, incomingObject);
     }
     default:

@@ -70,10 +70,13 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
   props: OrganizationCardProps
 ) => {
   let organization = props.organization;
-  let avatar;
+  let avatar = '';
   if (typeof organization.avatar === 'string') {
     avatar = organization.avatar;
-    // avatar = URL.createObjectURL(organization.avatar);
+  }
+  // DEMO set a default organizational avatar - TODO pick a better image, usage rights
+  if (organization.avatar === null || organization.avatar === '') {
+    avatar = '/organization_avatar.png';
   }
   var formattedDate = format(
     new Date(organization.updated_at),
