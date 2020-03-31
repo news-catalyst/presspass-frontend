@@ -18,7 +18,7 @@ export interface Invitation {
 }
 
 export interface InvitationState {
-  invitations: { [id: string]: Invitation };
+  invitations: { [id: string]: Invitation[] };
   hydrated: boolean;
 }
 

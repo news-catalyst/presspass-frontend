@@ -22,7 +22,7 @@ export const InvitationPage: React.FC<InvitationPageProps> = (
     return <LoadingPlaceholder />;
   }
 
-  let invitation = props.invitations.invitations[props.id];
+  let invitation = Object.values(props.invitations.invitations)[0][0];
 
   return (
     <section className="invitation-page">
