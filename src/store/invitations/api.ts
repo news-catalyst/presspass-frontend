@@ -35,7 +35,7 @@ export const fetchInvitation = (actions: AppActions, uuid: string) =>
       data.uuid = uuid; // necessary because the API lacks this ID in the response
       return data;
     })
-    .then(data => Promise.all([actions.upsertInvitation(data)]))
+    .then(data => Promise.all([actions.upsertInvitation(data, uuid)]))
     .catch(error => {
       console.error('API Error fetchInvitation', error, error.code);
     });
@@ -128,7 +128,10 @@ export const updateInvitation = (
     .then(checkAuth(actions))
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
-        actions.upsertInvitation(status.body as Invitation);
+        actions.upsertInvitation(
+          status.body as Invitation,
+          invitation.organization.uuid
+        );
         notify(
           `Successfully updated user ${invitation.user}'s invitation in organization ${invitation.organization}.`,
           'success'
@@ -155,7 +158,10 @@ export const acceptInvitation = (
     .then(checkAuth(actions))
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
-        actions.upsertInvitation(status.body as Invitation);
+        actions.upsertInvitation(
+          status.body as Invitation,
+          invitation.organization.uuid
+        );
         notify(
           `Successfully accepted invitation to join organization ${invitation.organization.name}.`,
           'success'
@@ -182,7 +188,10 @@ export const rejectInvitation = (
     .then(checkAuth(actions))
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
-        actions.upsertInvitation(status.body as Invitation);
+        actions.upsertInvitation(
+          status.body as Invitation,
+          invitation.organization.uuid
+        );
         notify(
           `Successfully rejected invitation to join organization ${invitation.organization.name}.`,
           'success'
@@ -205,7 +214,7 @@ export const createInvitation = (
     .then(checkAuth(actions)) // Necessary
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
-        actions.upsertInvitation(status.body as Invitation);
+        actions.upsertInvitation(status.body as Invitation, organization_id);
         notify('Successfully sent the invitation.', 'success');
       })
     );
@@ -223,7 +232,9 @@ export const requestInvitation = (
     .then(checkAuth(actions)) // Necessary
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
-        actions.upsertInvitation(status.body as Invitation);
+        // this is annoying: the invitation response data doesn't include the organization id :(
+        // so i have to try to reconstruct it here
+        actions.upsertInvitation(status.body as Invitation, organization_id);
         notify('Successfully requested an invite.', 'success');
       })
     );

@@ -9,11 +9,13 @@ import {
 } from './types';
 
 export function upsertInvitation(
-  invitation: Invitation
+  invitation: Invitation,
+  organization_id: string
 ): UpsertInvitationAction {
   return {
     type: UPSERT_INVITATION,
-    invitation: invitation
+    invitation: invitation,
+    organization_id: organization_id
   };
 }
 

@@ -31,7 +31,7 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
-      incomingObject.invitations[action.invitation.uuid] = action.invitation;
+      incomingObject.invitations[action.organization_id] = action.invitation;
       return Object.assign({}, state, incomingObject);
     }
     case DELETE_INVITATION: {
