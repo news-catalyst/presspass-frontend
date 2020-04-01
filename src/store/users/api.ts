@@ -44,3 +44,12 @@ export const updateSelfUser = (user: User, actions: AppActions) => {
       })
     );
 };
+
+export const fetchUser = (actions: AppActions, userid: number) =>
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/users/${userid}/`, GET)
+    .then(checkAuth(actions))
+    .then(response => response.json())
+    .then(data => Promise.all([actions.upsertUser(data)]))
+    .catch(error => {
+      console.error('API Error fetchUser', error, error.code);
+    });

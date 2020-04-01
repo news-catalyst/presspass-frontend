@@ -48,7 +48,7 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
-      delete incomingObject.invitations[action.invitation.organization.uuid];
+      delete incomingObject.invitations[action.invitation.uuid];
       return Object.assign({}, state, incomingObject);
     }
     default:

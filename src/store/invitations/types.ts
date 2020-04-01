@@ -1,4 +1,5 @@
 import { Organization } from '../organizations/types';
+import { User } from '../users/types';
 
 export const DELETE_INVITATION = 'DELETE_INVITATION';
 export const UPSERT_INVITATION = 'UPSERT_INVITATION';
@@ -7,7 +8,8 @@ export const UPSERT_INVITATIONS = 'UPSERT_INVITATIONS';
 export interface Invitation {
   uuid: number;
   organization: Organization;
-  user: number;
+  user_id: number;
+  user: User;
   email: string;
   request: boolean;
   created_at: Date;

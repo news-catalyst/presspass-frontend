@@ -1,8 +1,9 @@
 import React from 'react';
-import { AppActions } from '../store';
-import { Membership } from '../store/memberships/types';
 import { Link } from 'react-router-dom';
+import { AppActions } from '../store';
 import { deleteMembership } from '../store/memberships/api';
+import { Membership } from '../store/memberships/types';
+import ManageButton from './ManageButton';
 
 interface MembershipCardProps {
   membership: Membership;
@@ -39,25 +40,6 @@ const InviteButton: React.FC<InviteButtonProps> = (
       className="card-footer-item"
     >
       Invite
-    </Link>
-  );
-};
-
-interface ManageButtonProps {
-  membership: Membership;
-}
-const ManageButton: React.FC<ManageButtonProps> = (
-  props: ManageButtonProps
-) => {
-  if (!props.membership.admin) {
-    return null;
-  }
-  return (
-    <Link
-      to={'/organizations/' + props.membership.organization.uuid + '/manage'}
-      className="card-footer-item"
-    >
-      Manage
     </Link>
   );
 };

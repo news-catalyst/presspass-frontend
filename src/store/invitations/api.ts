@@ -94,14 +94,18 @@ export const fetchInvitationsForOrganization = (
   uuid: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/invitations`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/invitations/?expand=user`,
     GET
   )
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertInvitations(data.results)]))
     .catch(error => {
-      console.error('API Error fetchInvitationsForUser', error, error.code);
+      console.error(
+        'API Error fetchInvitationsForOrganization',
+        error,
+        error.code
+      );
     });
 
 export const ensureInvitationsForOrganization = (
@@ -144,7 +148,8 @@ export const updateInvitation = (
 
 export const acceptInvitation = (
   invitation: Invitation,
-  actions: AppActions
+  actions: AppActions,
+  invitationType: string
 ) => {
   let formData = new FormData();
   let packagedInvitation: any = serializeInvitation(invitation);
@@ -174,7 +179,8 @@ export const acceptInvitation = (
 
 export const rejectInvitation = (
   invitation: Invitation,
-  actions: AppActions
+  actions: AppActions,
+  invitationType: string
 ) => {
   let formData = new FormData();
   let packagedInvitation: any = serializeInvitation(invitation);
