@@ -44,6 +44,17 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
   }
   let userIsMember = props.organization.uuid in props.memberships.memberships;
   if (userIsMember) {
+    let userIsAdmin =
+      props.memberships.memberships[props.organization.uuid].admin;
+    if (userIsAdmin) {
+      return (
+        <nav className="level is-mobile">
+          <div className="level-left">
+            <span className="tag is-success">Admin</span>
+          </div>
+        </nav>
+      );
+    }
     return (
       <nav className="level is-mobile">
         <div className="level-left">
