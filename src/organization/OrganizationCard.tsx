@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
+
+import { requestInvitation } from '../store/invitations/api';
+
+import { AppActions } from '../store';
+import { Organization } from '../store/organizations/types';
+import { MembershipState } from '../store/memberships/types';
 
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
-import { Organization } from '../store/organizations/types';
-import { Link } from 'react-router-dom';
-import { MembershipState } from '../store/memberships/types';
-import { requestInvitation } from '../store/invitations/api';
-import { AppActions } from '../store';
+import ManageButton from '../membership/ManageButton';
 
 interface OrganizationCardProps {
   actions: AppActions;
@@ -44,15 +47,18 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
   }
   let userIsMember = props.organization.uuid in props.memberships.memberships;
   if (userIsMember) {
-    let userIsAdmin =
-      props.memberships.memberships[props.organization.uuid].admin;
+    let membership = props.memberships.memberships[props.organization.uuid];
+    let userIsAdmin = membership.admin;
     if (userIsAdmin) {
       return (
-        <nav className="level is-mobile">
-          <div className="level-left">
-            <span className="tag is-success">Admin</span>
-          </div>
-        </nav>
+        <div>
+          <nav className="level is-mobile">
+            <div className="level-left">
+              <span className="tag is-success">Admin</span>
+            </div>
+            <ManageButton membership={membership} />
+          </nav>
+        </div>
       );
     }
     return (
