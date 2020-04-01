@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { format } from 'date-fns';
 
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
-import { Organization } from '../store/organizations/types';
 import { Link } from 'react-router-dom';
+import { Invitation, InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
+import { Organization } from '../store/organizations/types';
 import { requestInvitation } from '../store/invitations/api';
 import { AppActions } from '../store';
 
 interface OrganizationCardProps {
   actions: AppActions;
-  organization: Organization;
+  invitations: InvitationState;
   memberships: MembershipState;
+  organization: Organization;
 }
 
 const OrganizationCardNav: React.FC<OrganizationCardProps> = (
@@ -23,6 +25,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
   if (!props.memberships.hydrated) {
     return <LoadingPlaceholder />;
   }
+
   const onRequestClick = () => {
     requestInvitation(props.organization.uuid, props.actions).then(status => {
       if (status.ok) {
@@ -33,21 +36,26 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       }
     });
   };
-  if (requested) {
-    return (
-      <nav className="level is-mobile">
-        <div className="level-left">
-          <span className="tag is-success">Requested</span>
-        </div>
-      </nav>
-    );
-  }
   let userIsMember = props.organization.uuid in props.memberships.memberships;
   if (userIsMember) {
     return (
       <nav className="level is-mobile">
         <div className="level-left">
           <span className="tag is-info">Member</span>
+        </div>
+      </nav>
+    );
+  }
+  let userRequestedMembership =
+    props.organization.uuid in props.invitations.invitations &&
+    props.invitations.invitations[props.organization.uuid].find(
+      (invite: Invitation) => invite.request
+    );
+  if (userRequestedMembership || requested) {
+    return (
+      <nav className="level is-mobile">
+        <div className="level-left">
+          <span className="tag is-success">Requested</span>
         </div>
       </nav>
     );
@@ -108,6 +116,7 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
           </div>
           <OrganizationCardNav
             actions={props.actions}
+            invitations={props.invitations}
             memberships={props.memberships}
             organization={organization}
           />
