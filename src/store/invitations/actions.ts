@@ -30,11 +30,13 @@ export function upsertInvitation(
 // `hydrated` is set to `true` too early, this can cause
 // these views to fail.
 export function upsertInvitations(
-  invitations: Invitation[]
+  invitations: Invitation[],
+  organization_id: string
 ): UpsertInvitationsAction {
   return {
     type: UPSERT_INVITATIONS,
-    invitations: invitations
+    invitations: invitations,
+    organization_id: organization_id
   };
 }
 

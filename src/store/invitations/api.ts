@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+
 import { AppActions } from '..';
 import {
   checkAuth,
@@ -49,7 +51,12 @@ export const fetchInvitationsForUser = (actions: AppActions, uuid: string) =>
   )
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data => Promise.all([actions.upsertInvitations(data.results)]))
+    .then(data => {
+      const grouped = groupBy(data.results, (i) => i.organization.uuid);
+      return Promise.all([
+        Object.keys(grouped).map(group => (actions.upsertInvitations(grouped[group], group)))
+      ]);
+    })
     .catch(error => {
       console.error('API Error fetchInvitationsForUser', error, error.code);
     });
@@ -77,7 +84,7 @@ export const fetchInvitationsForOrganizations = (
       )
         .then(checkAuth(actions))
         .then(response => response.json())
-        .then(data => Promise.all([actions.upsertInvitations(data.results)]))
+        .then(data => Promise.all([actions.upsertInvitations(data.results, organization.uuid)]))
         .catch(error => {
           console.error(
             'API Error fetchInvitationsForOrganizations',
@@ -99,7 +106,7 @@ export const fetchInvitationsForOrganization = (
   )
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data => Promise.all([actions.upsertInvitations(data.results)]))
+    .then(data => Promise.all([actions.upsertInvitations(data.results, uuid)]))
     .catch(error => {
       console.error(
         'API Error fetchInvitationsForOrganization',

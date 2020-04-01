@@ -33,6 +33,7 @@ export interface UpsertInvitationAction {
 export interface UpsertInvitationsAction {
   type: typeof UPSERT_INVITATIONS;
   invitations: Invitation[];
+  organization_id: string;
 }
 
 export interface DeleteInvitationAction {
