@@ -7,8 +7,8 @@ import InvitationRequestCard from '../invitation/InvitationRequestCard';
 
 interface InvitationsListProps {
   actions: AppActions;
-  organization: Organization;
   invitations: InvitationState;
+  organization: Organization;
   users: UsersState;
 }
 
@@ -17,7 +17,14 @@ const InvitationsList: React.FC<InvitationsListProps> = (
 ) => {
   let organization = props.organization;
   let invitations = Object.values(props.invitations.invitations).filter(
-    invitation => invitation.request
+    invitation => {
+      if (
+        invitation.request &&
+        invitation.accepted_at === null &&
+        invitation.rejected_at === null
+      )
+        return invitation;
+    }
   );
 
   if (invitations.length === 0) {

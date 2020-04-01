@@ -32,41 +32,44 @@ const InvitationRequestActions: React.FC<InvitationRequestActionProps> = (
   let showActionButtons = !accepted && !rejected;
 
   const onAcceptClick = () => {
-    acceptInvitation(invitation, props.actions).then(status => {
-      if (status.ok) {
-        console.log('successfully accepted the membership request');
-        setSaved(true);
-      } else {
-        setErrors(status.body);
+    acceptInvitation(invitation, props.actions, 'membership request').then(
+      status => {
+        if (status.ok) {
+          setSaved(true);
+        } else {
+          setErrors(status.body);
+        }
       }
-    });
+    );
   };
 
   const onRejectClick = () => {
-    rejectInvitation(invitation, props.actions).then(status => {
-      if (status.ok) {
-        console.log('successfully rejected the membership request');
-        setSaved(true);
-      } else {
-        setErrors(status.body);
+    rejectInvitation(invitation, props.actions, 'membership request').then(
+      status => {
+        if (status.ok) {
+          console.log('successfully rejected the membership request');
+          setSaved(true);
+        } else {
+          setErrors(status.body);
+        }
       }
-    });
+    );
   };
 
-  if (saved) {
-    return <Redirect to={`/profile`} />;
-  }
+  // if (saved) {
+  //   return <Redirect to={`/profile`} />;
+  // }
 
   if (showActionButtons) {
     return (
-      <div className="buttons">
-        <button onClick={onAcceptClick} className="button is-success">
-          accept
-        </button>
-        <button onClick={onRejectClick} className="button is-danger">
-          reject
-        </button>
-      </div>
+      <footer className="card-footer">
+        <a onClick={onAcceptClick} className="card-footer-item">
+          Accept
+        </a>
+        <a onClick={onRejectClick} className="card-footer-item">
+          Reject
+        </a>
+      </footer>
     );
   } else {
     return (
@@ -96,35 +99,23 @@ const InvitationRequestCard: React.FC<InvitationRequestCardProps> = (
   props: InvitationRequestCardProps
 ) => {
   let invitation = props.invitation;
-  useEffect(() => {
-    async function fetchData() {
-      await fetchUser(props.actions, invitation.user);
-    }
-    fetchData();
-  }, []);
-
-  if (props.users.user == null) {
-    return <LoadingPlaceholder />;
-  }
 
   var formattedDate = format(
     new Date(invitation.created_at),
     'd MMM yyyy H:mma'
   );
   return (
-    <div key={invitation.user} className="box">
-      <h5 className="title is-size-5">
-        {props.users.user.name} requested membership
-      </h5>
-      <div>
-        <InvitationRequestActions
-          actions={props.actions}
-          invitation={invitation}
-        />
-        <p>
-          <strong>Requested at:</strong> <small>{formattedDate}</small>
-        </p>
+    <div key={invitation.user_id} className="card">
+      <div className="card-content">
+        <div className="content">
+          {invitation.user.email} requested membership at{' '}
+          <small>{formattedDate}</small>.
+        </div>
       </div>
+      <InvitationRequestActions
+        actions={props.actions}
+        invitation={invitation}
+      />
     </div>
   );
 };

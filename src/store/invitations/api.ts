@@ -92,7 +92,7 @@ export const fetchInvitationsForOrganization = (
   uuid: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/invitations`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/organizations/${uuid}/invitations/?expand=user`,
     GET
   )
     .then(checkAuth(actions))
@@ -143,7 +143,8 @@ export const updateInvitation = (
 
 export const acceptInvitation = (
   invitation: Invitation,
-  actions: AppActions
+  actions: AppActions,
+  invitationType: string
 ) => {
   let formData = new FormData();
   let packagedInvitation: any = serializeInvitation(invitation);
@@ -160,17 +161,15 @@ export const acceptInvitation = (
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
-        notify(
-          `Successfully accepted invitation to join organization ${invitation.organization.name}.`,
-          'success'
-        );
+        notify(`Successfully accepted the ${invitationType}`, 'success');
       })
     );
 };
 
 export const rejectInvitation = (
   invitation: Invitation,
-  actions: AppActions
+  actions: AppActions,
+  invitationType: string
 ) => {
   let formData = new FormData();
   let packagedInvitation: any = serializeInvitation(invitation);
@@ -187,10 +186,7 @@ export const rejectInvitation = (
     .then(response =>
       validate(response, (status: ItemizedResponse) => {
         actions.upsertInvitation(status.body as Invitation);
-        notify(
-          `Successfully rejected invitation to join organization ${invitation.organization.name}.`,
-          'success'
-        );
+        notify(`Successfully rejected ${invitationType}`, 'success');
       })
     );
 };

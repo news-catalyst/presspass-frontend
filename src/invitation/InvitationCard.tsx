@@ -28,7 +28,7 @@ const InvitationActions: React.FC<InvitationCardProps> = (
   let showInvitationIsHandledStatus = accepted || rejected;
 
   const onAcceptClick = () => {
-    acceptInvitation(invitation, props.actions).then(status => {
+    acceptInvitation(invitation, props.actions, 'invitation').then(status => {
       if (status.ok) {
         console.log('successfully accepted the invite');
         setSaved(true);
@@ -39,7 +39,7 @@ const InvitationActions: React.FC<InvitationCardProps> = (
   };
 
   const onRejectClick = () => {
-    rejectInvitation(invitation, props.actions).then(status => {
+    rejectInvitation(invitation, props.actions, 'invitation').then(status => {
       if (status.ok) {
         console.log('successfully rejected the invite');
         setSaved(true);
