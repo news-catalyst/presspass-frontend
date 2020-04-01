@@ -16,16 +16,19 @@ const InvitationsList: React.FC<InvitationsListProps> = (
   props: InvitationsListProps
 ) => {
   let organization = props.organization;
-  let invitations = Object.values(props.invitations.invitations).filter(
-    invitation => {
-      if (
-        invitation.request &&
-        invitation.accepted_at === null &&
-        invitation.rejected_at === null
-      )
-        return invitation;
-    }
-  );
+  let invitationLists = Object.values(props.invitations.invitations);
+  let invitations = invitationLists.map((invitationSublist: Invitation[]) => (
+    invitationSublist.filter(
+      invitation => {
+        if (
+          invitation.request &&
+          invitation.accepted_at === null &&
+          invitation.rejected_at === null
+        )
+          return invitation;
+      }
+    )
+  )).flat();
 
   if (invitations.length === 0) {
     return (
