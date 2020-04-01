@@ -21,8 +21,12 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
+
       for (let invitation of action.invitations) {
-        incomingObject.invitations[invitation.uuid] = invitation;
+        if (!incomingObject.invitations[invitation.organization.uuid]) {
+          incomingObject.invitations[invitation.organization.uuid] = [];
+        }
+        incomingObject.invitations[invitation.organization.uuid].push(invitation);
       }
       return Object.assign({}, state, incomingObject);
     }
@@ -31,7 +35,12 @@ export function invitationReducers(
         invitations: Object.assign({}, state.invitations),
         hydrated: true
       };
-      incomingObject.invitations[action.invitation.uuid] = action.invitation;
+
+      if (!incomingObject.invitations[action.organization_id]) {
+        incomingObject.invitations[action.organization_id] = [];
+      }
+
+      incomingObject.invitations[action.organization_id].push(action.invitation);
       return Object.assign({}, state, incomingObject);
     }
     case DELETE_INVITATION: {

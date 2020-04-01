@@ -20,13 +20,14 @@ export interface Invitation {
 }
 
 export interface InvitationState {
-  invitations: { [id: number]: Invitation };
+  invitations: { [id: string]: Invitation[] };
   hydrated: boolean;
 }
 
 export interface UpsertInvitationAction {
   type: typeof UPSERT_INVITATION;
   invitation: Invitation;
+  organization_id: string;
 }
 
 export interface UpsertInvitationsAction {
