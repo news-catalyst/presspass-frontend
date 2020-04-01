@@ -6,12 +6,7 @@ import { Invitation, InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
 import { Organization } from '../store/organizations/types';
 import { requestInvitation } from '../store/invitations/api';
-
 import { AppActions } from '../store';
-import { Organization } from '../store/organizations/types';
-import { MembershipState } from '../store/memberships/types';
-
-import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import ManageButton from '../membership/ManageButton';
 
 interface OrganizationCardProps {
@@ -51,7 +46,6 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       </nav>
     );
   }
-  let userIsMember = props.organization.uuid in props.memberships.memberships;
   if (userIsMember) {
     let membership = props.memberships.memberships[props.organization.uuid];
     let userIsAdmin = membership.admin;
@@ -67,6 +61,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
         </div>
       );
     }
+  }
   let userRequestedMembership =
     props.organization.uuid in props.invitations.invitations &&
     props.invitations.invitations[props.organization.uuid].find(
