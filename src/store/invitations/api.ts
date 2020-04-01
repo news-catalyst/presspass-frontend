@@ -35,14 +35,16 @@ export const fetchInvitation = (actions: AppActions, uuid: string) =>
       data.uuid = uuid; // necessary because the API lacks this ID in the response
       return data;
     })
-    .then(data => Promise.all([actions.upsertInvitation(data, data.organization.uuid)]))
+    .then(data =>
+      Promise.all([actions.upsertInvitation(data, data.organization.uuid)])
+    )
     .catch(error => {
       console.error('API Error fetchInvitation', error, error.code);
     });
 
 export const fetchInvitationsForUser = (actions: AppActions, uuid: string) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/${uuid}/invitations`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/users/${uuid}/invitations/?expand=organization`,
     GET
   )
     .then(checkAuth(actions))

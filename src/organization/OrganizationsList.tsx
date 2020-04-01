@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { AppActions } from '../store';
-import { OrganizationState, Organization } from '../store/organizations/types';
-import { ensureOrganizations } from '../store/organizations/api';
+import { ensureInvitationsForUser } from '../store/invitations/api';
 import { ensureMembershipsForUser } from '../store/memberships/api';
+import { ensureOrganizations } from '../store/organizations/api';
 import OrganizationCard from './OrganizationCard';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import Field from '../common/Field';
+import { InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
+import { OrganizationState, Organization } from '../store/organizations/types';
 import { UsersState } from '../store/users/types';
 
 interface OrganizationsListProps {
   actions: AppActions;
-  organizations: OrganizationState;
+  invitations: InvitationState;
   memberships: MembershipState;
+  organizations: OrganizationState;
   users: UsersState;
 }
 
@@ -38,6 +41,7 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
       if (props.users.self !== null) {
         const uuid = props.users.self.uuid;
         await ensureMembershipsForUser(props.actions, uuid, props.memberships);
+        await ensureInvitationsForUser(props.actions, uuid, props.invitations);
       }
     }
     fetchData();
@@ -80,8 +84,9 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
             <div className="column is-4" key={organization.uuid}>
               <OrganizationCard
                 actions={props.actions}
-                organization={organization}
+                invitations={props.invitations}
                 memberships={props.memberships}
+                organization={organization}
               />
             </div>
           ))}

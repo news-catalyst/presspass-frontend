@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { AppActions } from '../store';
-import { OrganizationState } from '../store/organizations/types';
-import { ensureOrganizations } from '../store/organizations/api';
-import { AppProps } from '../store';
-import OrganizationCard from './OrganizationCard';
-import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { Link } from 'react-router-dom';
+import { AppActions } from '../store';
+import { AppProps } from '../store';
+import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import OrganizationCard from './OrganizationCard';
+import { ensureOrganizations } from '../store/organizations/api';
+import { InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
+import { OrganizationState } from '../store/organizations/types';
 
 interface OrganizationPageProps extends AppProps {
+  invitations: InvitationState;
   memberships: MembershipState;
   organization: string;
   organizations: OrganizationState;
@@ -28,6 +30,7 @@ export const OrganizationPage = (props: OrganizationPageProps) => {
     <section className="organization-page">
       <OrganizationCard
         actions={props.actions}
+        invitations={props.invitations}
         memberships={props.memberships}
         organization={organization}
       />
