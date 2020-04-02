@@ -45,7 +45,7 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
       }
     }
     fetchData();
-  }, [props.actions, props.organizations, props.memberships, props.users.self]);
+  }, [props.actions, props.organizations]);
 
   if (!props.organizations.hydrated) {
     return <LoadingPlaceholder />;
