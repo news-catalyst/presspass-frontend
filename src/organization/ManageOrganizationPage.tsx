@@ -49,14 +49,7 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
       );
     }
     fetchData();
-  }, [
-    props.actions,
-    props.invitations,
-    props.organization,
-    props.organizations,
-    props.plans,
-    props.subscriptions
-  ]);
+  }, []);
 
   let [saved, setSaved] = useState(false);
   let [errors, setErrors] = useState({});
