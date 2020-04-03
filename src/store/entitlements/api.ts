@@ -23,7 +23,7 @@ const serializeEntitlement = (entitlement: Entitlement) => ({
 
 export const fetchEntitlements = (actions: AppActions) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/entitlements/?expand=client`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/entitlements/?expand=client&subscribed=true`,
     GET
   )
     .then(checkAuth(actions))
