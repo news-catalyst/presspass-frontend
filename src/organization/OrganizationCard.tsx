@@ -41,7 +41,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     return (
       <nav className="level is-mobile">
         <div className="level-left">
-          <span className="tag is-info">Member</span>
+          <span className="tag pp-is-info">Member</span>
         </div>
       </nav>
     );
@@ -54,7 +54,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
         <div>
           <nav className="level is-mobile">
             <div className="level-left">
-              <span className="tag is-success">Admin</span>
+              <span className="tag pp-is-info-outline">Admin</span>
             </div>
             <ManageButton membership={membership} />
           </nav>
@@ -81,7 +81,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       <div className="level-left">
         <button
           onClick={onRequestClick}
-          className="level-item button is-success"
+          className="level-item button pp-primary"
           aria-label="request"
         >
           Request to join
