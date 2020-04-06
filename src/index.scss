@@ -1,36 +1,23 @@
-// Set your brand colors
 $grey: #575757;
 $orange: #d97c2b;
 $yellow-orange: #f2b138;
 $light: #f2cf8d;
 $beige-lighter: #eff0eb;
 
-// Update Bulma's global variables
+$background: $beige-lighter;
 $family-sans-serif: 'Nunito', sans-serif;
 $grey-dark: $grey;
 $primary: $yellow-orange;
 $link: $orange;
-$widescreen-enabled: false;
 $fullhd-enabled: false;
+$family-secondary: 'muli', sans-serif;
 
-// Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import '../node_modules/bulma/bulma.sass';
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size: 18px;
 }
 
 body {
@@ -66,4 +53,13 @@ body {
   background-color: white;
   font-weight: bold;
   color: $grey;
+}
+.input::placeholder,
+.textarea::placeholder,
+.select select::placeholder {
+  color: rgb(54, 54, 54);
+}
+
+hr {
+  background-color: $body-background-color;
 }

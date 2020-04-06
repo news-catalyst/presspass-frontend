@@ -36,6 +36,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
       <div>
         <div className="section">
           <div className="card">
+            <div className="card-header">
+              <h5 className="card-header-title">Your profile</h5>
+            </div>
             <div className="card-content">
               <div className="media">
                 <ProfileAvatar avatar={avatar} />
@@ -64,7 +67,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
         </div>
         <div className="section">
           <div className="container">
-            <h1 className="title is-size-3">Your Memberships</h1>
+            <div className="content">
+              <h1 className="title is-size-3">Your Memberships</h1>
+              <p>Your organization memberships are listed here.</p>
+            </div>
             <div className="columns is-multiline">
               {Object.values(props.memberships.memberships)
                 .sort((a, b) =>

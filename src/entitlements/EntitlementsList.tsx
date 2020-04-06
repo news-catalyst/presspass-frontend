@@ -24,6 +24,9 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
   return (
     <div className="entitlements">
       <h1 className="title is-size-1">Entitlements</h1>
+      <div className="content">
+        <p>Here is the list of resources you can access via your PressPass account. Click any of the cards to login to this resource.</p>
+      </div>
       <div className="columns is-multiline">
         {Object.values(props.entitlements.entitlements).map(
           (entitlement: Entitlement) => (
@@ -32,6 +35,9 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
             </div>
           )
         )}
+      </div>
+      <div className="content">
+        <p>Need more resources? Subscribe to more plans here.</p>
       </div>
     </div>
   );

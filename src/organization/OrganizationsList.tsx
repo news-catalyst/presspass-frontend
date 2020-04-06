@@ -66,17 +66,20 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   };
   return (
     <div className="organizations">
-      <h1 className="title is-size-1">Organizations</h1>
-      <form>
-        <Field label="Search">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={filterList}
-            className="input"
-          />
-        </Field>
-      </form>
+      <div className="content">
+        <h1 className="title is-size-1">Organizations</h1>
+        <p>Search our public list of organizations currently on PressPass. You can request to join an organization, and an admin of that organization will have to approve your request for your membership to become official.</p>
+        <form>
+          <Field label="Search">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={filterList}
+              className="input"
+            />
+          </Field>
+        </form>
+      </div>
       <div className="columns is-multiline">
         {items
           .sort((a, b) => (a.name > b.name ? 1 : -1))

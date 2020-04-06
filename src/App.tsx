@@ -37,9 +37,6 @@ import { getRoutes as entitlementsRoutes } from './entitlements/routing';
 import { getRoutes as membershipsRoutes } from './membership/routing';
 import { getRoutes as organizationsRoutes } from './organization/routing';
 
-// Styles
-import './App.css';
-
 const App = (props: AppProps) => {
   useEffect(() => {
     forceCheckAuth(props.actions);
