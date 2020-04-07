@@ -7,7 +7,7 @@ async function getDoc(){
   await goot.auth.jwt();
 
   const data = await goot.parse.archie(process.env.GDOC_ID);
-  await fs.writeFileSync('public/archie.json', JSON.stringify(data));
+  await fs.writeFileSync('src/archie.json', JSON.stringify(data));
 }
 
 getDoc();

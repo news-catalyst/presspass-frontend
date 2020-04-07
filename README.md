@@ -27,7 +27,7 @@ GAPI_PRIVATE_KEY="<private key here"
 GDOC_ID="<id of google doc here>"
 ```
 
-With these variables, you can run `npm run archie` to get the latest version of the doc. This writes a JSON file to `public/archie.json`.
+With these variables, you can run `npm run archie` to get the latest version of the doc. This writes a JSON file to `src/archie.json`.
 
 ## Available Scripts
 
