@@ -4,7 +4,7 @@ This repository contains the frontend code for [PressPass](http://presspass.it) 
 
 ## File Structure
 
-Inside `src/`, each 'logical component' of the app (like `account/`, `auth/`, etc.) has its own folder. React TypeScript files that are in title case (e.g. `EntitlementsList.tsx`) are components whose default export is that component. If the filename is not in title case, it is not a component. 
+Inside `src/`, each 'logical component' of the app (like `account/`, `auth/`, etc.) has its own folder. React TypeScript files that are in title case (e.g. `EntitlementsList.tsx`) are components whose default export is that component. If the filename is not in title case, it is not a component.
 
 ## Development Environment
 
@@ -16,6 +16,18 @@ When developing the app, you will need to run this frontend app in tandem with S
 4. Run Squarelet using `COMPOSE_FILE=local.yml inv runserver` from within the Squarelet directory. (Alternatively, you can set the environment variable `COMPOSE_FILE` to be set to `local.yml` in your bash profile and omit it from the command.)
 5. Launch the frontend using `npm start` from within this directory.
 6. Visit the frontend at `http://dev.presspass.com:3000`, preferably in incognito mode. (Developing in incognito mode can help avoid issues in which existing Squarelet cookies allow `GET` requests but block CSRF-required `POST`s.)
+
+## ArchieML doc
+
+To get the latest version of the ArchieML doc, you need to edit your `.env` file to include the following variables:
+
+```
+GAPI_CLIENT_EMAIL="<client email here>"
+GAPI_PRIVATE_KEY="<private key here"
+GDOC_ID="<id of google doc here>"
+```
+
+With these variables, you can run `npm run archie` to get the latest version of the doc. This writes a JSON file to `public/archie.json`.
 
 ## Available Scripts
 
