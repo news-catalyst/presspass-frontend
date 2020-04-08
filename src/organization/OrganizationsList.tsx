@@ -6,6 +6,7 @@ import { ensureOrganizations } from '../store/organizations/api';
 import OrganizationCard from './OrganizationCard';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import Field from '../common/Field';
+import { ArchieState } from '../store/archie/types';
 import { InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
 import { OrganizationState, Organization } from '../store/organizations/types';
@@ -13,6 +14,7 @@ import { UsersState } from '../store/users/types';
 
 interface OrganizationsListProps {
   actions: AppActions;
+  archie: ArchieState;
   invitations: InvitationState;
   memberships: MembershipState;
   organizations: OrganizationState;
@@ -66,7 +68,10 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   };
   return (
     <div className="organizations">
-      <h1 className="title is-size-1">Organizations</h1>
+      <section className="section">
+        <h1 className="title is-size-1">{props.archie.copy.organizations.title}</h1>
+        <p>{props.archie.copy.entitlements.description}</p>
+      </section>
       <form>
         <Field label="Search">
           <input
