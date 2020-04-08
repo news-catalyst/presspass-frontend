@@ -4,9 +4,11 @@ import { ensureEntitlements } from '../store/entitlements/api';
 import EntitlementCard from './EntitlementCard';
 import { EntitlementState, Entitlement } from '../store/entitlements/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { ArchieState } from '../store/archie/types';
 
 interface EntitlementsListProps {
   actions: AppActions;
+  archie: ArchieState;
   entitlements: EntitlementState;
 }
 
@@ -23,7 +25,10 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
 
   return (
     <div className="entitlements">
-      <h1 className="title is-size-1">Entitlements</h1>
+      <section className="section">
+        <h1 className="title is-size-1">{props.archie.copy.entitlements.title}</h1>
+        <p>{props.archie.copy.entitlements.description}</p>
+      </section>
       <div className="columns is-multiline">
         {Object.values(props.entitlements.entitlements).map(
           (entitlement: Entitlement) => (

@@ -16,6 +16,7 @@ export const getRoutes = (props: AppProps) => {
     <ProtectedRoute exact path="/organizations" {...authProps}>
       <OrganizationsList
         actions={props.actions}
+        archie={props.archie}
         invitations={props.invitations}
         memberships={props.memberships}
         organizations={props.organizations}
