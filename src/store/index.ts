@@ -3,6 +3,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
+// Archie
+import { upsertArchie } from './archie/actions';
+import { archieReducers } from './archie/reducers';
+import { ArchieState } from './archie/types';
+import data from '../archie.json';
+
 // Auth
 import { login, logout } from './auth/actions';
 import { authReducers } from './auth/reducers';
@@ -69,6 +75,7 @@ import { usersReducers } from './users/reducers';
 import { UsersState } from './users/types';
 
 const reducers = combineReducers({
+  archie: archieReducers,
   auth: authReducers,
   clients: clientReducers,
   entitlements: entitlementReducers,
@@ -86,8 +93,10 @@ function configureStore() {
   const middleware = [thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middleware);
   const store = createStore(reducers, composeWithDevTools(middlewareEnhancer));
+  store.dispatch(upsertArchie(data));
   return store;
 }
+
 
 export interface AppActions {
   login: typeof login;
@@ -117,6 +126,7 @@ export interface AppActions {
 }
 
 export interface AppProps {
+  archie: ArchieState;
   auth: AuthState;
   actions: AppActions;
   clients: ClientState;

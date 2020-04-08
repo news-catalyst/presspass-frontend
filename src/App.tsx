@@ -83,6 +83,7 @@ const App = (props: AppProps) => {
 };
 
 const mapStateToProps = (state: State) => ({
+  archie: state.archie,
   auth: state.auth,
   clients: state.clients,
   entitlements: state.entitlements,
