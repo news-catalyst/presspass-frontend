@@ -26,7 +26,6 @@ import { fetchSelfUser } from './store/users/api';
 
 // Common
 import Navbar from './common/Navbar';
-import { ProtectedRoute } from './common/routing';
 import NotFound from './common/NotFound';
 import HomePage from './common/HomePage';
 
