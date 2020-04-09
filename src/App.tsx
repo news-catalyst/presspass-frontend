@@ -28,6 +28,7 @@ import { fetchSelfUser } from './store/users/api';
 import Navbar from './common/Navbar';
 import { ProtectedRoute } from './common/routing';
 import NotFound from './common/NotFound';
+import HomePage from './common/HomePage';
 
 // Routes
 import { getRoutes as authRoutes } from './auth/routing';
@@ -42,8 +43,10 @@ import './App.css';
 
 const App = (props: AppProps) => {
   useEffect(() => {
-    forceCheckAuth(props.actions);
-    fetchSelfUser(props.actions);
+    if (document.location.pathname != "/" && document.location.pathname != "/index.html") {
+      forceCheckAuth(props.actions);
+      fetchSelfUser(props.actions);
+    }
   }, [props.actions]); // only run once
 
   const authProps = AuthProps(props);
@@ -59,18 +62,18 @@ const App = (props: AppProps) => {
         <section className="section">
           <div className="container">
             <Switch>
-              <ProtectedRoute exact path="/" {...authProps}>
-                <Redirect to="/entitlements" />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/index.html" {...authProps}>
-                <Redirect to="/entitlements" />
-              </ProtectedRoute>
               {authRoutes(props).map(route => route)}
               {clientsRoutes(props).map(route => route)}
               {accountRoutes(props).map(route => route)}
               {entitlementsRoutes(props).map(route => route)}
               {membershipsRoutes(props).map(route => route)}
               {organizationsRoutes(props).map(route => route)}
+              <Route path="/">
+                <HomePage/>
+              </Route>
+              <Route path="/index.html">
+                <HomePage/>
+              </Route>
               <Route path="*">
                 <NotFound />
               </Route>
