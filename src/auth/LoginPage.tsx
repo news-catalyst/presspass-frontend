@@ -86,7 +86,7 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
   }
 
   // necessary as just linking to /register results in location missing the original return url
-  let returnUrl = '/';
+  let returnUrl = '/entitlements';
   if (location.state) {
     returnUrl = location.state.return;
   }
@@ -94,7 +94,7 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
     pathname: '/register',
     state: { return: returnUrl }
   };
-  const redirectUrl = location.state ? location.state.return : '/';
+  const redirectUrl = location.state ? location.state.return : '/entitlements';
 
   return props.auth.loggedIn ? (
     <div className="notification is-success">
