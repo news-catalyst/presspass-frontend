@@ -4,9 +4,11 @@ import { updateSelfUser } from '../store/users/api';
 import Field from '../common/Field';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { ArchieState } from "../store/archie/types";
 
 interface ManageProfilePageProps {
   actions: AppActions;
+  archie: ArchieState;
   users: UsersState;
 }
 
@@ -47,7 +49,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
 
   let savedConfirmation = saved ? (
     <div className="notification is-success limited-width">
-      Your profile has been updated.
+      {props.archie.copy.manage_profile.success}
     </div>
   ) : null;
 
@@ -58,8 +60,9 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
   // })
 
   return (
-    <section>
-      <h1 className="title is-size-1">Manage Profile</h1>
+    <section className="section">
+      <h1 className="title is-size-1">{props.archie.copy.manage_profile.title}</h1>
+      <p className="container">{props.archie.copy.manage_profile.description}</p>
       {savedConfirmation}
       <form className="limited-width" onSubmit={handleProfileUpdateSubmit}>
         <Field label="Display Name" errors={errors.name}>
@@ -79,7 +82,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
           />
         </Field>
         <button className="button is-link" type="submit">
-          Update profile
+          {props.archie.copy.buttons.update_profile}
         </button>
       </form>
     </section>

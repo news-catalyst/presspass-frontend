@@ -57,6 +57,7 @@ const App = (props: AppProps) => {
         <Navbar
           {...authProps}
           actions={props.actions}
+          archie={props.archie}
           user={props.users.self}
         />
         <section className="section">

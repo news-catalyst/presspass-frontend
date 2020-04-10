@@ -4,9 +4,11 @@ import { ClientState, Client } from "../store/clients/types";
 import { ensureClients } from "../store/clients/api";
 import ClientCard from "./ClientCard";
 import { Link } from "react-router-dom";
+import { ArchieState } from "../store/archie/types";
 
 interface ClientsListProps {
   actions: AppActions;
+  archie: ArchieState;
   clients: ClientState;
 }
 
@@ -17,7 +19,8 @@ const ClientsList: React.FC<ClientsListProps> = (props: ClientsListProps) => {
 
   return (
     <div className="clients">
-      <h1 className="title is-size-1">Clients</h1>
+      <h1 className="title is-size-1">{props.archie.copy.clients.title}</h1>
+      <p className="container">{props.archie.copy.clients.description}</p>
       <div className="columns is-multiline">
         {Object.values(props.clients.clients).map((client: Client) => (
           <div className="column is-4">
@@ -26,7 +29,7 @@ const ClientsList: React.FC<ClientsListProps> = (props: ClientsListProps) => {
         ))}
       </div>
       <Link to="/clients/create" className="button is-link is-outlined">
-        + Create New Client
+        {props.archie.copy.buttons.create_client}
       </Link>
     </div>
   );

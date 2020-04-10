@@ -12,16 +12,16 @@ export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/clients" {...authProps}>
-      <ClientsList actions={props.actions} clients={props.clients} />
+      <ClientsList actions={props.actions} archie={props.archie} clients={props.clients} />
     </ProtectedRoute>,
     <ProtectedRoute exact path="/clients/create" {...authProps}>
-      <ClientCreatePage actions={props.actions} />
+      <ClientCreatePage actions={props.actions} archie={props.archie} />
     </ProtectedRoute>,
     <ProtectedRoute
       exact
       path="/clients/:client"
       render={routeProps => (
-        <ClientPage {...props} client={routeProps.match.params.client} />
+        <ClientPage {...props} client={routeProps.match.params.client} archie={props.archie} />
       )}
       {...authProps}
     />,
@@ -29,7 +29,7 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/clients/:client/edit"
       render={routeProps => (
-        <ClientEditPage {...props} client={routeProps.match.params.client} />
+        <ClientEditPage {...props} client={routeProps.match.params.client} archie={props.archie} />
       )}
       {...authProps}
     />,
@@ -37,7 +37,7 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/clients/:client/delete"
       render={routeProps => (
-        <ClientDeletePage {...props} client={routeProps.match.params.client} />
+        <ClientDeletePage {...props} client={routeProps.match.params.client} archie={props.archie} />
       )}
       {...authProps}
     />

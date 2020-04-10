@@ -4,9 +4,11 @@ import { ClientState } from "../store/clients/types";
 import { ensureClients } from "../store/clients/api";
 import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import { Link } from "react-router-dom";
+import { ArchieState } from "../store/archie/types";
 
 interface ClientPageProps {
   actions: AppActions;
+  archie: ArchieState;
   clients: ClientState;
   client: number;
 }
@@ -24,7 +26,7 @@ const ClientPage: React.FC<ClientPageProps> = (props: ClientPageProps) => {
 
   return (
     <section className="client-page">
-      <p className="subtitle">OpenID Client</p>
+      <p className="subtitle">{props.archie.copy.clients.openid_title}</p>
       <h1 className="title is-size-1">{client.name}</h1>
       <table className="table">
         <tbody>
