@@ -28,6 +28,7 @@ import { fetchSelfUser } from './store/users/api';
 import Navbar from './common/Navbar';
 import NotFound from './common/NotFound';
 import HomePage from './common/HomePage';
+import ToolbuilderPitch from './common/ToolbuilderPitch';
 
 // Routes
 import { getRoutes as authRoutes } from './auth/routing';
@@ -42,7 +43,7 @@ import './App.css';
 
 const App = (props: AppProps) => {
   useEffect(() => {
-    if (document.location.pathname != "/" && document.location.pathname != "/index.html") {
+    if (document.location.pathname != "/" && document.location.pathname != "/index.html" && document.location.pathname != "/pitch") {
       forceCheckAuth(props.actions);
       fetchSelfUser(props.actions);
     }
@@ -68,6 +69,9 @@ const App = (props: AppProps) => {
               {entitlementsRoutes(props).map(route => route)}
               {membershipsRoutes(props).map(route => route)}
               {organizationsRoutes(props).map(route => route)}
+              <Route path="/pitch">
+                <ToolbuilderPitch archie={props.archie} />
+              </Route>
               <Route path="/">
                 <HomePage/>
               </Route>
