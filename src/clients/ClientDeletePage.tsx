@@ -5,9 +5,11 @@ import { ensureClients, deleteClient } from "../store/clients/api";
 import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import { Redirect } from "react-router";
 import ClientCard from "./ClientCard";
+import { ArchieState } from '../store/archie/types';
 
 interface ClientDeletePageProps {
   actions: AppActions;
+  archie: ArchieState;
   clients: ClientState;
   client: number;
 }
@@ -36,16 +38,15 @@ const HydratedClientDeletePage = (props: ClientDeletePageProps) => {
   } else {
     return (
       <section className="client-page limited-width">
-        <p className="subtitle">Delete OpenID Client</p>
+        <p className="subtitle">{props.archie.copy.clients.delete_title}</p>
         <h1 className="title is-size-1">{client.name}</h1>
         <ClientCard client={client} />
         <p className="has-text-danger">
-          Are you sure you would like to permanently delete this client? This
-          action cannot be undone.
+          {props.archie.copy.clients.delete_confirm}
         </p>
         <br></br>
         <button className="button is-danger" onClick={handleSubmit}>
-          Delete {client.name}
+          {props.archie.copy.buttons.delete} {client.name}
         </button>
       </section>
     );

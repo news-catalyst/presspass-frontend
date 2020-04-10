@@ -4,9 +4,11 @@ import { Client } from "../store/clients/types";
 import { createClient } from "../store/clients/api";
 import ClientForm from "./ClientForm";
 import { Redirect } from "react-router";
+import { ArchieState } from '../store/archie/types';
 
 interface ClientCreatePageProps {
   actions: AppActions;
+  archie: ArchieState;
 }
 
 const ClientCreatePage: React.FC<ClientCreatePageProps> = (props: ClientCreatePageProps) => {
@@ -42,8 +44,8 @@ const ClientCreatePage: React.FC<ClientCreatePageProps> = (props: ClientCreatePa
   } else {
     return (
       <section className="client-page">
-        <p className="subtitle">Create OpenID Client</p>
-        <h1 className="title is-size-1">New Client</h1>
+        <p className="subtitle">{props.archie.copy.clients.create_subtitle}</p>
+        <h1 className="title is-size-1">{props.archie.copy.clients.create_title}</h1>
         <ClientForm client={client} onSubmit={handleSubmit} errors={errors} />
         <br />
       </section>

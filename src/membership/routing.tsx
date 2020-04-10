@@ -10,6 +10,7 @@ export const getRoutes = (props: AppProps) => {
     <ProtectedRoute exact path="/memberships" {...authProps}>
       <MembershipsList
         actions={props.actions}
+        archie={props.archie}
         users={props.users}
         memberships={props.memberships}
       />

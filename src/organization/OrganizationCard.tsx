@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
-import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { Link } from 'react-router-dom';
+import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { AppActions } from '../store';
+import { ArchieState } from '../store/archie/types';
 import { Invitation, InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
 import { Organization } from '../store/organizations/types';
 import { requestInvitation } from '../store/invitations/api';
-import { AppActions } from '../store';
 import ManageButton from '../membership/ManageButton';
 
 interface OrganizationCardProps {
   actions: AppActions;
+  archie: ArchieState;
   invitations: InvitationState;
   memberships: MembershipState;
   organization: Organization;
@@ -41,7 +43,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     return (
       <nav className="level is-mobile">
         <div className="level-left">
-          <span className="tag is-info">Member</span>
+          <span className="tag is-info">{props.archie.copy.tags.member}</span>
         </div>
       </nav>
     );
@@ -54,9 +56,9 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
         <div>
           <nav className="level is-mobile">
             <div className="level-left">
-              <span className="tag is-success">Admin</span>
+              <span className="tag is-success">{props.archie.copy.tags.admin}</span>
             </div>
-            <ManageButton membership={membership} />
+            <ManageButton archie={props.archie} membership={membership} />
           </nav>
         </div>
       );
@@ -71,7 +73,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     return (
       <nav className="level is-mobile">
         <div className="level-left">
-          <span className="tag is-success">Requested</span>
+          <span className="tag is-success">{props.archie.copy.tags.requested}</span>
         </div>
       </nav>
     );
@@ -84,7 +86,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
           className="level-item button is-success"
           aria-label="request"
         >
-          Request to join
+          {props.archie.copy.buttons.request}
         </button>
       </div>
     </nav>
@@ -132,6 +134,7 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
           </div>
           <OrganizationCardNav
             actions={props.actions}
+            archie={props.archie}
             invitations={props.invitations}
             memberships={props.memberships}
             organization={organization}

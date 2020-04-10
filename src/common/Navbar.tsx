@@ -2,47 +2,51 @@ import React from 'react';
 import { Link, RouteProps } from 'react-router-dom';
 import { AppActions } from '../store';
 import { User } from '../store/users/types';
+import { ArchieState } from '../store/archie/types';
 
 export interface NavbarProps extends RouteProps {
   isAuthenticated: boolean;
   loginPath: string;
   user: User | null;
   actions: AppActions;
+  archie: ArchieState;
 }
 
 const Navbar = (props: NavbarProps) => {
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
       <a className="navbar-link" href="/">
-        {props.user === null ? 'Account' : props.user.name}
+        {props.user === null ? props.archie.copy.nav.account : props.user.name}
       </a>
 
       <div className="navbar-dropdown">
         <Link className="navbar-item" to="/profile">
-          Profile
+          {props.archie.copy.nav.profile}
         </Link>
         <Link className="navbar-item" to="/clients">
-          Developers
+          {props.archie.copy.nav.developers}
         </Link>
         <hr className="dropdown-divider" />
         <Link className="navbar-item" to="/profile/manage">
-          Manage Profile
+          {props.archie.copy.nav.manage_profile}
         </Link>
         <Link className="navbar-item" to="/profile/change-password">
-          Change Password
+          {props.archie.copy.nav.change_password}
         </Link>
         <Link className="navbar-item" to="/logout">
-          Log Out
+          {props.archie.copy.nav.logout}
         </Link>
       </div>
     </div>
   ) : (
     <div className="buttons">
       <Link className="button is-primary" to="/register">
-        <strong>Sign up</strong>
+        <strong>
+          {props.archie.copy.nav.signup}
+          </strong>
       </Link>
       <Link className="button is-light" to="/login">
-        Log in
+          {props.archie.copy.nav.login}
       </Link>
     </div>
   );
@@ -52,7 +56,7 @@ const Navbar = (props: NavbarProps) => {
       <div className="container">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <strong>PressPass</strong>
+            <strong>{props.archie.copy.title}</strong>
           </Link>
           <a
             role="button"
@@ -71,10 +75,10 @@ const Navbar = (props: NavbarProps) => {
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
             <a className="navbar-item" href="/entitlements">
-              Entitlements
+              {props.archie.copy.nav.entitlements}
             </a>
             <a className="navbar-item" href="/organizations">
-              Organizations
+              {props.archie.copy.nav.organizations}
             </a>
           </div>
           <div className="navbar-end">

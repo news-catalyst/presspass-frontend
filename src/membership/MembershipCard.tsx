@@ -4,10 +4,12 @@ import { AppActions } from '../store';
 import { deleteMembership } from '../store/memberships/api';
 import { Membership } from '../store/memberships/types';
 import ManageButton from './ManageButton';
+import { ArchieState } from '../store/archie/types';
 
 interface MembershipCardProps {
   membership: Membership;
   actions: AppActions;
+  archie: ArchieState
 }
 
 interface AdminTagProps {
@@ -26,6 +28,7 @@ const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
 };
 
 interface InviteButtonProps {
+  archie: ArchieState;
   membership: Membership;
 }
 const InviteButton: React.FC<InviteButtonProps> = (
@@ -39,7 +42,7 @@ const InviteButton: React.FC<InviteButtonProps> = (
       to={'/organizations/' + props.membership.organization.uuid + '/invite'}
       className="card-footer-item"
     >
-      Invite
+      {props.archie.copy.buttons.invite}
     </Link>
   );
 };
@@ -71,10 +74,10 @@ const MembershipCard: React.FC<MembershipCardProps> = (
         <div className="content">TK Members, TK Subscriptions</div>
       </div>
       <footer className="card-footer">
-        <ManageButton membership={membership} />
-        <InviteButton membership={membership} />
+        <ManageButton archie={props.archie} membership={membership} />
+        <InviteButton archie={props.archie} membership={membership} />
         <a onClick={removeMembership} className="card-footer-item">
-          Remove
+          {props.archie.copy.buttons.remove}
         </a>
       </footer>
     </div>

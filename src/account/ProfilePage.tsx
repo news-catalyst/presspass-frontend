@@ -7,9 +7,11 @@ import MembershipCard from '../membership/MembershipCard';
 import ProfileAvatar from './ProfileAvatar';
 import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { ArchieState } from '../store/archie/types';
 
 interface ProfilePageProps {
   actions: AppActions;
+  archie: ArchieState;
   users: UsersState;
   memberships: MembershipState;
 }
@@ -51,20 +53,21 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
             </div>
             <footer className="card-footer">
               <Link to="/profile/change-password" className="card-footer-item">
-                Change Password
+                {props.archie.copy.buttons.change_password}
               </Link>
               <Link to="/clients/create" className="card-footer-item">
-                Create New Client
+                {props.archie.copy.buttons.create_client}
               </Link>
               <Link to="/organizations/create" className="card-footer-item">
-                Create New Organization
+                {props.archie.copy.buttons.create_org}
               </Link>
             </footer>
           </div>
         </div>
         <div className="section">
           <div className="container">
-            <h1 className="title is-size-3">Your Memberships</h1>
+            <h1 className="title is-size-3">{props.archie.copy.memberships.title}</h1>
+            <p>{props.archie.copy.memberships.description}</p>
             <div className="columns is-multiline">
               {Object.values(props.memberships.memberships)
                 .sort((a, b) =>
@@ -76,6 +79,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
                       key={membership.organization.uuid}
                       membership={membership}
                       actions={props.actions}
+                      archie={props.archie}
                     />
                   </div>
                 ))}

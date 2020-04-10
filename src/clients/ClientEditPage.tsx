@@ -5,9 +5,11 @@ import { ensureClients, updateClient } from "../store/clients/api";
 import LoadingPlaceholder from "../common/LoadingPlaceholder";
 import ClientForm from "./ClientForm";
 import { Redirect } from "react-router";
+import { ArchieState } from '../store/archie/types';
 
 interface ClientEditPageProps {
   actions: AppActions;
+  archie: ArchieState;
   clients: ClientState;
   client: number;
 }
@@ -44,7 +46,7 @@ const HydratedClientEditPage: React.FC<ClientEditPageProps> = (props: ClientEdit
   } else {
     return (
       <section className="client-page">
-        <p className="subtitle">Edit OpenID Client</p>
+        <p className="subtitle">{props.archie.copy.clients.edit_title}</p>
         <h1 className="title is-size-1">{client.name}</h1>
         <ClientForm client={client} onSubmit={handleSubmit} errors={errors} />
         <br />

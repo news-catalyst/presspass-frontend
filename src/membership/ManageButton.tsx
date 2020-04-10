@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Membership } from '../store/memberships/types';
+import { ArchieState } from '../store/archie/types';
 
 interface ManageButtonProps {
+  archie: ArchieState;
   membership: Membership;
 }
 const ManageButton: React.FC<ManageButtonProps> = (
@@ -16,7 +18,7 @@ const ManageButton: React.FC<ManageButtonProps> = (
       to={'/organizations/' + props.membership.organization.uuid + '/manage'}
       className="card-footer-item"
     >
-      Manage
+      {props.archie.copy.buttons.manage}
     </Link>
   );
 };

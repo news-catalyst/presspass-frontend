@@ -89,6 +89,7 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
             <div className="column is-4" key={organization.uuid}>
               <OrganizationCard
                 actions={props.actions}
+                archie={props.archie}
                 invitations={props.invitations}
                 memberships={props.memberships}
                 organization={organization}
