@@ -19,7 +19,7 @@ const AdminTag: React.FC<AdminTagProps> = (props: AdminTagProps) => {
   if (props.isAdmin) {
     return (
       <div className="tags has-addons">
-        <span className="tag is-success">Admin</span>
+        <span className="tag is-light">Admin</span>
       </div>
     );
   } else {

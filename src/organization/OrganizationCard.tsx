@@ -83,7 +83,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       <div className="level-left">
         <button
           onClick={onRequestClick}
-          className="level-item button is-success"
+          className="level-item button pp-primary"
           aria-label="request"
         >
           {props.archie.copy.buttons.request}

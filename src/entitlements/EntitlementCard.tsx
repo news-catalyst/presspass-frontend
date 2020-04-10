@@ -16,15 +16,13 @@ const EntitlementCard: React.FC<EntitlementCardProps> = (
       </header>
       <div className="card-content">
         <div className="content">
-          <strong>Client:</strong> {entitlement.client.name}
-          <br />
-          <strong>Link:</strong>{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
+            className="button pp-primary-outline"
             href={entitlement.client.website_url}
           >
-            {entitlement.client.website_url}
+            Login to {entitlement.client.name}
           </a>
           <p>{entitlement.description}</p>
         </div>

@@ -38,6 +38,9 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
           )
         )}
       </div>
+      <div className="content">
+        <p>Need more resources? Subscribe to more plans here.</p>
+      </div>
     </div>
   );
 };

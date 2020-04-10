@@ -38,6 +38,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
       <div>
         <div className="section">
           <div className="card">
+            <div className="card-header">
+              <h5 className="card-header-title">Your profile</h5>
+            </div>
             <div className="card-content">
               <div className="media">
                 <ProfileAvatar avatar={avatar} />
