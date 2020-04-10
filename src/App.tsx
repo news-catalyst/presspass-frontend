@@ -43,7 +43,7 @@ import './App.css';
 
 const App = (props: AppProps) => {
   useEffect(() => {
-    if (document.location.pathname != "/" && document.location.pathname != "/index.html") {
+    if (document.location.pathname != "/" && document.location.pathname != "/index.html" && document.location.pathname != "/pitch") {
       forceCheckAuth(props.actions);
       fetchSelfUser(props.actions);
     }
