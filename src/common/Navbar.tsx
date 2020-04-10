@@ -23,6 +23,9 @@ const Navbar = (props: NavbarProps) => {
         <Link className="navbar-item" to="/profile">
           {props.archie.copy.nav.profile}
         </Link>
+        <Link className="navbar-item" to="/memberships">
+          {props.archie.copy.nav.memberships}
+        </Link>
         <Link className="navbar-item" to="/clients">
           {props.archie.copy.nav.developers}
         </Link>
