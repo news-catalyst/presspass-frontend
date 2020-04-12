@@ -45,8 +45,25 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               <div className="media">
                 <ProfileAvatar avatar={avatar} />
                 <div className="media-content">
-                  <p className="title is-4">{name}</p>
-                  <p className="subtitle is-6">@{username}</p>
+                  <div className="level">
+                    <div className="level-left">
+                      <div className="level-item">
+                        <p className="title is-4">{name}</p>
+                      </div>
+                    </div>
+                    <div className="level-right">
+                      <div className="level-item">
+                        <p className="subtitle is-6">@{username}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="level">
+                    <div className="level-left">
+                      <div className="level-item">
+                        <small>{props.users.self.email}</small>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
