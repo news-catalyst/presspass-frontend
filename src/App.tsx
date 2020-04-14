@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import {
   BrowserRouter as Router,
   Switch,
-  Redirect,
   Route
 } from 'react-router-dom';
 
@@ -40,7 +39,7 @@ import { getRoutes as organizationsRoutes } from './organization/routing';
 
 const App = (props: AppProps) => {
   useEffect(() => {
-    if (document.location.pathname != "/" && document.location.pathname != "/index.html" && document.location.pathname != "/pitch") {
+    if (document.location.pathname !== "/" && document.location.pathname !== "/index.html" && document.location.pathname !== "/pitch") {
       forceCheckAuth(props.actions);
       fetchSelfUser(props.actions);
     }
