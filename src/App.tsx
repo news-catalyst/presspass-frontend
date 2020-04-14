@@ -50,38 +50,32 @@ const App = (props: AppProps) => {
 
   return (
     <Router>
-      <div>
-        <Navbar
-          {...authProps}
-          actions={props.actions}
-          archie={props.archie}
-          user={props.users.self}
-        />
-        <section className="section">
-          <div className="container">
-            <Switch>
-              {authRoutes(props).map(route => route)}
-              {clientsRoutes(props).map(route => route)}
-              {accountRoutes(props).map(route => route)}
-              {entitlementsRoutes(props).map(route => route)}
-              {membershipsRoutes(props).map(route => route)}
-              {organizationsRoutes(props).map(route => route)}
-              <Route path="/pitch">
-                <ToolbuilderPitch archie={props.archie} />
-              </Route>
-              <Route path="/">
-                <HomePage/>
-              </Route>
-              <Route path="/index.html">
-                <HomePage/>
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </div>
-        </section>
-      </div>
+      <Navbar
+        {...authProps}
+        actions={props.actions}
+        archie={props.archie}
+        user={props.users.self}
+      />
+      <Switch>
+          {authRoutes(props).map(route => route)}
+          {clientsRoutes(props).map(route => route)}
+          {accountRoutes(props).map(route => route)}
+          {entitlementsRoutes(props).map(route => route)}
+          {membershipsRoutes(props).map(route => route)}
+          {organizationsRoutes(props).map(route => route)}
+        <Route path="/pitch">
+          <ToolbuilderPitch archie={props.archie} />
+        </Route>
+        <Route path="/">
+          <HomePage archie={props.archie}/>
+        </Route>
+        <Route path="/index.html">
+          <HomePage archie={props.archie}/>
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </Router>
   );
 };

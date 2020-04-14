@@ -9,34 +9,43 @@ import { OrganizationCreatePage } from './OrganizationCreatePage';
 import { InvitationPage } from '../invitation/InvitationPage';
 import { InvitePage } from '../invitation/InvitePage';
 import { RequestInvitePage } from '../invitation/RequestInvitePage';
+import Container from "../common/Container";
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/organizations" {...authProps}>
-      <OrganizationsList
-        actions={props.actions}
-        archie={props.archie}
-        invitations={props.invitations}
-        memberships={props.memberships}
-        organizations={props.organizations}
-        users={props.users}
-      />
+      <Container>
+        <OrganizationsList
+          actions={props.actions}
+          archie={props.archie}
+          invitations={props.invitations}
+          memberships={props.memberships}
+          organizations={props.organizations}
+          users={props.users}
+        />
+      </Container>
     </ProtectedRoute>,
     <ProtectedRoute
       exact
       path="/organizations/create"
-      render={routeProps => <OrganizationCreatePage {...props} />}
+      render={routeProps => (
+        <Container>
+          <OrganizationCreatePage {...props} />
+        </Container>
+      )}
       {...authProps}
     />,
     <ProtectedRoute
       exact
       path="/organizations/:id"
       render={routeProps => (
-        <OrganizationPage
-          {...props}
-          organization={routeProps.match.params.id}
-        />
+        <Container>
+          <OrganizationPage
+            {...props}
+            organization={routeProps.match.params.id}
+          />
+        </Container>
       )}
       {...authProps}
     />,
@@ -44,11 +53,13 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id/manage"
       render={routeProps => (
-        <ManageOrganizationPage
-          {...props}
-          plans={props.plans}
-          organization={routeProps.match.params.id}
-        />
+        <Container>
+          <ManageOrganizationPage
+            {...props}
+            plans={props.plans}
+            organization={routeProps.match.params.id}
+          />
+        </Container>
       )}
       {...authProps}
     />,
@@ -56,7 +67,9 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id/invitation"
       render={routeProps => (
-        <InvitationPage {...props} id={routeProps.match.params.id} />
+        <Container>
+          <InvitationPage {...props} id={routeProps.match.params.id} />
+        </Container>
       )}
       {...authProps}
     />,
@@ -64,7 +77,9 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id/invite"
       render={routeProps => (
-        <InvitePage {...props} organization={routeProps.match.params.id} />
+        <Container>
+          <InvitePage {...props} organization={routeProps.match.params.id} />
+        </Container>
       )}
       {...authProps}
     />,
@@ -72,10 +87,12 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/organizations/:id/request"
       render={routeProps => (
-        <RequestInvitePage
-          {...props}
-          organization={routeProps.match.params.id}
-        />
+        <Container>
+          <RequestInvitePage
+            {...props}
+            organization={routeProps.match.params.id}
+          />
+        </Container>
       )}
       {...authProps}
     />
