@@ -65,16 +65,29 @@ hr {
 }
 
 .homepage-hero {
-  background-color: $yellow-orange;
+  background-color: white;
   hr {
     background-color: lighten($yellow-orange, 10%);
   }
 
   .title {
-    color: #111;
+    color: $grey;
+    font-size: 3.5rem !important;
   }
   p {
     color: #111;
+  }
+}
+
+.homepage-card{
+  h5 {
+    text-transform: uppercase;
+    color: $orange;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  h2 {
+    color: $grey;
   }
 }
 
@@ -84,4 +97,8 @@ hr {
 
 .has-padding-bottom-50 {
   padding-bottom: 50px;
+}
+
+.navbar {
+  box-shadow: 1px 1px 1px #ccc;
 }
