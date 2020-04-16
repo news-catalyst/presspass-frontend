@@ -63,3 +63,25 @@ body {
 hr {
   background-color: $body-background-color;
 }
+
+.homepage-hero {
+  background-color: $yellow-orange;
+  hr {
+    background-color: lighten($yellow-orange, 10%);
+  }
+
+  .title {
+    color: #111;
+  }
+  p {
+    color: #111;
+  }
+}
+
+.has-padding-top-50 {
+  padding-top: 50px;
+}
+
+.has-padding-bottom-50 {
+  padding-bottom: 50px;
+}

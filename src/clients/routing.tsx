@@ -7,21 +7,28 @@ import ClientPage from "./ClientPage";
 import ClientEditPage from "./ClientEditPage";
 import ClientCreatePage from "./ClientCreatePage";
 import ClientDeletePage from "./ClientDeletePage";
+import Container from "../common/Container";
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
   const routes = [
     <ProtectedRoute exact path="/clients" {...authProps}>
-      <ClientsList actions={props.actions} archie={props.archie} clients={props.clients} />
+      <Container>
+        <ClientsList actions={props.actions} archie={props.archie} clients={props.clients} />
+      </Container>
     </ProtectedRoute>,
     <ProtectedRoute exact path="/clients/create" {...authProps}>
-      <ClientCreatePage actions={props.actions} archie={props.archie} />
+      <Container>
+        <ClientCreatePage actions={props.actions} archie={props.archie} />
+      </Container>
     </ProtectedRoute>,
     <ProtectedRoute
       exact
       path="/clients/:client"
       render={routeProps => (
-        <ClientPage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        <Container>
+          <ClientPage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        </Container>
       )}
       {...authProps}
     />,
@@ -29,7 +36,9 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/clients/:client/edit"
       render={routeProps => (
-        <ClientEditPage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        <Container>
+          <ClientEditPage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        </Container>
       )}
       {...authProps}
     />,
@@ -37,7 +46,9 @@ export const getRoutes = (props: AppProps) => {
       exact
       path="/clients/:client/delete"
       render={routeProps => (
-        <ClientDeletePage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        <Container>
+          <ClientDeletePage {...props} client={routeProps.match.params.client} archie={props.archie} />
+        </Container>
       )}
       {...authProps}
     />

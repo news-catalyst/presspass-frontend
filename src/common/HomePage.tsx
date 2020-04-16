@@ -1,15 +1,47 @@
 import React from "react";
+import { ArchieState } from '../store/archie/types';
+import { Link } from "react-router-dom";
+import HomePageCard from "./HomePageCard";
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  archie: ArchieState;
+}
+const HomePage: React.FC<HomePageProps> = (
+  props: HomePageProps
+) => {
   return (
-    <section className="hero is-medium is-warning is-rounded is-bold">
-      <div className="hero-body">
-        <div className="container">
-          <p className="heading is-size-6">PressPass</p>
-          <h1 className="title is-size-1">This is the homepage that unauthenticated visitors to our site will see at http://presspass.com.</h1>
+    <>
+      <section className="hero is-medium homepage-hero is-rounded">
+        <div className="hero-body">
+          <div className="container">
+            <div className="columns is-vcentered">
+              <div className="column">
+                <h2 className="title is-size-2">{props.archie.copy.homepage.slogan}</h2>
+                <p className="is-size-4 subtitle">{props.archie.copy.homepage.lede}</p>
+                <Link className="button is-medium" to="/register">Register new account</Link>
+              </div>
+              <div className="column">
+                <figure className="image">
+                  <img src="/homepage.svg" />
+                </figure>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section className="section">
+        <div className="container">
+          {props.archie.copy.homepage.cards.map((card, i) => (
+            <HomePageCard
+              title={card.title}
+              body={card.body}
+              image={card.image}
+              textRight={i % 2 === 0}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
