@@ -3,6 +3,7 @@ import { AppProps } from "../store";
 import { AuthProps } from "../store/auth/types";
 import { ProtectedRoute } from "../common/routing";
 import { AddEmail } from "./AddEmail";
+import { ManageEmail } from "./ManageEmail";
 import { ChangePassword } from "./ChangePassword";
 import { ProfilePage } from "./ProfilePage";
 import { ManageProfile } from "./ManageProfile";
@@ -15,6 +16,9 @@ export const getRoutes = (props: AppProps) => {
     </ProtectedRoute>,
     <ProtectedRoute exact path="/profile/add-email" {...authProps}>
       <AddEmail actions={props.actions} archie={props.archie} />
+    </ProtectedRoute>,
+    <ProtectedRoute exact path="/profile/manage-email" {...authProps}>
+      <ManageEmail actions={props.actions} archie={props.archie} emails={props.emails} />
     </ProtectedRoute>,
     <ProtectedRoute exact path="/profile" {...authProps}>
       <ProfilePage {...props} />

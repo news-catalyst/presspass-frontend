@@ -19,6 +19,11 @@ import { upsertClient, upsertClients, deleteClient } from './clients/actions';
 import { clientReducers } from './clients/reducers';
 import { ClientState } from './clients/types';
 
+// Clients
+import { upsertEmail, upsertEmails, deleteEmail } from './emails/actions';
+import { emailReducers } from './emails/reducers';
+import { EmailState } from './emails/types';
+
 // Entitlements
 import {
   upsertEntitlement,
@@ -78,6 +83,7 @@ const reducers = combineReducers({
   archie: archieReducers,
   auth: authReducers,
   clients: clientReducers,
+  emails: emailReducers,
   entitlements: entitlementReducers,
   organizations: organizationReducers,
   invitations: invitationReducers,
@@ -104,6 +110,9 @@ export interface AppActions {
   upsertClient: typeof upsertClient;
   upsertClients: typeof upsertClients;
   deleteClient: typeof deleteClient;
+  upsertEmail: typeof upsertEmail;
+  upsertEmails: typeof upsertEmails;
+  deleteEmail: typeof deleteEmail;
   upsertOrganization: typeof upsertOrganization;
   upsertOrganizations: typeof upsertOrganizations;
   deleteOrganization: typeof deleteOrganization;
@@ -130,6 +139,7 @@ export interface AppProps {
   auth: AuthState;
   actions: AppActions;
   clients: ClientState;
+  emails: EmailState;
   entitlements: EntitlementState;
   organizations: OrganizationState;
   invitations: InvitationState;

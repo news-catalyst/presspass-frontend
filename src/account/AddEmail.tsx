@@ -1,6 +1,6 @@
 import React, { useState, SyntheticEvent } from "react";
 import { AppActions } from "../store";
-import { addEmail } from "../store/auth/api";
+import { addEmail } from "../store/emails/api";
 import Field from "../common/Field";
 import { ArchieState } from "../store/archie/types";
 

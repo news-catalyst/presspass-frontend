@@ -1,30 +1,13 @@
 import {
   cfetch,
   JSON_POST,
+  JSON_PATCH,
   checkAuth,
   validate,
   notify,
   GET
 } from "../../utils";
 import { AppActions } from "..";
-
-export const addEmail = (
-  actions: AppActions,
-  email: string
-) =>
-  cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/email/add/`,
-    JSON_POST({
-      email: email,
-      action_add: true
-    })
-  )
-    .then(checkAuth(actions))
-    .then(response =>
-      validate(response, () =>
-        notify("Successfully added an email address", "success")
-      )
-    );
 
 export const updatePassword = (
   actions: AppActions,
