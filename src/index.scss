@@ -65,6 +65,10 @@ hr {
 }
 
 .homepage-hero {
+  .hero-body {
+    padding-top: 0;
+  }
+
   background-color: white;
   hr {
     background-color: lighten($yellow-orange, 10%);
