@@ -1,11 +1,12 @@
 import {
   cfetch,
-  JSON_POST,
-  JSON_PATCH,
   checkAuth,
   validate,
   notify,
-  GET
+  GET,
+  JSON_POST,
+  JSON_PATCH,
+  DELETE
 } from "../../utils";
 import { AppActions } from "..";
 import { EmailState, Email } from "./types";
@@ -63,3 +64,18 @@ export const ensureEmails = (
     return fetchEmails(actions);
   }
 };
+
+export const deleteEmail = (
+  actions: AppActions,
+  email: Email
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/fakeuuid/`,
+    DELETE
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, () =>
+        notify("Successfully removed email address", "success")
+      )
+    );

@@ -32,8 +32,8 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
 
   return (
     <section className="section">
-      <h1 className="title is-size-1">{props.archie.copy.add_email.title}</h1>
-      <p>{props.archie.copy.add_email.description}</p>
+      <h1 className="title is-size-1">{props.archie.copy.manage_email.title}</h1>
+      <p>{props.archie.copy.manage_email.description}</p>
       {items.map(item => (
         <EmailCard email={item} {...props} />
       ))}
