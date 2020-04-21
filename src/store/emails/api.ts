@@ -33,7 +33,7 @@ export const primaryEmail = (
   email: Email
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/fakeuuid/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/${email.email}/`,
     JSON_PATCH({
       email: email,
       primary: true,
@@ -70,7 +70,7 @@ export const deleteEmail = (
   email: Email
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/fakeuuid/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/${email.email}/`,
     DELETE
   )
     .then(checkAuth(actions))
