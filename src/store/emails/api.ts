@@ -50,7 +50,7 @@ export const primaryEmail = (
     );
 
 export const fetchEmails = (actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/emails`, GET)
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/emails/`, GET)
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertEmails(data)]))
