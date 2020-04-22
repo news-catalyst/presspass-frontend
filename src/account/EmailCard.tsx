@@ -63,14 +63,7 @@ const EmailCard: React.FC<EmailCardProps> = (
     deleteEmail(
       props.actions,
       props.email
-    ).then(status => {
-      if (status.ok) {
-        setSaved(true);
-        setErrors({});
-      } else {
-        setErrors(status.body);
-      }
-    });
+    )
   }
 
 

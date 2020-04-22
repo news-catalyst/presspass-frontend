@@ -75,7 +75,8 @@ export const deleteEmail = (
   )
     .then(checkAuth(actions))
     .then(response =>
-      validate(response, () =>
+      validate(response, () => {
+        actions.deleteEmail(email);
         notify("Successfully removed email address", "success")
-      )
+      })
     );

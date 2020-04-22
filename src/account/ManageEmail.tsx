@@ -34,9 +34,14 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
     <section className="section">
       <h1 className="title is-size-1">{props.archie.copy.manage_email.title}</h1>
       <p>{props.archie.copy.manage_email.description}</p>
-      {items.map(item => (
-        <EmailCard key={item.email} email={item} {...props} />
-      ))}
+
+      <div className="columns is-multiline">
+        {items.map(item => (
+          <div className="column is-4" key={item.email}>
+            <EmailCard key={item.email} email={item} {...props} />
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
