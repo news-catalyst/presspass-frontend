@@ -17,7 +17,7 @@ export const addEmail = (
   email: string
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/emails/`,
     JSON_POST({
       email: email,
     })
@@ -34,7 +34,7 @@ export const primaryEmail = (
   email: Email
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/${email.email}/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/emails/${email.email}/`,
     JSON_PATCH({
       email: email,
       primary: true,
@@ -50,7 +50,7 @@ export const primaryEmail = (
     );
 
 export const fetchEmails = (actions: AppActions) =>
-  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails`, GET)
+  cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/emails`, GET)
     .then(checkAuth(actions))
     .then(response => response.json())
     .then(data => Promise.all([actions.upsertEmails(data)]))
@@ -72,7 +72,7 @@ export const deleteEmail = (
   email: Email
 ) =>
   cfetch(
-    `${process.env.REACT_APP_SQUARELET_API_URL}/users/me/emails/${email.email}/`,
+    `${process.env.REACT_APP_SQUARELET_API_URL}/emails/${email.email}/`,
     DELETE
   )
     .then(checkAuth(actions))
