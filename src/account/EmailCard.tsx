@@ -11,6 +11,47 @@ interface EmailCardProps {
   emails: EmailState
 }
 
+interface EmailButtonProps {
+  actions: AppActions;
+  email: Email;
+}
+
+const MakeEmailPrimaryButton: React.FC<EmailButtonProps> = (
+  props: EmailButtonProps
+) => {
+  let [errors, setErrors] = useState<any>({});
+  let [saved, setSaved] = useState(false);
+
+  if (props.email.primary) {
+    return null;
+  }
+
+  function handleEmailPrimarySubmit(event: SyntheticEvent) {
+    event.preventDefault();
+    primaryEmail(
+      props.actions,
+      props.email
+    ).then(status => {
+      if (status.ok) {
+        setSaved(true);
+        setErrors({});
+      } else {
+        setErrors(status.body);
+      }
+    });
+  }
+  return (
+    <button
+      type="submit"
+      onClick={handleEmailPrimarySubmit}
+      className="button is-primary"
+    >
+      Make primary
+    </button>
+  )
+
+}
+
 const EmailCard: React.FC<EmailCardProps> = (
   props: EmailCardProps
 ) => {
@@ -31,20 +72,7 @@ const EmailCard: React.FC<EmailCardProps> = (
       }
     });
   }
-  function handleEmailPrimarySubmit(event: SyntheticEvent) {
-    event.preventDefault();
-    primaryEmail(
-      props.actions,
-      props.email
-    ).then(status => {
-      if (status.ok) {
-        setSaved(true);
-        setErrors({});
-      } else {
-        setErrors(status.body);
-      }
-    });
-  }
+
 
   let email = props.email;
   return (
@@ -53,13 +81,7 @@ const EmailCard: React.FC<EmailCardProps> = (
       <p>Verified: {email.verified ? 'yes' : 'no'}</p>
       <p>Primary: {email.primary ? 'yes' : 'no'}</p>
 
-      <button
-        type="submit"
-        onClick={handleEmailPrimarySubmit}
-        className="button is-primary"
-      >
-         Make primary
-      </button>
+      <MakeEmailPrimaryButton actions={props.actions} email={email} />
 
       <button
         type="submit"
