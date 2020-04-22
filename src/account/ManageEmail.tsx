@@ -38,7 +38,7 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
       <div className="columns is-multiline">
         {items.map(item => (
           <div className="column is-4" key={item.email}>
-            <EmailCard key={item.email} email={item} {...props} />
+            <EmailCard email={item} {...props} />
           </div>
         ))}
       </div>

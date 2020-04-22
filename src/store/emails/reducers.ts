@@ -1,4 +1,5 @@
 import {
+  Email,
   EmailAction,
   UPSERT_EMAIL,
   EmailState,
@@ -21,7 +22,18 @@ export function emailReducers(
         emails: state.emails,
         hydrated: true
       };
-      incomingObject.emails.push(action.email);
+
+      // update email responds only with the email address string, not an object
+      if (typeof(action.email) === 'string') {
+        let email: Email = {
+          email: action.email,
+          verified: true, // TODO will this actually be true?
+          primary: true
+        };
+        incomingObject.emails[action.email] = email;
+      } else {
+        incomingObject.emails[action.email.email] = action.email;
+      }
       return Object.assign({}, state, incomingObject);
     }
     case UPSERT_EMAILS: {

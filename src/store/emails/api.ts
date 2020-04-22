@@ -2,6 +2,7 @@ import {
   cfetch,
   checkAuth,
   validate,
+  ItemizedResponse,
   notify,
   GET,
   JSON_POST,
@@ -42,9 +43,10 @@ export const primaryEmail = (
   )
     .then(checkAuth(actions))
     .then(response =>
-      validate(response, () =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertEmail(status.body as Email);
         notify("Successfully made new email address primary", "success")
-      )
+      })
     );
 
 export const fetchEmails = (actions: AppActions) =>
