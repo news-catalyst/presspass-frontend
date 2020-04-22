@@ -25,14 +25,18 @@ export function emailReducers(
 
       // update email responds only with the email address string, not an object
       if (typeof(action.email) === 'string') {
+        let emailAddress = action.email;
         let email: Email = {
-          email: action.email,
+          email: emailAddress,
           verified: true, // TODO will this actually be true?
           primary: true
         };
-        incomingObject.emails[action.email] = email;
-      } else {
-        incomingObject.emails[action.email.email] = action.email;
+        incomingObject.emails.forEach((item, index) => {
+          // replace matching email data here
+          if (item.email === emailAddress) {
+            incomingObject.emails[index] = email;
+          }
+        });
       }
       return Object.assign({}, state, incomingObject);
     }
