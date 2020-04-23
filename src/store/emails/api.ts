@@ -14,19 +14,20 @@ import { EmailState, Email } from "./types";
 
 export const addEmail = (
   actions: AppActions,
-  email: string
+  email: Email
 ) =>
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/emails/`,
     JSON_POST({
-      email: email,
+      email: email.email,
     })
   )
     .then(checkAuth(actions))
     .then(response =>
-      validate(response, () =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertEmail(status.body as Email);
         notify("Successfully added an email address", "success")
-      )
+      })
     );
 
 export const primaryEmail = (
