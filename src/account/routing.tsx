@@ -17,7 +17,9 @@ export const getRoutes = (props: AppProps) => {
       </Container>
     </ProtectedRoute>,
     <ProtectedRoute exact path="/profile/manage-email" {...authProps}>
-      <ManageEmail actions={props.actions} archie={props.archie} emails={props.emails} />
+      <Container>
+        <ManageEmail actions={props.actions} archie={props.archie} emails={props.emails} />
+      </Container>
     </ProtectedRoute>,
     <ProtectedRoute exact path="/profile" {...authProps}>
       <Container>
