@@ -68,25 +68,23 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
           </div>
         </div>
         <div className="section">
-          <div className="container">
-            <h1 className="title is-size-3">{props.archie.copy.memberships.title}</h1>
-            <p>{props.archie.copy.memberships.description}</p>
-            <div className="columns is-multiline">
-              {Object.values(props.memberships.memberships)
-                .sort((a, b) =>
-                  a.organization.name > b.organization.name ? 1 : -1
-                )
-                .map((membership: Membership) => (
-                  <div className="column is-4">
-                    <MembershipCard
-                      key={membership.organization.uuid}
-                      membership={membership}
-                      actions={props.actions}
-                      archie={props.archie}
-                    />
-                  </div>
-                ))}
-            </div>
+          <h1 className="title is-size-3">{props.archie.copy.memberships.title}</h1>
+          <p>{props.archie.copy.memberships.description}</p>
+          <div className="columns is-multiline">
+            {Object.values(props.memberships.memberships)
+              .sort((a, b) =>
+                a.organization.name > b.organization.name ? 1 : -1
+              )
+              .map((membership: Membership) => (
+                <div className="column is-4">
+                  <MembershipCard
+                    key={membership.organization.uuid}
+                    membership={membership}
+                    actions={props.actions}
+                    archie={props.archie}
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </div>
