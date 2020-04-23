@@ -1,10 +1,10 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { AppActions } from '../store';
-import { updateSelfUser } from '../store/users/api';
 import Field from '../common/Field';
-import { UsersState } from '../store/users/types';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { UsersState } from '../store/users/types';
 import { ArchieState } from "../store/archie/types";
+import { updateSelfUser } from '../store/users/api';
 
 interface ManageProfilePageProps {
   actions: AppActions;
@@ -27,6 +27,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
 ) => {
   let [errors, setErrors] = useState<any>({});
   let [name, setName] = useState(props.users.self!.name);
+  let [email, setEmail] = useState(props.users.self!.email);
   let [username, setUsername] = useState(props.users.self!.username);
   let [saved, setSaved] = useState(false);
 
@@ -35,7 +36,8 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
     let user = {
       ...props.users.self!,
       name,
-      username
+      username,
+      email
     };
     updateSelfUser(user, props.actions).then(status => {
       if (status.ok) {
@@ -79,6 +81,14 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
             className={errors.username ? 'input is-danger' : 'input'}
             value={username}
             onChange={event => setUsername(event.target.value)}
+          />
+        </Field>
+        <Field label="Email" errors={errors.email}>
+          <input
+            type="text"
+            className={errors.email ? 'input is-danger' : 'input'}
+            value={email}
+            onChange={event => setEmail(event.target.value)}
           />
         </Field>
         <button className="button is-link" type="submit">

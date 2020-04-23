@@ -12,6 +12,7 @@ import {
 import { State, AppProps } from './store';
 import * as authActions from './store/auth/actions';
 import * as clientActions from './store/clients/actions';
+import * as emailActions from './store/emails/actions';
 import * as entitlementActions from './store/entitlements/actions';
 import * as organizationActions from './store/organizations/actions';
 import * as invitationActions from './store/invitations/actions';
@@ -83,6 +84,7 @@ const mapStateToProps = (state: State) => ({
   archie: state.archie,
   auth: state.auth,
   clients: state.clients,
+  emails: state.emails,
   entitlements: state.entitlements,
   memberships: state.memberships,
   invitations: state.invitations,
@@ -99,6 +101,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       {},
       authActions,
       clientActions,
+      emailActions,
       entitlementActions,
       membershipActions,
       invitationActions,

@@ -1,6 +1,7 @@
 import {
   cfetch,
   JSON_POST,
+  JSON_PATCH,
   checkAuth,
   validate,
   notify,
