@@ -72,6 +72,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               </div>
             </div>
             <footer className="card-footer">
+              <Link to="/profile/manage-email" className="card-footer-item">
+                {props.archie.copy.buttons.manage_email}
+              </Link>
               <Link to="/profile/change-password" className="card-footer-item">
                 {props.archie.copy.buttons.change_password}
               </Link>
