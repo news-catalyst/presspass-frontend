@@ -57,8 +57,10 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
 
   return (
     <section>
-      <h1 className="title is-size-1">{props.archie.copy.register.title}</h1>
-      <p>{props.archie.copy.register.description}</p>
+      <div className="content">
+        <h1 className="title is-size-1">{props.archie.copy.register.title}</h1>
+        <p>{props.archie.copy.register.description}</p>
+      </div>
       <div className="columns">
         <div className="column is-6">
           <form className="limited-width" onSubmit={handleFormSubmit}>
@@ -102,6 +104,19 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
               Register
             </button>
           </form>
+        </div>
+        <div className="column is-6">
+          <div className="box">
+            <div className="content">
+              <h4 className="title is-size-4">{props.archie.copy.register.card_header}</h4>
+              <p>{props.archie.copy.register.card_description}</p>
+              <ul>
+                {props.archie.copy.register.list.map(listItem => (
+                  <li>{listItem}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
