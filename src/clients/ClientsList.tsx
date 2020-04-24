@@ -19,8 +19,10 @@ const ClientsList: React.FC<ClientsListProps> = (props: ClientsListProps) => {
 
   return (
     <div className="clients">
-      <h1 className="title is-size-1">{props.archie.copy.clients.title}</h1>
-      <p className="container">{props.archie.copy.clients.description}</p>
+      <div className="content">
+        <h1 className="title is-size-1">{props.archie.copy.clients.title}</h1>
+        <p className="container">{props.archie.copy.clients.description}</p>
+      </div>
       <div className="columns is-multiline">
         {Object.values(props.clients.clients).map((client: Client) => (
           <div className="column is-4">

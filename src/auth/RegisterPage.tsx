@@ -4,10 +4,12 @@ import { registerAccount } from '../store/auth/api';
 import Field from '../common/Field';
 import { Link } from 'react-router-dom';
 import { Redirect, useLocation } from 'react-router';
+import { ArchieState } from '../store/archie/types';
 
 interface AccountEditPageProps {
   actions: AppActions;
   location?: any;
+  archie: ArchieState;
 }
 
 const RegisterPage: React.FC<AccountEditPageProps> = (
@@ -55,44 +57,53 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
 
   return (
     <section>
-      <h1 className="title is-size-1">Register</h1>
-      <form className="limited-width" onSubmit={handleFormSubmit}>
-        <Field label="Username" errors={errors.username}>
-          <input
-            type="text"
-            className={errors.username ? 'input is-danger' : 'input'}
-            value={username}
-            onChange={event => setUsername(event.target.value)}
-          />
-        </Field>
-        <Field label="Email" errors={errors.email}>
-          <input
-            type="email"
-            className={errors.email ? 'input is-danger' : 'input'}
-            value={email}
-            onChange={event => setEmail(event.target.value)}
-          />
-        </Field>
-        <Field label="New Password" errors={errors.password1}>
-          <input
-            type="password"
-            className={errors.password1 ? 'input is-danger' : 'input'}
-            value={password}
-            onChange={event => setPassword(event.target.value)}
-          />
-        </Field>
-        <Field label="Confirm New Password" errors={errors.password2}>
-          <input
-            type="password"
-            className={errors.password2 ? 'input is-danger' : 'input'}
-            value={passwordConfirm}
-            onChange={event => setPasswordConfirm(event.target.value)}
-          />
-        </Field>
-        <button className="button is-primary" type="submit">
-          Register
-        </button>
-      </form>
+      <h1 className="title is-size-1">{props.archie.copy.register.title}</h1>
+      <p>{props.archie.copy.register.description}</p>
+      <div className="columns">
+        <div className="column is-6">
+          <form className="limited-width" onSubmit={handleFormSubmit}>
+            <Field label="Username" errors={errors.username}>
+              <input
+                type="text"
+                className={errors.username ? 'input is-danger' : 'input'}
+                value={username}
+                onChange={event => setUsername(event.target.value)}
+              />
+            </Field>
+            <Field
+              label="Email"
+              errors={errors.email}
+              help={props.archie.copy.register.email_help}
+            >
+              <input
+                type="email"
+                className={errors.email ? 'input is-danger' : 'input'}
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+              />
+            </Field>
+            <Field label="New Password" errors={errors.password1}>
+              <input
+                type="password"
+                className={errors.password1 ? 'input is-danger' : 'input'}
+                value={password}
+                onChange={event => setPassword(event.target.value)}
+              />
+            </Field>
+            <Field label="Confirm New Password" errors={errors.password2}>
+              <input
+                type="password"
+                className={errors.password2 ? 'input is-danger' : 'input'}
+                value={passwordConfirm}
+                onChange={event => setPasswordConfirm(event.target.value)}
+              />
+            </Field>
+            <button className="button is-primary" type="submit">
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
     </section>
   );
 };

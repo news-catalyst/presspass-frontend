@@ -25,10 +25,10 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
 
   return (
     <div className="entitlements">
-      <section className="section">
+      <div className="content">
         <h1 className="title is-size-1">{props.archie.copy.entitlements.title}</h1>
         <p>{props.archie.copy.entitlements.description}</p>
-      </section>
+      </div>
       <div className="columns is-multiline">
         {Object.values(props.entitlements.entitlements).map(
           (entitlement: Entitlement) => (
@@ -37,9 +37,6 @@ const EntitlementsList: React.FC<EntitlementsListProps> = (
             </div>
           )
         )}
-      </div>
-      <div className="content">
-        <p>Need more resources? Subscribe to more plans here.</p>
       </div>
     </div>
   );

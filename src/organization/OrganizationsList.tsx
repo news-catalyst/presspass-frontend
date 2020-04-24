@@ -68,20 +68,20 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   };
   return (
     <div className="organizations">
-      <section className="section">
+      <div className="content">
         <h1 className="title is-size-1">{props.archie.copy.organizations.title}</h1>
         <p>{props.archie.copy.entitlements.description}</p>
-      </section>
-      <form>
-        <Field label="Search">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={filterList}
-            className="input"
-          />
-        </Field>
-      </form>
+        <form>
+          <Field label="Search">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={filterList}
+              className="input"
+            />
+          </Field>
+        </form>
+      </div>
       <div className="columns is-multiline">
         {items
           .sort((a, b) => (a.name > b.name ? 1 : -1))

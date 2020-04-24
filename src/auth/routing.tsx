@@ -26,7 +26,7 @@ export const getRoutes = (props: AppProps) => {
     </Route>,
     <Route path="/register">
       <Container>
-        <RegisterPage actions={props.actions} />
+        <RegisterPage actions={props.actions} archie={props.archie} />
       </Container>
     </Route>,
     <Route exact path="/resetpassword">

@@ -27,8 +27,10 @@ export const MembershipsList: React.FC<MembershipsListProps> = (
 
   return (
     <div className="memberships">
-      <h1 className="title is-size-1">{props.archie.copy.memberships.title}</h1>
-      <p className="container">{props.archie.copy.memberships.description}</p>
+      <div className="content">
+        <h1 className="title is-size-1">{props.archie.copy.memberships.title}</h1>
+        <p className="container">{props.archie.copy.memberships.description}</p>
+      </div>
 
       <div className="columns is-multiline">
         {Object.values(props.memberships.memberships)
