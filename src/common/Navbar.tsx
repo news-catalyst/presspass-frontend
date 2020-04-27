@@ -13,9 +13,13 @@ export interface NavbarProps extends RouteProps {
 }
 
 const Navbar = (props: NavbarProps) => {
+  let homeLink = "/";
+  if (props.user !== null) {
+    homeLink = "/entitlements";
+  }
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link" href="/">
+      <a className="navbar-link" href={homeLink}>
         {props.user === null ? props.archie.copy.nav.account : props.user.name}
       </a>
 
@@ -58,7 +62,7 @@ const Navbar = (props: NavbarProps) => {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
+          <Link className="navbar-item" to={homeLink}>
             <strong>{props.archie.copy.title}</strong>
           </Link>
           <a
@@ -77,9 +81,6 @@ const Navbar = (props: NavbarProps) => {
 
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="/entitlements">
-              {props.archie.copy.nav.entitlements}
-            </a>
             <a className="navbar-item" href="/organizations">
               {props.archie.copy.nav.organizations}
             </a>
