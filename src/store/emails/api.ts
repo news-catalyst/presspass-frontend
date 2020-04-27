@@ -50,6 +50,26 @@ export const primaryEmail = (
       })
     );
 
+
+export const verifyEmail = (
+  actions: AppActions,
+  email: Email
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/emails/${email.email}/`,
+    JSON_PATCH({
+      email: email,
+      verify: true
+    })
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, (status: ItemizedResponse) => {
+        actions.upsertEmail(status.body as Email);
+        notify(`Successfully verified ${email.email}`, "success")
+      })
+    );
+
 export const fetchEmails = (actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/emails/`, GET)
     .then(checkAuth(actions))

@@ -1,11 +1,15 @@
-import React, { useState, SyntheticEvent } from 'react';
+import React, { useEffect, useState, SyntheticEvent } from 'react';
+import { useLocation } from 'react-router';
+import queryString from 'query-string'
+import { Link } from 'react-router-dom';
 import { AppActions } from '../store';
 import Field from '../common/Field';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { UsersState } from '../store/users/types';
 import { ArchieState } from "../store/archie/types";
+import { Email } from "../store/emails/types";
+import { verifyEmail } from '../store/emails/api';
 import { updateSelfUser } from '../store/users/api';
-import { Link } from 'react-router-dom';
 
 interface WelcomePageProps {
   actions: AppActions;
@@ -26,6 +30,16 @@ export const WelcomePage: React.FC<WelcomePageProps> = (
 export const HydratedWelcomePage: React.FC<WelcomePageProps> = (
   props: WelcomePageProps
 ) => {
+  let location = useLocation();
+  let queryValues = queryString.parse(location.search)
+  useEffect(() => {
+    let emailObj: Email = {
+      email: queryValues.email,
+      verified: true
+    }
+    verifyEmail(props.actions, emailObj);
+  }, [props.actions]);
+
   let [errors, setErrors] = useState<any>({});
   let [name, setName] = useState(props.users.self!.name);
   let [avatar, setAvatar] = useState<File | undefined>(undefined);
