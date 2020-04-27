@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ProfileAvatarProps {
-  avatar: string;
+  avatar: any;
 }
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = (
