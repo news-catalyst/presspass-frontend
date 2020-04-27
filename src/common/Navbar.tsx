@@ -16,6 +16,7 @@ export interface NavbarProps extends RouteProps {
 interface NavbarProfileHeaderProps {
   archie: ArchieState;
   user: User | null;
+  homeLink: string;
 }
 
 const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
@@ -34,7 +35,7 @@ const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
     avatar = props.user.avatar;
   }
   return (
-      <a className="navbar-link" href="/">
+      <a className="navbar-link" href={props.homeLink}>
         <div className="level">
           <div className="level-left">
             <figure className="image is-32x32 has-margin-right-5">
@@ -50,9 +51,13 @@ const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
 }
 
 const Navbar = (props: NavbarProps) => {
+  let homeLink = "/";
+  if (props.user !== null) {
+    homeLink = "/entitlements";
+  }
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
-      <NavbarProfileHeader archie={props.archie} user={props.user} />
+      <NavbarProfileHeader archie={props.archie} user={props.user} homeLink={homeLink} />
 
       <div className="navbar-dropdown">
         <Link className="navbar-item" to="/profile">
@@ -93,7 +98,7 @@ const Navbar = (props: NavbarProps) => {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
+          <Link className="navbar-item" to={homeLink}>
             <strong>{props.archie.copy.title}</strong>
           </Link>
           <a
@@ -112,9 +117,6 @@ const Navbar = (props: NavbarProps) => {
 
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="/entitlements">
-              {props.archie.copy.nav.entitlements}
-            </a>
             <a className="navbar-item" href="/organizations">
               {props.archie.copy.nav.organizations}
             </a>
