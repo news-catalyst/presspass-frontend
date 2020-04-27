@@ -65,9 +65,9 @@ const MembershipCard: React.FC<MembershipCardProps> = (
             {organization.name}
           </Link>
         </p>
-        <p className="card-header-icon">
+        <div className="card-header-icon">
           <AdminTag isAdmin={membership.admin} />
-        </p>
+        </div>
       </header>
 
       <div className="card-content">
