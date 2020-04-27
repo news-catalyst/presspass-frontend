@@ -11,6 +11,7 @@ import { InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
 import { OrganizationState, Organization } from '../store/organizations/types';
 import { UsersState } from '../store/users/types';
+import { Link } from 'react-router-dom'
 
 interface OrganizationsListProps {
   actions: AppActions;
@@ -69,8 +70,16 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
   return (
     <div className="organizations">
       <div className="content">
-        <h1 className="title is-size-1">{props.archie.copy.organizations.title}</h1>
+        <div className="level">
+          <div className="level-left">
+            <h1 className="title is-size-1">{props.archie.copy.organizations.title}</h1>
+          </div>
+          <div className="level-right">
+            <Link to="/organizations/create" className="button pp-primary">Create an organization</Link>
+          </div>
+        </div>
         <p>{props.archie.copy.entitlements.description}</p>
+
         <form>
           <Field label="Search">
             <input
