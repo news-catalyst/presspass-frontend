@@ -96,7 +96,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
                 a.organization.name > b.organization.name ? 1 : -1
               )
               .map((membership: Membership) => (
-                <div className="column is-4">
+                <div key={membership.organization.uuid} className="column is-4">
                   <MembershipCard
                     key={membership.organization.uuid}
                     membership={membership}
