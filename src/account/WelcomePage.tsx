@@ -5,6 +5,7 @@ import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { UsersState } from '../store/users/types';
 import { ArchieState } from "../store/archie/types";
 import { updateSelfUser } from '../store/users/api';
+import { Link } from 'react-router-dom';
 
 interface WelcomePageProps {
   actions: AppActions;
@@ -49,7 +50,12 @@ export const HydratedWelcomePage: React.FC<WelcomePageProps> = (
 
   let savedConfirmation = saved ? (
     <div className="notification is-success limited-width">
-      {props.archie.copy.manage_profile.success}
+      <p>
+        {props.archie.copy.manage_profile.success}
+      </p>
+      <p>
+        <i>(text tk)</i> Great, now all you have to do is <Link to="/organizations">find an organization</Link> to join.
+      </p>
     </div>
   ) : null;
 
