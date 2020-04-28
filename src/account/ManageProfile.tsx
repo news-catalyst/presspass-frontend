@@ -26,10 +26,11 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
   props: ManageProfilePageProps
 ) => {
   let [errors, setErrors] = useState<any>({});
+  let [saved, setSaved] = useState(false);
   let [name, setName] = useState(props.users.self!.name);
   let [email, setEmail] = useState(props.users.self!.email);
   let [username, setUsername] = useState(props.users.self!.username);
-  let [saved, setSaved] = useState(false);
+  let [avatar, setAvatar] = useState<File | undefined>(undefined);
 
   function handleProfileUpdateSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -37,7 +38,8 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
       ...props.users.self!,
       name,
       username,
-      email
+      email,
+      avatar
     };
     updateSelfUser(user, props.actions).then(status => {
       if (status.ok) {
@@ -89,6 +91,22 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
             className={errors.email ? 'input is-danger' : 'input'}
             value={email}
             onChange={event => setEmail(event.target.value)}
+          />
+        </Field>
+        <Field
+          label="Avatar"
+          errors={errors.avatar}
+          help="If you do not upload a file, the current photo will be kept."
+        >
+          <input
+            className={errors.avatar ? 'input is-danger' : 'input'}
+            type="file"
+            placeholder="Your photo..."
+            onChange={event =>
+              setAvatar(
+                event.target.files === null ? undefined : event.target.files[0]
+              )
+            }
           />
         </Field>
         <button className="button is-link" type="submit">

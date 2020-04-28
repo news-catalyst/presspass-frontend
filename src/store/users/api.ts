@@ -14,7 +14,8 @@ const serializeUser = (user: User) => ({
   name: user.name,
   username: user.username,
   use_autologin: user.use_autologin,
-  uuid: user.uuid
+  uuid: user.uuid,
+  avatar: user.avatar
 });
 
 export const fetchSelfUser = (actions: AppActions) =>
