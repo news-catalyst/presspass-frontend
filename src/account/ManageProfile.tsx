@@ -96,7 +96,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
         <Field
           label="Avatar"
           errors={errors.avatar}
-          help="If you do not upload a file, the current photo will be kept."
+          help="Please upload a square image less than 1 MB. If you do not upload a file, the current photo will be kept."
         >
           <input
             className={errors.avatar ? 'input is-danger' : 'input'}
