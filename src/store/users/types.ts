@@ -5,7 +5,7 @@ export interface User {
   name: string;
   email: string;
   email_failed: boolean;
-  avatar: string;
+  avatar?: string | File;
   username: string;
   created_at: Date;
   updated_at: Date;
