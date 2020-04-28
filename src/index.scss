@@ -1,0 +1,111 @@
+$grey: #575757;
+$orange: #d97c2b;
+$yellow-orange: #f2b138;
+$light: #f2cf8d;
+$beige-lighter: #eff0eb;
+
+$background: $beige-lighter;
+$family-sans-serif: 'Nunito', sans-serif;
+$grey-dark: $grey;
+$primary: $yellow-orange;
+$link: $orange;
+$fullhd-enabled: false;
+$family-secondary: 'muli', sans-serif;
+
+$body-background-color: $beige-lighter;
+
+@import '../node_modules/bulma/bulma.sass';
+
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: 'nunito';
+}
+
+.navbar-brand {
+  font-family: 'muli';
+  font-weight: bold;
+}
+
+@import '../node_modules/bulma/bulma.sass';
+
+.button.pp-primary {
+  background-color: $yellow-orange;
+  border-color: $yellow-orange;
+  color: white;
+  font-weight: bold;
+}
+
+.button.pp-primary-outline {
+  background-color: white;
+  border-color: $yellow-orange;
+}
+
+.tag.pp-is-info {
+  background-color: $grey;
+  color: white;
+}
+
+.tag.pp-is-info-outline {
+  border-color: $grey;
+  background-color: white;
+  font-weight: bold;
+  color: $grey;
+}
+.input::placeholder,
+.textarea::placeholder,
+.select select::placeholder {
+  color: rgb(54, 54, 54);
+}
+
+hr {
+  background-color: $body-background-color;
+}
+
+.homepage-hero {
+  .hero-body {
+    padding-top: 0;
+  }
+
+  background-color: white;
+  hr {
+    background-color: lighten($yellow-orange, 10%);
+  }
+
+  .title {
+    color: $grey;
+    font-size: 3.5rem !important;
+  }
+  p {
+    color: #111;
+  }
+}
+
+.homepage-card{
+  h5 {
+    text-transform: uppercase;
+    color: $orange;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  h2 {
+    color: $grey;
+  }
+}
+
+.has-margin-right-5 {
+  margin-right: 5px;
+}
+.has-padding-top-50 {
+  padding-top: 50px;
+}
+
+.has-padding-bottom-50 {
+  padding-bottom: 50px;
+}
+
+.navbar {
+  box-shadow: 1px 1px 1px #ccc;
+}

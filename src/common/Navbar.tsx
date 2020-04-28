@@ -1,48 +1,95 @@
-import React from "react";
-import { Link, RouteProps } from "react-router-dom";
-import { AppActions } from "../store";
-import { User } from "../store/users/types";
+import React from 'react';
+import ProfileAvatar from '../account/ProfileAvatar';
+import { Link, RouteProps } from 'react-router-dom';
+import { AppActions } from '../store';
+import { User } from '../store/users/types';
+import { ArchieState } from '../store/archie/types';
 
 export interface NavbarProps extends RouteProps {
   isAuthenticated: boolean;
   loginPath: string;
   user: User | null;
   actions: AppActions;
+  archie: ArchieState;
+}
+
+interface NavbarProfileHeaderProps {
+  archie: ArchieState;
+  user: User | null;
+  homeLink: string;
+}
+
+const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
+  let avatar;
+  if (props.user === null) {
+    return (
+      <a href="/" className="navbar-link">
+        {props.archie.copy.nav.account}
+      </a>
+    )
+  }
+
+  if (props.user.avatar === null) {
+    avatar = "/logo.svg"; // default to presspass logo for now
+  } else {
+    avatar = props.user.avatar;
+  }
+  return (
+      <a className="navbar-link" href={props.homeLink}>
+        <div className="level">
+          <div className="level-left">
+            <figure className="image is-32x32 has-margin-right-5">
+              <img alt="profile" src={avatar} />
+            </figure>
+          </div>
+          <div className="level-left">
+            {props.user.username}
+          </div>
+        </div>
+      </a>
+  )
 }
 
 const Navbar = (props: NavbarProps) => {
+  let homeLink = "/";
+  if (props.user !== null) {
+    homeLink = "/entitlements";
+  }
   const navRight = props.isAuthenticated ? (
     <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link" href="/">
-        {props.user === null ? "Account" : props.user.name}
-      </a>
+      <NavbarProfileHeader archie={props.archie} user={props.user} homeLink={homeLink} />
 
       <div className="navbar-dropdown">
         <Link className="navbar-item" to="/profile">
-          Profile
+          {props.archie.copy.nav.profile}
+        </Link>
+        <Link className="navbar-item" to="/memberships">
+          {props.archie.copy.nav.memberships}
         </Link>
         <Link className="navbar-item" to="/clients">
-          Developers
+          {props.archie.copy.nav.developers}
         </Link>
         <hr className="dropdown-divider" />
         <Link className="navbar-item" to="/profile/manage">
-          Manage Profile
+          {props.archie.copy.nav.manage_profile}
         </Link>
         <Link className="navbar-item" to="/profile/change-password">
-          Change Password
+          {props.archie.copy.nav.change_password}
         </Link>
         <Link className="navbar-item" to="/logout">
-          Log Out
+          {props.archie.copy.nav.logout}
         </Link>
       </div>
     </div>
   ) : (
     <div className="buttons">
       <Link className="button is-primary" to="/register">
-        <strong>Sign up</strong>
+        <strong>
+          {props.archie.copy.nav.signup}
+          </strong>
       </Link>
       <Link className="button is-light" to="/login">
-        Log in
+          {props.archie.copy.nav.login}
       </Link>
     </div>
   );
@@ -51,8 +98,8 @@ const Navbar = (props: NavbarProps) => {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
-            <strong>PressPass</strong>
+          <Link className="navbar-item" to={homeLink}>
+            <strong>{props.archie.copy.title}</strong>
           </Link>
           <a
             role="button"
@@ -70,11 +117,8 @@ const Navbar = (props: NavbarProps) => {
 
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="/">
-              Apps
-            </a>
-            <a className="navbar-item" href="/">
-              Organization
+            <a className="navbar-item" href="/organizations">
+              {props.archie.copy.nav.organizations}
             </a>
           </div>
           <div className="navbar-end">

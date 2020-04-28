@@ -2,9 +2,11 @@ import React, { useState, SyntheticEvent } from "react";
 import { AppActions } from "../store";
 import { updatePassword } from "../store/auth/api";
 import Field from "../common/Field";
+import { ArchieState } from "../store/archie/types";
 
 interface ChangePasswordPageProps {
   actions: AppActions;
+  archie: ArchieState;
 }
 
 export const ChangePassword: React.FC<ChangePasswordPageProps> = (
@@ -38,13 +40,15 @@ export const ChangePassword: React.FC<ChangePasswordPageProps> = (
 
   let savedConfirmation = saved ? (
     <div className="notification is-success limited-width">
-      Your password has been changed.
+      {props.archie.copy.change_password.success}
     </div>
   ) : null;
 
   return (
-    <section>
-      <h1 className="title is-size-1">Change Password</h1>
+    <section className="section">
+      <h1 className="title is-size-1">{props.archie.copy.change_password.title}</h1>
+      <p>{props.archie.copy.change_password.description}</p>
+
       {savedConfirmation}
       <form className="limited-width" onSubmit={handlePasswordUpdateSubmit}>
         <Field label="Old Password" errors={errors.old_password}>
@@ -72,7 +76,7 @@ export const ChangePassword: React.FC<ChangePasswordPageProps> = (
           />
         </Field>
         <button className="button is-link" type="submit">
-          Update Password
+          {props.archie.copy.buttons.update_password}
         </button>
       </form>
     </section>

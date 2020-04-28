@@ -1,10 +1,10 @@
-import React, { useState, SyntheticEvent } from "react";
-import { AppActions } from "../store";
-import { AuthState } from "../store/auth/types";
-import { Redirect, useLocation } from "react-router";
-import { cfetch } from "../utils";
-import Field from "../common/Field";
-import { Link } from "react-router-dom";
+import React, { useState, SyntheticEvent } from 'react';
+import { AppActions } from '../store';
+import { AuthState } from '../store/auth/types';
+import { Redirect, useLocation } from 'react-router';
+import { cfetch } from '../utils';
+import Field from '../common/Field';
+import { Link } from 'react-router-dom';
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -39,11 +39,11 @@ class LoginCredentials {
     let postResp = await cfetch(
       `${process.env.REACT_APP_SQUARELET_API_URL}/auth/login/`,
       {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
         body: this.serializeForLoginForm(),
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       }
     );
@@ -56,8 +56,8 @@ class LoginCredentials {
 }
 
 const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
-  let [username, setUsername] = useState("");
-  let [password, setPassword] = useState("");
+  let [username, setUsername] = useState('');
+  let [password, setPassword] = useState('');
 
   let location = useLocation();
 
@@ -85,7 +85,16 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
     );
   }
 
-  const redirectUrl = location.state ? location.state.return : "/";
+  // necessary as just linking to /register results in location missing the original return url
+  let returnUrl = '/entitlements';
+  if (location.state) {
+    returnUrl = location.state.return;
+  }
+  const registerLocation = {
+    pathname: '/register',
+    state: { return: returnUrl }
+  };
+  const redirectUrl = location.state ? location.state.return : '/entitlements';
 
   return props.auth.loggedIn ? (
     <div className="notification is-success">
@@ -99,7 +108,7 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
       <Field label="Email" errors={[response.username]}>
         <input
           type="email"
-          className={response.username ? "input is-danger" : "input"}
+          className={response.username ? 'input is-danger' : 'input'}
           placeholder="Your email"
           name="username"
           value={username}
@@ -109,7 +118,7 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
       <Field label="Password" errors={[response.password]}>
         <input
           type="password"
-          className={response.password ? "input is-danger" : "input"}
+          className={response.password ? 'input is-danger' : 'input'}
           placeholder="Password"
           name="password"
           value={password}
@@ -123,7 +132,9 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
         reset password
       </Link>
       <hr />
-      <Link to="/register" className="button is-primary is-outlined">Register New Account</Link>
+      <Link to={registerLocation} className="button is-primary is-outlined">
+        Register New Account
+      </Link>
     </form>
   );
 };

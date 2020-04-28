@@ -1,12 +1,14 @@
-import React, { useState, SyntheticEvent, useEffect } from 'react';
-import { AppActions } from "../store";
-import { updateSelfUser } from "../store/users/api";
-import Field from "../common/Field";
-import { UsersState } from '../store/users/types';
+import React, { useState, SyntheticEvent } from 'react';
+import { AppActions } from '../store';
+import Field from '../common/Field';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
+import { UsersState } from '../store/users/types';
+import { ArchieState } from "../store/archie/types";
+import { updateSelfUser } from '../store/users/api';
 
 interface ManageProfilePageProps {
   actions: AppActions;
+  archie: ArchieState;
   users: UsersState;
 }
 
@@ -14,19 +16,21 @@ export const ManageProfile: React.FC<ManageProfilePageProps> = (
   props: ManageProfilePageProps
 ) => {
   if (props.users.self == null) {
-    return (<LoadingPlaceholder/>);
+    return <LoadingPlaceholder />;
   } else {
-    return <HydratedManageProfile {...props} />
+    return <HydratedManageProfile {...props} />;
   }
-}
+};
 
 export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
   props: ManageProfilePageProps
 ) => {
   let [errors, setErrors] = useState<any>({});
-  let [name, setName] = useState(props.users.self!.name);
-  let [username, setUsername] = useState(props.users.self!.username);
   let [saved, setSaved] = useState(false);
+  let [name, setName] = useState(props.users.self!.name);
+  let [email, setEmail] = useState(props.users.self!.email);
+  let [username, setUsername] = useState(props.users.self!.username);
+  let [avatar, setAvatar] = useState<File | undefined>(undefined);
 
   function handleProfileUpdateSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -34,6 +38,8 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
       ...props.users.self!,
       name,
       username,
+      email,
+      avatar
     };
     updateSelfUser(user, props.actions).then(status => {
       if (status.ok) {
@@ -47,7 +53,7 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
 
   let savedConfirmation = saved ? (
     <div className="notification is-success limited-width">
-      Your profile has been updated.
+      {props.archie.copy.manage_profile.success}
     </div>
   ) : null;
 
@@ -58,14 +64,15 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
   // })
 
   return (
-    <section>
-      <h1 className="title is-size-1">Manage Profile</h1>
+    <section className="section">
+      <h1 className="title is-size-1">{props.archie.copy.manage_profile.title}</h1>
+      <p className="container">{props.archie.copy.manage_profile.description}</p>
       {savedConfirmation}
       <form className="limited-width" onSubmit={handleProfileUpdateSubmit}>
         <Field label="Display Name" errors={errors.name}>
           <input
             type="text"
-            className={errors.name ? "input is-danger" : "input"}
+            className={errors.name ? 'input is-danger' : 'input'}
             value={name}
             onChange={event => setName(event.target.value)}
           />
@@ -73,15 +80,39 @@ export const HydratedManageProfile: React.FC<ManageProfilePageProps> = (
         <Field label="Username" errors={errors.username}>
           <input
             type="text"
-            className={errors.username ? "input is-danger" : "input"}
+            className={errors.username ? 'input is-danger' : 'input'}
             value={username}
             onChange={event => setUsername(event.target.value)}
           />
         </Field>
+        <Field label="Email" errors={errors.email}>
+          <input
+            type="text"
+            className={errors.email ? 'input is-danger' : 'input'}
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+          />
+        </Field>
+        <Field
+          label="Avatar"
+          errors={errors.avatar}
+          help="Please upload a square image less than 1 MB. If you do not upload a file, the current photo will be kept."
+        >
+          <input
+            className={errors.avatar ? 'input is-danger' : 'input'}
+            type="file"
+            placeholder="Your photo..."
+            onChange={event =>
+              setAvatar(
+                event.target.files === null ? undefined : event.target.files[0]
+              )
+            }
+          />
+        </Field>
         <button className="button is-link" type="submit">
-          Update profile
+          {props.archie.copy.buttons.update_profile}
         </button>
       </form>
     </section>
   );
-}
+};
