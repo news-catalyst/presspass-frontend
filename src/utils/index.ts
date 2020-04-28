@@ -6,7 +6,9 @@ export function checkAuth(actions: AppActions) {
   return (response: Response): Response => {
     if (response.status === 403) {
       actions.logout();
-      notify('Please log in to continue.', 'success');
+      if (["/", "/index.html", "/pitch"].indexOf(document.location.pathname) < 0) {
+        notify('Please log in to continue.', 'success');
+      }
       throw new Error('Not logged in');
     }
     return response;
