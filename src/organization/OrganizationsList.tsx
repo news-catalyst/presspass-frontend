@@ -22,12 +22,45 @@ interface OrganizationsListProps {
   users: UsersState;
 }
 
+interface OrganizationResultsProps {
+  actions: AppActions;
+  archie: ArchieState;
+  invitations: InvitationState;
+  items: Organization[];
+  memberships: MembershipState;
+  users: UsersState;
+}
+
+const OrganizationResults: React.FC<OrganizationResultsProps> = (
+  props: OrganizationResultsProps
+) => {
+  return (
+    <div className="columns is-multiline organizations-list">
+      {props.items
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
+        .map((organization: Organization) => (
+          <div className="column is-4" key={organization.uuid}>
+            <OrganizationCard
+              actions={props.actions}
+              archie={props.archie}
+              invitations={props.invitations}
+              memberships={props.memberships}
+              organization={organization}
+            />
+          </div>
+        ))}
+    </div>
+  )
+}
+
 export const OrganizationsList: React.FC<OrganizationsListProps> = (
   props: OrganizationsListProps
 ) => {
   const [items, setItems] = useState(
     Object.values(props.organizations.organizations)
   );
+  const [showResults, setShowResults] = React.useState(false)
+
   useEffect(() => {
     async function fetchData() {
       await ensureOrganizations(props.actions, props.organizations);
@@ -60,13 +93,21 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
         return !organization.private && !organization.individual;
       }
     );
+    let searchTerm = event.target.value.toLowerCase();
     let filteredItems = initialItems.filter(item => {
       return (
         item.name.toLowerCase().search(event.target.value.toLowerCase()) !== -1
       );
     });
-    setItems(filteredItems);
+    if (searchTerm !== undefined && searchTerm.length > 2) {
+      setShowResults(true);
+      setItems(filteredItems);
+    } else {
+      setShowResults(false);
+      setItems([]);
+    }
   };
+
   return (
     <div className="organizations">
       <div className="content">
@@ -91,21 +132,8 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
           </Field>
         </form>
       </div>
-      <div className="columns is-multiline">
-        {items
-          .sort((a, b) => (a.name > b.name ? 1 : -1))
-          .map((organization: Organization) => (
-            <div className="column is-4" key={organization.uuid}>
-              <OrganizationCard
-                actions={props.actions}
-                archie={props.archie}
-                invitations={props.invitations}
-                memberships={props.memberships}
-                organization={organization}
-              />
-            </div>
-          ))}
-      </div>
+      { showResults ? <OrganizationResults {...props} items={items} /> : null }
+
     </div>
   );
 };
