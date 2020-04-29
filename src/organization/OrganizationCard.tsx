@@ -8,7 +8,6 @@ import { Invitation, InvitationState } from '../store/invitations/types';
 import { MembershipState } from '../store/memberships/types';
 import { Organization } from '../store/organizations/types';
 import { requestInvitation } from '../store/invitations/api';
-import ManageButton from '../membership/ManageButton';
 
 interface OrganizationCardProps {
   actions: AppActions;
@@ -28,39 +27,34 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     return <LoadingPlaceholder />;
   }
 
-  const onRequestClick = () => {
-    requestInvitation(props.organization.uuid, props.actions).then(status => {
-      if (status.ok) {
-        setRequested(true);
-        setErrors({});
-      } else {
-        setErrors(status.body);
-      }
-    });
-  };
-  let userIsMember = props.organization.uuid in props.memberships.memberships;
-  if (userIsMember) {
-    return (
-      <nav className="level is-mobile">
-        <div className="level-left">
-          <span className="tag is-info">{props.archie.copy.tags.member}</span>
-        </div>
-      </nav>
-    );
+  if (props.organization.individual) {
+    return null;
   }
+
+  let userIsMember = props.organization.uuid in props.memberships.memberships;
   if (userIsMember) {
     let membership = props.memberships.memberships[props.organization.uuid];
     let userIsAdmin = membership.admin;
     if (userIsAdmin) {
       return (
         <div>
-          <nav className="level is-mobile">
-            <div className="level-left">
-              <span className="tag is-success">{props.archie.copy.tags.admin}</span>
-            </div>
-            <ManageButton archie={props.archie} membership={membership} />
-          </nav>
+          <p>
+            <Link
+              to={'/organizations/' + props.organization.uuid + '/manage'}
+              className="button is-small is-link"
+            >
+              {props.archie.copy.buttons.manage}
+            </Link>
+          </p>
         </div>
+      );
+    } else {
+      return (
+        <nav className="level is-mobile">
+          <div className="level-left">
+            <span className="tag is-info">{props.archie.copy.tags.member}</span>
+          </div>
+        </nav>
       );
     }
   }
@@ -78,6 +72,17 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       </nav>
     );
   }
+
+  const onRequestClick = () => {
+    requestInvitation(props.organization.uuid, props.actions).then(status => {
+      if (status.ok) {
+        setRequested(true);
+        setErrors({});
+      } else {
+        setErrors(status.body);
+      }
+    });
+  };
   return (
     <nav className="level is-mobile">
       <div className="level-left">
