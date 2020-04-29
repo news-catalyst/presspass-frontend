@@ -37,8 +37,7 @@ const ExistingOrganizationFields: React.FC<OrganizationFormProps> = (
     return <div></div>;
   }
 
-  console.log(location);
-  return (
+  var membershipRequests = (
     <div>
       <div className="container">
         <h1 className="title">Membership Requests</h1>
@@ -50,6 +49,12 @@ const ExistingOrganizationFields: React.FC<OrganizationFormProps> = (
         />
       </div>
       <hr />
+    </div>
+  )
+
+  return (
+    <div>
+      {organization.individual ? '' : membershipRequests}
       <div className="container">
         <h1 className="title">Subscriptions</h1>
         <SubscriptionsList
