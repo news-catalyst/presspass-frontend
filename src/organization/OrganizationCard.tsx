@@ -73,7 +73,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
     return (
       <nav className="level is-mobile">
         <div className="level-left">
-          <span className="tag is-success">{props.archie.copy.tags.requested}</span>
+          <span className="tag is-light">{props.archie.copy.tags.requested}</span>
         </div>
       </nav>
     );
@@ -83,7 +83,7 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       <div className="level-left">
         <button
           onClick={onRequestClick}
-          className="level-item button pp-primary"
+          className="level-item button pp-primary is-small"
           aria-label="request"
         >
           {props.archie.copy.buttons.request}
@@ -122,16 +122,9 @@ const OrganizationCard: React.FC<OrganizationCardProps> = (
             <Link to={'/organizations/' + organization.uuid}>
               <h5 className="title is-size-5">{organization.name}</h5>
             </Link>
-            <p>
-              This is a {organization.private ? 'private' : 'public'}{' '}
-              organization with a max user count of{' '}
-              <code>{organization.max_users}</code>.
-              <br />
-              <strong>Updated:</strong> {formattedDate}
-              <br />
-              <small className="has-text-grey">{organization.uuid}</small>
-            </p>
           </div>
+        </div>
+        <div className="media-right">
           <OrganizationCardNav
             actions={props.actions}
             archie={props.archie}

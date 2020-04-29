@@ -91,11 +91,10 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
           </Field>
         </form>
       </div>
-      <div className="columns is-multiline">
+      <div className="container">
         {items
           .sort((a, b) => (a.name > b.name ? 1 : -1))
           .map((organization: Organization) => (
-            <div className="column is-4" key={organization.uuid}>
               <OrganizationCard
                 actions={props.actions}
                 archie={props.archie}
@@ -103,7 +102,6 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
                 memberships={props.memberships}
                 organization={organization}
               />
-            </div>
           ))}
       </div>
     </div>
