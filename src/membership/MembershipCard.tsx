@@ -34,7 +34,7 @@ interface InviteButtonProps {
 const InviteButton: React.FC<InviteButtonProps> = (
   props: InviteButtonProps
 ) => {
-  if (!props.membership.admin) {
+  if (!props.membership.admin || props.membership.organization.individual) {
     return null;
   }
   return (
