@@ -133,7 +133,6 @@ export const OrganizationsList: React.FC<OrganizationsListProps> = (
         </form>
       </div>
       { showResults ? <OrganizationResults {...props} items={items} /> : null }
-
     </div>
   );
 };

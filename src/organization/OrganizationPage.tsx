@@ -37,10 +37,6 @@ export const OrganizationPage = (props: OrganizationPageProps) => {
         memberships={props.memberships}
         organization={organization}
       />
-      <p>
-        Organization page (id {organization.uuid}) (
-        <Link to={`./${organization.uuid}/manage`}>{props.archie.copy.buttons.manage}</Link>)
-      </p>
     </section>
   );
 };

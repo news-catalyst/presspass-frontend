@@ -61,9 +61,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               <Link to="/profile/change-password" className="card-footer-item">
                 {props.archie.copy.buttons.change_password}
               </Link>
-              <Link to="/clients/create" className="card-footer-item">
-                {props.archie.copy.buttons.create_client}
-              </Link>
               <Link to="/organizations/create" className="card-footer-item">
                 {props.archie.copy.buttons.create_org}
               </Link>
