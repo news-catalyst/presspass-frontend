@@ -64,6 +64,10 @@ const OrganizationCardNav: React.FC<OrganizationCardProps> = (
       );
     }
   }
+  // don't show join buttons for individual organizations
+  if (props.organization.individual) {
+    return null;
+  }
   let userRequestedMembership =
     props.organization.uuid in props.invitations.invitations &&
     props.invitations.invitations[props.organization.uuid].find(

@@ -92,10 +92,6 @@ export const ManageOrganizationPage = (props: ManageOrganizationPageProps) => {
           subscriptions={props.subscriptions}
           users={props.users}
         />
-        <p>
-          Manage organization page (id {organization.uuid}) (
-          <Link to=".">view</Link>)
-        </p>
       </section>
     );
   }
