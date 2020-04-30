@@ -32,7 +32,6 @@ import ToolbuilderPitch from './common/ToolbuilderPitch';
 
 // Routes
 import { getRoutes as authRoutes } from './auth/routing';
-import { getRoutes as clientsRoutes } from './clients/routing';
 import { getRoutes as accountRoutes } from './account/routing';
 import { getRoutes as entitlementsRoutes } from './entitlements/routing';
 import { getRoutes as membershipsRoutes } from './membership/routing';
@@ -58,7 +57,6 @@ const App = (props: AppProps) => {
       />
       <Switch>
           {authRoutes(props).map(route => route)}
-          {clientsRoutes(props).map(route => route)}
           {accountRoutes(props).map(route => route)}
           {entitlementsRoutes(props).map(route => route)}
           {membershipsRoutes(props).map(route => route)}
