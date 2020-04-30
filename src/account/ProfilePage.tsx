@@ -45,25 +45,8 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               <div className="media">
                 <ProfileAvatar avatar={avatar} />
                 <div className="media-content">
-                  <div className="level">
-                    <div className="level-left">
-                      <div className="level-item">
-                        <p className="title is-4">{name}</p>
-                      </div>
-                    </div>
-                    <div className="level-right">
-                      <div className="level-item">
-                        <p className="subtitle is-6">@{username}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="level">
-                    <div className="level-left">
-                      <div className="level-item">
-                        <small>{props.users.self.email}</small>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="title is-4 is-marginless">{name}</p>
+                  <p className="is-marginless subtitle is-6">@{username}<br/><small>{props.users.self.email}</small></p>
                 </div>
               </div>
 
@@ -77,9 +60,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = (
               </Link>
               <Link to="/profile/change-password" className="card-footer-item">
                 {props.archie.copy.buttons.change_password}
-              </Link>
-              <Link to="/clients/create" className="card-footer-item">
-                {props.archie.copy.buttons.create_client}
               </Link>
               <Link to="/organizations/create" className="card-footer-item">
                 {props.archie.copy.buttons.create_org}

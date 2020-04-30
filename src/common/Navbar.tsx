@@ -23,9 +23,9 @@ const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
   let avatar;
   if (props.user === null) {
     return (
-      <a href="/" className="navbar-link">
+      <Link to="/" className="navbar-link">
         {props.archie.copy.nav.account}
-      </a>
+      </Link>
     )
   }
 
@@ -35,7 +35,7 @@ const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
     avatar = props.user.avatar;
   }
   return (
-      <a className="navbar-link" href={props.homeLink}>
+      <Link className="navbar-link" to={props.homeLink}>
         <div className="level">
           <div className="level-left">
             <figure className="image is-32x32 has-margin-right-5">
@@ -46,7 +46,7 @@ const NavbarProfileHeader = (props: NavbarProfileHeaderProps) => {
             {props.user.username}
           </div>
         </div>
-      </a>
+      </Link>
   )
 }
 
@@ -66,7 +66,7 @@ const Navbar = (props: NavbarProps) => {
         <Link className="navbar-item" to="/memberships">
           {props.archie.copy.nav.memberships}
         </Link>
-        <Link className="navbar-item" to="/clients">
+        <Link className="navbar-item" to="/pitch">
           {props.archie.copy.nav.developers}
         </Link>
         <hr className="dropdown-divider" />
@@ -117,9 +117,9 @@ const Navbar = (props: NavbarProps) => {
 
         <div id="navbarBody" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="/organizations">
+            <Link className="navbar-item" to="/organizations">
               {props.archie.copy.nav.organizations}
-            </a>
+            </Link>
           </div>
           <div className="navbar-end">
             <div className="navbar-item">{navRight}</div>
