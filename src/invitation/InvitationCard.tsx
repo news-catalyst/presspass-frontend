@@ -34,6 +34,7 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         setSaved(true);
       } else {
         setErrors(status.body);
+        console.log(errors);
       }
     });
   };
@@ -45,6 +46,7 @@ const InvitationActions: React.FC<InvitationCardProps> = (
         setSaved(true);
       } else {
         setErrors(status.body);
+        console.log(errors);
       }
     });
   };

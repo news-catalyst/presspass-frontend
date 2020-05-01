@@ -8,7 +8,7 @@ import {
 } from '../store/organizations/api';
 import LoadingPlaceholder from '../common/LoadingPlaceholder';
 import { AppProps } from '../store';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { ensureInvitationsForOrganization } from '../store/invitations/api';
 import { ensurePlansForOrganization } from '../store/plans/api';
 import OrganizationForm from './OrganizationForm';

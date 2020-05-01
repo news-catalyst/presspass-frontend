@@ -1,6 +1,3 @@
-import { Organization } from '../organizations/types';
-import { User } from '../users/types';
-
 export const DELETE_EMAIL = 'DELETE_EMAIL';
 export const UPSERT_EMAIL = 'UPSERT_EMAIL';
 export const UPSERT_EMAILS = 'UPSERT_EMAILS';
