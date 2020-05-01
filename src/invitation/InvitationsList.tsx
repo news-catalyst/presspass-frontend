@@ -15,7 +15,6 @@ interface InvitationsListProps {
 const InvitationsList: React.FC<InvitationsListProps> = (
   props: InvitationsListProps
 ) => {
-  let organization = props.organization;
   let invitationLists = Object.values(props.invitations.invitations);
   let invitations = invitationLists.map((invitationSublist: Invitation[]) => (
     invitationSublist.filter(

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
+import { format } from 'date-fns';
 import { AppActions } from '../store';
 import { Invitation } from '../store/invitations/types';
-import { fetchUser } from '../store/users/api';
 import { acceptInvitation, rejectInvitation } from '../store/invitations/api';
-import { Redirect } from 'react-router';
-import { User, UsersState } from '../store/users/types';
-import LoadingPlaceholder from '../common/LoadingPlaceholder';
-import { format } from 'date-fns';
+import { UsersState } from '../store/users/types';
 
 interface InvitationRequestCardProps {
   actions: AppActions;
@@ -56,9 +54,9 @@ const InvitationRequestActions: React.FC<InvitationRequestActionProps> = (
     );
   };
 
-  // if (saved) {
-  //   return <Redirect to={`/profile`} />;
-  // }
+  if (saved) {
+    return <Redirect to={`/profile`} />;
+  }
 
   if (showActionButtons) {
     return (
