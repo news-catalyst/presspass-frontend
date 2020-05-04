@@ -1,6 +1,5 @@
 import React, { useEffect, useState, SyntheticEvent } from 'react';
 import { useLocation } from 'react-router';
-import queryString from 'query-string'
 import { Link } from 'react-router-dom';
 import { AppActions } from '../store';
 import Field from '../common/Field';
@@ -15,6 +14,7 @@ interface WelcomePageProps {
   actions: AppActions;
   archie: ArchieState;
   users: UsersState;
+  email_key: string;
 }
 
 export const WelcomePage: React.FC<WelcomePageProps> = (
@@ -31,13 +31,8 @@ export const HydratedWelcomePage: React.FC<WelcomePageProps> = (
   props: WelcomePageProps
 ) => {
   let location = useLocation();
-  let queryValues = queryString.parse(location.search)
   useEffect(() => {
-    let emailObj: Email = {
-      email: queryValues.email,
-      verified: true
-    }
-    verifyEmail(props.actions, emailObj);
+    verifyEmail(props.actions, props.email_key);
   }, [props.actions]);
 
   let [errors, setErrors] = useState<any>({});

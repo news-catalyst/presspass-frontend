@@ -32,10 +32,21 @@ export const getRoutes = (props: AppProps) => {
         <ManageProfile actions={props.actions} archie={props.archie} users={props.users} />
       </Container>
     </ProtectedRoute>,
-    <ProtectedRoute exact path="/profile/welcome" {...authProps}>
-      <Container>
-        <WelcomePage actions={props.actions} archie={props.archie} users={props.users} />
-      </Container>
+    <ProtectedRoute
+      exact
+      path="/profile/welcome/:key" {...authProps}
+      render={routeProps => (
+        <Container>
+          <WelcomePage
+            actions={props.actions}
+            archie={props.archie}
+            users={props.users}
+            email_key={routeProps.match.params.key}
+          />
+        </Container>
+      )}
+      { ...authProps }
+    >
     </ProtectedRoute>
   ];
   return routes;
