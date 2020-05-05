@@ -18,8 +18,7 @@ const ToolbuilderPitch: React.FC<ToolbuilderProps> = (
           <div className="columns">
 
             <div className="column is-two-thirds">
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc3f7KZ0MennmLIPHuIGKvPmj3TvQ2p0n3H0jEBt4i_pEn7-Q/viewform?embedded=true" width="640" height="1003">Loading…</iframe>
-            </div>
+              <iframe className="airtable-embed" src="https://airtable.com/embed/shreAyueyX2OnUy2E?backgroundColor=orange" width={"100%"} height={"1250px"}></iframe>            </div>
             <div className="column is-one-third">
               <h2 className="is-size-3">FAQ</h2>
 
