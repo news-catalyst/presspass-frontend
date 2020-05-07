@@ -41,13 +41,12 @@ const MakeEmailPrimaryButton: React.FC<EmailButtonProps> = (
     });
   }
   return (
-    <button
-      type="submit"
+    <div
       onClick={handleEmailPrimarySubmit}
-      className="button is-primary"
+      className="card-footer-item"
     >
       Make primary
-    </button>
+    </div>
   )
 
 }
@@ -69,20 +68,25 @@ const EmailCard: React.FC<EmailCardProps> = (
 
   let email = props.email;
   return (
-    <div className="box">
-      <p>Email address: {email.email}</p>
-      <p>Verified: {email.verified ? 'yes' : 'no'}</p>
-      <p>Primary: {email.primary ? 'yes' : 'no'}</p>
-
-      <MakeEmailPrimaryButton actions={props.actions} email={email} />
-
-      <button
-        type="submit"
-        onClick={handleRemoveEmailSubmit}
-        className="button is-danger"
-      >
-         Remove
-      </button>
+    <div className="email-card card">
+      <header className="card-header">
+        <p className="card-header-title">{email.email}</p>
+      </header>
+      <div className="card-content">
+        <div className="content">
+          <p>Verified: {email.verified ? 'yes' : 'no'}</p>
+          <p>Primary: {email.primary ? 'yes' : 'no'}</p>
+        </div>
+      </div>
+      <footer className="card-footer">
+        <MakeEmailPrimaryButton actions={props.actions} email={email} />
+        <div
+          onClick={handleRemoveEmailSubmit}
+          className="card-footer-item"
+        >
+           Remove
+        </div>
+      </footer>
     </div>
   );
 };

@@ -109,3 +109,10 @@ hr {
 .navbar {
   box-shadow: 1px 1px 1px #ccc;
 }
+
+.email-card {
+  .card-footer-item:hover {
+    cursor: pointer;
+    color: $orange;
+  }
+}

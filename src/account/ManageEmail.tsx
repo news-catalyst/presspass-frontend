@@ -57,12 +57,12 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
   ) : null;
 
   return (
-    <section className="section">
+    <>
       <h1 className="title is-size-1">{props.archie.copy.manage_email.title}</h1>
       <p>{props.archie.copy.manage_email.description}</p>
-
-      <section className="section">
-        {savedConfirmation}
+      <div className="add-email-form has-padding-top-50 has-padding-bottom-50">
+      {savedConfirmation}
+        <h4 className="title is-size-4">Add an email address</h4>
         <form className="limited-width" onSubmit={handleAddEmailSubmit}>
           <Field label="New Email Address" errors={errors.email}>
             <input
@@ -76,7 +76,8 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
             {props.archie.copy.buttons.add_email}
           </button>
         </form>
-      </section>
+      </div>
+      <h4 className="title is-size-4">Active emails</h4>
       <div className="columns is-multiline">
         {items.map(item => (
           <div className="column is-4" key={item.email}>
@@ -84,6 +85,6 @@ export const ManageEmail: React.FC<ManageEmailPageProps> = (
           </div>
         ))}
       </div>
-    </section>
+    </>
   );
 };

@@ -54,7 +54,7 @@ export const fetchEmails = (actions: AppActions) =>
   cfetch(`${process.env.REACT_APP_SQUARELET_API_URL}/emails/`, GET)
     .then(checkAuth(actions))
     .then(response => response.json())
-    .then(data => Promise.all([actions.upsertEmails(data)]))
+    .then(data => Promise.all([actions.upsertEmails(data.results)]))
     .catch(error => {
       console.error('API Error fetchEmails', error, error.code);
     });
