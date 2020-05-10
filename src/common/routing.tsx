@@ -12,7 +12,7 @@ export const ProtectedRoute = (props: ProtectedRouteProps) => {
   if (!props.isAuthenticated) {
     let returnPath =
       props.returnPath === undefined
-        ? props.location!.pathname
+        ? `${props.location!.pathname}${props.location!.search}`
         : props.returnPath;
     return (
       <Route>

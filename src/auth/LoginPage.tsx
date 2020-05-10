@@ -5,6 +5,7 @@ import { Redirect, useLocation } from 'react-router';
 import { cfetch } from '../utils';
 import Field from '../common/Field';
 import { Link } from 'react-router-dom';
+import { fetchSelfUser } from "../store/users/api";
 
 type LoginFormResponse = {
   non_field_errors: string[];
@@ -74,6 +75,7 @@ const LoginPage: React.FC<LoginProps> = (props: LoginProps) => {
       setResponse(response);
       if (response.responseCode === 200) {
         props.actions.login();
+        fetchSelfUser(props.actions);
       }
     });
   };

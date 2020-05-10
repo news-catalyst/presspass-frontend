@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router";
+import { Route, useLocation } from "react-router";
 import LoginPage from "./LoginPage";
 import LogoutPage from "./LogoutPage";
 import RegisterPage from "./RegisterPage";
@@ -9,7 +9,9 @@ import {
 } from "./PasswordResetPages";
 import { AppProps } from "../store";
 import { AuthProps } from "../store/auth/types";
+import { ProtectedRoute } from "../common/routing";
 import Container from "../common/Container";
+import queryString from "query-string";
 
 export const getRoutes = (props: AppProps) => {
   const authProps = AuthProps(props);
@@ -34,6 +36,15 @@ export const getRoutes = (props: AppProps) => {
         <PasswordResetPage actions={props.actions} />
       </Container>
     </Route>,
+    <ProtectedRoute exact path="/oauth-login" component={() => {
+      let location = useLocation();
+      let queryValues = queryString.parse(window.location.search);
+      // need both checks because isAuthenticated is true by default
+      if (authProps.isAuthenticated && props.users.self) {
+        window.location.replace(queryValues.loginURL);
+      }
+      return null;
+    }} {...authProps} ></ProtectedRoute>,
     <Route
       exact
       path="/resetpassword/submit/:uid/:token"
