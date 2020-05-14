@@ -6,6 +6,7 @@ import { ManageEmail } from "./ManageEmail";
 import { ChangePassword } from "./ChangePassword";
 import { ProfilePage } from "./ProfilePage";
 import { ManageProfile } from "./ManageProfile";
+import { WelcomePage } from "./WelcomePage";
 import Container from "../common/Container";
 
 export const getRoutes = (props: AppProps) => {
@@ -30,6 +31,22 @@ export const getRoutes = (props: AppProps) => {
       <Container>
         <ManageProfile actions={props.actions} archie={props.archie} users={props.users} />
       </Container>
+    </ProtectedRoute>,
+    <ProtectedRoute
+      exact
+      path="/profile/welcome/:key" {...authProps}
+      render={routeProps => (
+        <Container>
+          <WelcomePage
+            actions={props.actions}
+            archie={props.archie}
+            users={props.users}
+            email_key={routeProps.match.params.key}
+          />
+        </Container>
+      )}
+      { ...authProps }
+    >
     </ProtectedRoute>
   ];
   return routes;

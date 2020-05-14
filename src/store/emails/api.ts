@@ -7,6 +7,7 @@ import {
   GET,
   JSON_POST,
   JSON_PATCH,
+  JSON_PUT,
   DELETE
 } from "../../utils";
 import { AppActions } from "..";
@@ -37,9 +38,9 @@ export const primaryEmail = (
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/emails/${email.email}/`,
     JSON_PATCH({
-      email: email,
+      email: email.email,
       primary: true,
-      action_primary: true,
+      verified: email.verified
     })
   )
     .then(checkAuth(actions))
@@ -47,6 +48,24 @@ export const primaryEmail = (
       validate(response, (status: ItemizedResponse) => {
         actions.upsertEmail(status.body as Email);
         notify("Successfully made new email address primary", "success")
+      })
+    );
+
+
+export const verifyEmail = (
+  actions: AppActions,
+  key: string
+) =>
+  cfetch(
+    `${process.env.REACT_APP_SQUARELET_API_URL}/verify/${key}/`,
+    JSON_PUT({
+      key,
+    })
+  )
+    .then(checkAuth(actions))
+    .then(response =>
+      validate(response, (status: ItemizedResponse) => {
+        notify(`Successfully verified email`, "success")
       })
     );
 

@@ -112,3 +112,8 @@ export const JSON_PATCH = (body?: object): RequestInit => ({
   method: 'PATCH',
   body: JSON.stringify(body)
 });
+export const JSON_PUT = (body?: object): RequestInit => ({
+  ...JSON_REQ_BASE,
+  method: 'PUT',
+  body: JSON.stringify(body)
+});

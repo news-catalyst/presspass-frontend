@@ -4,8 +4,8 @@ export const UPSERT_EMAILS = 'UPSERT_EMAILS';
 
 export interface Email {
   email: string;
-  primary: boolean;
-  verified: boolean;
+  primary?: boolean;
+  verified?: boolean;
 }
 
 export interface EmailState {
