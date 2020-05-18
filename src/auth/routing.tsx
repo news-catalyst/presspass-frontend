@@ -38,7 +38,7 @@ export const getRoutes = (props: AppProps) => {
     </Route>,
     <ProtectedRoute exact path="/oauth-login" component={() => {
       let location = useLocation();
-      let queryValues = queryString.parse(window.location.search);
+      let queryValues = queryString.parse(location.search);
       // need both checks because isAuthenticated is true by default
       if (authProps.isAuthenticated && props.users.self) {
         window.location.replace(queryValues.loginURL);
