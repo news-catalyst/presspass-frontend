@@ -42,7 +42,7 @@ const RegisterPage: React.FC<AccountEditPageProps> = (
     });
   }
 
-  const redirectUrl = location.state ? location.state.return : '/';
+  const redirectUrl = location.state && location.state['return'] ? location.state['return'] : '/';
 
   if (saved) {
     return (
