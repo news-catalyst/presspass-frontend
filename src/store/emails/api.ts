@@ -7,7 +7,6 @@ import {
   GET,
   JSON_POST,
   JSON_PATCH,
-  JSON_PUT,
   DELETE
 } from "../../utils";
 import { AppActions } from "..";
@@ -58,7 +57,7 @@ export const verifyEmail = (
 ) =>
   cfetch(
     `${process.env.REACT_APP_SQUARELET_API_URL}/verify/${key}/`,
-    JSON_PUT({
+    JSON_PATCH({
       key,
     })
   )
