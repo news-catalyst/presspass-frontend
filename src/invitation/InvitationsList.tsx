@@ -4,6 +4,7 @@ import { UsersState } from '../store/users/types';
 import { Invitation, InvitationState } from '../store/invitations/types';
 import { AppActions } from '../store';
 import InvitationRequestCard from '../invitation/InvitationRequestCard';
+import LoadingPlaceholder from '../common/LoadingPlaceholder';
 
 interface InvitationsListProps {
   actions: AppActions;
@@ -15,6 +16,12 @@ interface InvitationsListProps {
 const InvitationsList: React.FC<InvitationsListProps> = (
   props: InvitationsListProps
 ) => {
+  if (
+    !props.invitations.hydrated
+  ) {
+    return <LoadingPlaceholder />;
+  }
+
   let invitationLists = Object.values(props.invitations.invitations);
   let invitations = invitationLists.map((invitationSublist: Invitation[]) => (
     invitationSublist.filter(

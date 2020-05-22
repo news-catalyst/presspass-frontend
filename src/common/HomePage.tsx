@@ -40,6 +40,7 @@ const HomePage: React.FC<HomePageProps> = (
         <div className="container">
           {props.archie.copy.homepage.cards.map((card, i) => (
             <HomePageCard
+              key={`card-${i}`}
               group={card.group}
               title={card.title}
               body={card.body}
